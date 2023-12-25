@@ -115,11 +115,11 @@ export class paimonpainthelp extends plugin {
     if (input_v) {
       let msg1 = `删除所有用户回复设置，所有用户将重新使用默认配置。用户设置的优先级高于默认设置，删除后用户可重新设置。`
       let msg_show = `#ap查看(全局)默认参数`
-      let msg1_1 = `请注意你知道你在做什么`
+      let msg1_1 = `请注意你知道你在做什么:\n#派蒙绘图删除用户绘图设置`
       let msgx = await common.makeForwardMsg(e, [msg1, msg_show, msg1_1], `ap删除所有用户设置`);
       return e.reply(msgx, false)
     }
-    const data = yaml.load(fs.readFileSync(parse_path, 'utf-8'))
+    const data = yaml.parse(fs.readFileSync(parse_path, 'utf-8'))
     let users = 0
     for (const key in data) {
       if ((key != 'default')) {
@@ -127,7 +127,7 @@ export class paimonpainthelp extends plugin {
         delete data[key]
       }
     }
-    fs.writeFileSync(parse_path, yaml.dump(data))
+    fs.writeFileSync(parse_path, yaml.stringify(data), 'utf8')
     return e.reply(`已经删除${users}个用户设置，所有用户将使用默认配置。\n#ap查看(全局)默认参数`, true)
   }
 
@@ -136,4 +136,22 @@ export class paimonpainthelp extends plugin {
 
 
 
+}
+
+/** 读取YAML文件 */
+function readYaml(filePath) {
+	return yaml.parse(fs.readFileSync(filePath, 'utf8'))
+}
+
+/** 写入YAML文件 */
+function writeYaml(filePath, data) {
+	fs.writeFileSync(filePath, yaml.stringify(data), 'utf8')
+}
+
+/** 更新YAML文件 */
+async function updateConfig(key, value) {
+	const data = readYaml(Config_PATH)
+	data[key] = value
+	writeYaml(Config_PATH, data)
+	return data
 }
