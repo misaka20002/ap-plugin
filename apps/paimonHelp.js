@@ -1,6 +1,5 @@
 import plugin from '../../../lib/plugins/plugin.js';
 import common from '../../../lib/common/common.js';
-import Config from '../components/ai_painting/config.js'
 
 export class paimonpainthelp extends plugin {
     constructor() {
@@ -19,7 +18,7 @@ export class paimonpainthelp extends plugin {
     }
 
 
-    /** ^#派蒙(绘|画)图帮助 */
+    /** ^#派蒙(绘|画)图帮助[pro] */
     async paimon_paint_help(e) {
         let input_v = e.msg.replace(/^#派蒙(绘|画)图帮助/, '').trim()
         let msg1 = '小呆毛AI绘图指令：\n建议全都加个tag:loli,\n（算力由小呆毛的小pc提供）' +
