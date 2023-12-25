@@ -68,7 +68,7 @@ export class setpolicy extends plugin {
                     // permission: "master",
                 },
                 {
-                    reg: "^#ap(全局)?设置(\\d{5,11}|私聊)?(((审核|撤回|封禁)?(开启|关闭))|((((群聊|个人)(cd|CD))|撤回时间|次数)(\\d{1,5}|无限)))$",
+                    reg: "^#ap(全局)?设置(\\d{5,11}|私聊)?(((绘多图|审核|撤回|封禁)?(开启|关闭))|((((群聊|个人)(cd|CD))|撤回时间|次数)(\\d{1,5}|无限)))$",
                     fnc: "setgp",
                     // permission: "master",
                 },
@@ -562,9 +562,10 @@ export class setpolicy extends plugin {
                                 : key == 'gcd' ? "共享cd"
                                     : key == 'isBan' ? "封禁"
                                         : key == 'usageLimit' ? "每人每日用量限制"
-                                            : '???',
+                                            : key == 'allowed_paint_more' ? "允许绘多图"
+                                                : '???',
             `已设为`,
-            (key == 'enable' || key == 'JH' || key == 'isRecall' || key == 'isBan') ? (value ? '开启' : '关闭')
+            (key == 'enable' || key == 'allowed_paint_more' || key == 'JH' || key == 'isRecall' || key == 'isBan') ? (value ? '开启' : '关闭')
                 : (key == 'gcd' || key == 'pcd' || key == 'recallDelay') ? `${value}秒`
                     : key == 'usageLimit' ? (value ? `${value}张` : '无限制')
                         : '???'

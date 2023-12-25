@@ -60,7 +60,8 @@ export class paimonpainthelp extends plugin {
   #绘图<lora:KodomoNoJikan_kokonoe rin:0.7>, kokonoe rin,8k,masterpiece,absurdres,anime,`
         let msg4 = `通用：
   #绘图masterpiece,loli,cat tail,
-  #绘图masterpiece,loli,2girls,`
+  #绘图masterpiece,loli,2girls,
+  #绘图一个小女孩在天空下绘画`
         let msg5 = `画师风格：
   <lora:kantoku_v1:0.9>,`
         let msg6 = `额外指令：
