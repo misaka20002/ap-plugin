@@ -367,6 +367,12 @@ export function supportGuoba() {
           component: "Switch",
         },
         {
+          field: "policy.gp.global.allowed_paint_more",
+          label: "全局启用绘更多图",
+          bottomHelpMessage: "默认关闭，开启后可以超过1张但不可以超过10张",
+          component: "Switch",
+        },
+        {
           field: "policy.gp.global.JH",
           label: "全局图片审核",
           bottomHelpMessage: "默认开启，关闭后图片将不会被审核",
@@ -440,6 +446,12 @@ export function supportGuoba() {
           field: "policy.gp.private.enable",
           label: "私聊启用绘图",
           bottomHelpMessage: "默认开启，关闭后所有私聊都无法绘图",
+          component: "Switch",
+        },
+        {
+          field: "policy.gp.private.allowed_paint_more",
+          label: "私聊启用绘更多图",
+          bottomHelpMessage: "默认关闭，开启后可以超过1张但不可以超过10张",
           component: "Switch",
         },
         {

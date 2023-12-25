@@ -268,6 +268,7 @@ export class setpolicy extends plugin {
         if (e.isPrivate) { gid = 'private' }
 
         let regenable = /#ap(全局)?设置(\d{5,11}|私聊)?(开启|关闭)$/
+        let regallowed_paint_more = /#ap(全局)?设置(\d{5,11}|私聊)?绘多图(开启|关闭)$/
         let regJH = /#ap(全局)?设置(\d{5,11}|私聊)?审核(开启|关闭)$/
         let regisRecall = /#ap(全局)?设置(\d{5,11}|私聊)?撤回(开启|关闭)$/
         let regisBan = /#ap(全局)?设置(\d{5,11}|私聊)?封禁(开启|关闭)$/
@@ -276,8 +277,9 @@ export class setpolicy extends plugin {
         let regrecallDelay = /#ap(全局)?设置(\d{5,11}|私聊)?撤回时间(\d{1,5})$/
         let regusageLimit = /#ap(全局)?设置(\d{5,11}|私聊)?次数(\d{1,5}|无限)$/
 
-        let [enable, JH, gcd, pcd, isRecall, recallDelay, isBan, usageLimit] = [
+        let [enable, allowed_paint_more, JH, gcd, pcd, isRecall, recallDelay, isBan, usageLimit] = [
             regenable.exec(e.msg),
+            regallowed_paint_more.exec(e.msg),
             regJH.exec(e.msg),
             reggcd.exec(e.msg),
             regpcd.exec(e.msg),
@@ -294,6 +296,14 @@ export class setpolicy extends plugin {
             let isopen = true
             if (enable[3] == '关闭') isopen = false
             this.gp_Property(gid, 'enable', isopen)
+        }
+        else if (allowed_paint_more) {
+            gid = JH[2] || gid || e.group_id
+            if (JH[1] == '全局') gid = 'global'
+            if (gid == '私聊') gid = 'private'
+            let isopen = true
+            if (JH[3] == '关闭') isopen = false
+            this.gp_Property(gid, 'allowed_paint_more', isopen)
         }
         else if (JH) {
             gid = JH[2] || gid || e.group_id

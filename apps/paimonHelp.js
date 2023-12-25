@@ -1,5 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js';
 import common from '../../../lib/common/common.js';
+import Config from '../components/ai_painting/config.js'
 
 export class paimonpainthelp extends plugin {
     constructor() {
@@ -20,7 +21,7 @@ export class paimonpainthelp extends plugin {
 
     /** ^#派蒙(绘|画)图帮助 */
     async paimon_paint_help(e) {
-        let input_tts = e.msg.replace(/^#派蒙(绘|画)图帮助/, '').trim()
+        let input_v = e.msg.replace(/^#派蒙(绘|画)图帮助/, '').trim()
         let msg1 = '小呆毛AI绘图指令：\n建议全都加个tag:loli,\n（算力由小呆毛的小pc提供）' +
             ''
         let msg2 = `原铁萝莉：
@@ -71,6 +72,8 @@ export class paimonpainthelp extends plugin {
   #ap管理帮助
   #ap设置负面.*
   #ap设置正面.*
+  #ap全局设置(开启|关闭)
+  #ap全局设置绘多图(开启|关闭)
   #ap(开启|关闭)简洁模式
   #(ap)?设置使用(sd|db)鉴赏图片
   #(ap)?设置鉴赏模型.*
@@ -82,7 +85,7 @@ export class paimonpainthelp extends plugin {
   #?ap(全局|本群|我的)词云
   #?(取消|停止)(绘图|咏唱|绘画|绘世|绘制)`
         let msgx
-        if (e.isMaster && input_tts === 'pro') {
+        if (e.isMaster && input_v === 'pro') {
             msgx = await common.makeForwardMsg(e, [msg1, msg2, msg3, msg3_1, msg3_2, msg4, msg5, msg6, msg9], `tts语音帮助-m`)
         } else {
             msgx = await common.makeForwardMsg(e, [msg1, msg2, msg3, msg3_1, msg3_2, msg4, msg5, msg6], `tts语音帮助`)
@@ -90,7 +93,6 @@ export class paimonpainthelp extends plugin {
         e.reply(msgx);
         return true;
     }
-
 
 
 

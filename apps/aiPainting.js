@@ -85,6 +85,10 @@ export class Ai_Painting extends plugin {
     // Log.i('绘图参数：\n', paramdata)                       /*  */
 
 
+    // 判断是否允许绘制多图
+    if (!current_group_policy.allowed_paint_more) return await e.reply("只可以绘制1张图哦，有需要请找管理员", false, { recallMsg: 15 })
+
+    
     // 禁止重复发起批量绘图
     if (paramdata.num > 1 && remaining_tasks) {
       CD.clearCD(e);
@@ -160,8 +164,8 @@ export class Ai_Painting extends plugin {
     } catch (err) {
       Log.w(err)
     }
-    
-    
+
+
     // 检测屏蔽词
     let prohibitedWords = []
     if (!e.isMaster && current_group_policy.apMaster.indexOf(e.user_id) == -1) {
@@ -202,7 +206,7 @@ export class Ai_Painting extends plugin {
         if (current_group_policy.isTellMaster) {
           let msg = [
             "【aiPainting】不合规图片：\n",
-            {...segment.image(`base64://${res.base64}`), origin: true},
+            { ...segment.image(`base64://${res.base64}`), origin: true },
             `\n来自${e.isGroup ? `群【${(await Bot.getGroupInfo(e.group_id)).group_name}】(${e.group_id})的` : ""}用户【${await getuserName(e)}】(${e.user_id})`,
             `\n正面：${res.info.prompt}`,
             `\n反面：${res.info.negative_prompt}`,
@@ -213,13 +217,13 @@ export class Ai_Painting extends plugin {
           await e.reply(["图片不合规，不予展示", `\nMD5：${res.md5}`], true)
         } else if (setting.nsfw_show == 2) {// 展示图链二维码
           let qrcode = await Pictools.text_to_qrcode(`https://c2cpicdw.qpic.cn/offpic_new/0//0000000000-0000000000-${res.md5}/0?term=2`)
-          await e.reply(["图片不合规，不予展示\n",segment.image(`base64://${qrcode.replace('data:image/png;base64,', '')}`)], true)
+          await e.reply(["图片不合规，不予展示\n", segment.image(`base64://${qrcode.replace('data:image/png;base64,', '')}`)], true)
         } else if (setting.nsfw_show == 3) {// 展示图床链接
           let img = Buffer.from(res.base64, 'base64')
           let url = await Pictools.upload(img)
           await e.reply(["图片不合规，不予展示\n", url], true)
         } else if (setting.nsfw_show == 4) {// 展示卡片
-            await e.reply(segment.share(`https://c2cpicdw.qpic.cn/offpic_new/0//0000000000-0000000000-${res.md5}/0?term=2`, '图片不合规，不予展示', 'https://i.postimg.cc/wBSf50bC/1.png', '啾咪啊，这里有人涩涩啊！！！'))
+          await e.reply(segment.share(`https://c2cpicdw.qpic.cn/offpic_new/0//0000000000-0000000000-${res.md5}/0?term=2`, '图片不合规，不予展示', 'https://i.postimg.cc/wBSf50bC/1.png', '啾咪啊，这里有人涩涩啊！！！'))
         }
         this.addUsage(e.user_id, 1);
         return true
@@ -227,10 +231,10 @@ export class Ai_Painting extends plugin {
 
       let concise_mode = setting.concise_mode
       const elapsed = (end - start) / 1000;
-      
+
       // 如果简洁模式开启，则只发送图片
       if (concise_mode) {
-        e.reply([segment.at(e.user_id), {...segment.image(`base64://${res.base64}`), origin: true}, `生成总耗时${elapsed.toFixed(2)}秒`] , false, { recallMsg: current_group_policy.isRecall ? current_group_policy.recallDelay : 0 })
+        e.reply([segment.at(e.user_id), { ...segment.image(`base64://${res.base64}`), origin: true }, `生成总耗时${elapsed.toFixed(2)}秒`], false, { recallMsg: current_group_policy.isRecall ? current_group_policy.recallDelay : 0 })
         this.addUsage(e.user_id, 1)
         return true
       } else {
@@ -251,7 +255,7 @@ export class Ai_Painting extends plugin {
         ].filter(Boolean).join('\n');
         let msg = [
           usageLimit ? `今日剩余${remainingTimes - 1}次\n` : "",
-          {...segment.image(`base64://${res.base64}`), origin: true},
+          { ...segment.image(`base64://${res.base64}`), origin: true },
         ]
         // Log.i(info.length)                                           /*  */
         let max_fold = setting.max_fold
@@ -332,7 +336,7 @@ export class Ai_Painting extends plugin {
           if (current_group_policy.isTellMaster) {
             let msg = [
               "【aiPainting】不合规图片：\n",
-              {...segment.image(`base64://${res.base64}`), origin: true},
+              { ...segment.image(`base64://${res.base64}`), origin: true },
               `\n来自${e.isGroup ? `群【${(await Bot.getGroupInfo(e.group_id)).group_name}】(${e.group_id})的` : ""}用户【${await getuserName(e)}】(${e.user_id})`,
               `\n正面：${res.info.prompt}`,
               `\n反面：${res.info.negative_prompt}`,
@@ -351,7 +355,7 @@ export class Ai_Painting extends plugin {
 
         // 存入合并消息等待发送
         data_msg.push({
-          message: [{...segment.image(`base64://${res.base64}`), origin: true}, paramdata.param.seed == -1 ? `\n随机种子：${res.seed}` : ''],
+          message: [{ ...segment.image(`base64://${res.base64}`), origin: true }, paramdata.param.seed == -1 ? `\n随机种子：${res.seed}` : ''],
           nickname: Bot.nickname,
           user_id: Bot.uin,
         });
