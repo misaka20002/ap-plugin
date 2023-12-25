@@ -24,7 +24,7 @@ export class paimonpainthelp extends plugin {
         },
         {
           reg: '^#派蒙(绘|画)图删除用户(绘|画)图(设置|参数)',
-          fnc: 'paimon_paint_help',
+          fnc: 'paimon_paint_delete_users_setting',
           permission: 'master'
         },
       ]
@@ -110,7 +110,7 @@ export class paimonpainthelp extends plugin {
   }
 
   /** ^#派蒙(绘|画)图删除用户(绘|画)图(设置|参数) */
-  async paimon_paint_help(e) {
+  async paimon_paint_delete_users_setting(e) {
     let input_v = e.msg.replace(/^#派蒙(绘|画)图删除用户(绘|画)图(设置|参数)/, '').trim()
     if (input_v) {
       let msg1 = `删除所有用户回复设置，所有用户将重新使用默认配置。用户设置的优先级高于默认设置，删除后用户可重新设置。`
