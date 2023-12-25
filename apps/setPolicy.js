@@ -298,11 +298,11 @@ export class setpolicy extends plugin {
             this.gp_Property(gid, 'enable', isopen)
         }
         else if (allowed_paint_more) {
-            gid = JH[2] || gid || e.group_id
-            if (JH[1] == '全局') gid = 'global'
+            gid = allowed_paint_more[2] || gid || e.group_id
+            if (allowed_paint_more[1] == '全局') gid = 'global'
             if (gid == '私聊') gid = 'private'
             let isopen = true
-            if (JH[3] == '关闭') isopen = false
+            if (allowed_paint_more[3] == '关闭') isopen = false
             this.gp_Property(gid, 'allowed_paint_more', isopen)
         }
         else if (JH) {

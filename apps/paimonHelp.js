@@ -1,5 +1,7 @@
 import plugin from '../../../lib/plugins/plugin.js';
 import common from '../../../lib/common/common.js';
+import yaml from 'yaml'
+import fs from 'fs'
 
 export class paimonpainthelp extends plugin {
     constructor() {
@@ -93,6 +95,8 @@ export class paimonpainthelp extends plugin {
         e.reply(msgx);
         return true;
     }
+
+  // TODO 写一个删除所有用户设置
 
 
 
