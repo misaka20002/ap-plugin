@@ -83,6 +83,7 @@ export class paimonpainthelp extends plugin {
   #lora列表`
     let msg9 = `管理员功能：
   #ap帮助
+  #ap设置
   #ap管理帮助
   #ap设置负面.*
   #ap设置正面.*

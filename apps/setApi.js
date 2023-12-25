@@ -234,6 +234,7 @@ export class set extends plugin {
 
 			`\n[全局]：`,
 			`\n      启用ap：${gp.global.enable ? '是' : '否'}`,
+			`\n      绘更多图：${gp.global.allowed_paint_more ? '是' : '否'}`,
 			`\n      每日用量限制：` + (gp.global.usageLimit ? `${gp.global.usageLimit}张` : '不限'),
 			`\n      启用图片审核：${gp.global.JH ? '是' : '否'}`,
 			`\n      群聊内共享CD：${gp.global.gcd}秒`,
