@@ -7,7 +7,6 @@ import path from 'path'
 const Path = process.cwd();
 const Plugin_Name = 'ap-plugin'
 const Plugin_Path = path.join(Path, 'plugins', Plugin_Name)
-const parse_path = `${Plugin_Path}/config/config/parse.yaml`
 
 
 export class paimonpainthelp extends plugin {
@@ -120,6 +119,12 @@ export class paimonpainthelp extends plugin {
       let msgx = await common.makeForwardMsg(e, [msg1, msg_show, msg1_1], `ap删除所有用户设置`);
       return e.reply(msgx, false)
     }
+    let parse_path
+    try {
+      parse_path = `${Plugin_Path}/config/config/parse.yaml`
+    } catch (err) {
+      return e.reply('目前还没用用户设置哦', false)
+    }
     const data = yaml.parse(fs.readFileSync(parse_path, 'utf-8'))
     let users = 0
     for (const key in data) {
@@ -141,18 +146,18 @@ export class paimonpainthelp extends plugin {
 
 /** 读取YAML文件 */
 function readYaml(filePath) {
-	return yaml.parse(fs.readFileSync(filePath, 'utf8'))
+  return yaml.parse(fs.readFileSync(filePath, 'utf8'))
 }
 
 /** 写入YAML文件 */
 function writeYaml(filePath, data) {
-	fs.writeFileSync(filePath, yaml.stringify(data), 'utf8')
+  fs.writeFileSync(filePath, yaml.stringify(data), 'utf8')
 }
 
 /** 更新YAML文件 */
 async function updateConfig(key, value) {
-	const data = readYaml(Config_PATH)
-	data[key] = value
-	writeYaml(Config_PATH, data)
-	return data
+  const data = readYaml(Config_PATH)
+  data[key] = value
+  writeYaml(Config_PATH, data)
+  return data
 }
