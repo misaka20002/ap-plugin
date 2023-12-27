@@ -34,18 +34,18 @@ export class Say extends plugin {
 			priority: 1009,
 			rule: [{
 				/** 命令正则匹配 */
-				reg: '^合成.*语音.*$',
+				reg: '^#ap合成.*语音.*$',
 				/** 执行方法 */
 				fnc: 'VITS',
 			}, {
-				reg: '^发音人列表$',
+				reg: '^#ap发音人列表$',
 				fnc: 'LIST'
 			}]
 		})
 	}
 
 	async VITS(e) {
-		let speaker = e.msg.match(/合成(.*)语音/)[1];
+		let speaker = e.msg.match(/#ap合成(.*)语音/)[1];
 		speaker = speaker.replace(/(日语|中文|韩语|梵语|英语)/, "")
 		let model
 		if (model1.includes(speaker)) {
@@ -77,7 +77,7 @@ export class Say extends plugin {
 		} else if (model14.includes(speaker)) {
 			model = 14
 		} else {
-			e.reply("没有这个发音人哦！请发送“发音人列表”查看发音人列表");
+			e.reply("没有这个发音人哦！请发送“#ap发音人列表”查看发音人列表");
 			return false;
 		}
 		let fn_indexlist = {

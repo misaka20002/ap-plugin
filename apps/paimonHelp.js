@@ -97,7 +97,7 @@ export class paimonpainthelp extends plugin {
   #ap(不)?屏蔽艾特
   #?(关闭|开启)匹配Lora
   #?ap(全局|本群|我的)词云
-  #?(取消|停止)(绘图|咏唱|绘画|绘世|绘制)
+  #?(取消|停止)(绘图|绘画)
   #派蒙绘图删除用户绘图设置帮助`
     let msgx
     if (e.isMaster && input_v === 'pro') {
