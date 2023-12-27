@@ -86,13 +86,13 @@ export class Ai_Painting extends plugin {
 
 
     // 判断是否允许绘制多图
-    if (paramdata.num > 1 && !current_group_policy.allowed_paint_more) return await e.reply("只可以绘制1张图哦，有需要请找管理员", false, { recallMsg: 15 })
+    if ((paramdata.num > 1 && !current_group_policy.allowed_paint_more) && !e.isMaster) return await e.reply("只可以绘制1张图哦，有需要请找管理员", false, { recallMsg: 15 })
 
     
     // 当不允许绘多图时，禁止重复发起绘图
-    if (!current_group_policy.allowed_paint_more && remaining_tasks) {
+    if ((!current_group_policy.allowed_paint_more && remaining_tasks) && !e.isMaster) {
       CD.clearCD(e);
-      return await e.reply(`当前已有批量绘图任务进行中，剩余${remaining_tasks}张图，请稍候`, true);
+      return await e.reply(`当前已有绘图任务进行中，请稍候`, true);
     }
 
 

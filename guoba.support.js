@@ -367,6 +367,17 @@ export function supportGuoba() {
           component: "Switch",
         },
         {
+          field: "policy.max_widthAndHeight",
+          label: "绘制图片的宽高最大值",
+          bottomHelpMessage: "单位：像素，默认为1024",
+          component: "InputNumber",
+          required: true,
+          componentProps: {
+            placeholder: "请输入宽高最大值，如1024",
+            addonAfter: "像素",
+          },
+        },
+        {
           field: "policy.gp.global.allowed_paint_more",
           label: "全局启用绘更多图",
           bottomHelpMessage: "默认关闭，开启后可以超过1张但不可以超过10张",
