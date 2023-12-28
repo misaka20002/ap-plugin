@@ -68,7 +68,7 @@ export class setpolicy extends plugin {
                     // permission: "master",
                 },
                 {
-                    reg: "^#ap(全局)?设置(\\d{5,11}|私聊)?(((绘多图|审核|撤回|封禁)?(开启|关闭))|((((群聊|个人)(cd|CD))|撤回时间|次数)(\\d{1,5}|无限)))$",
+                    reg: "^#ap(全局)?设置(\\d{5,11}|私聊)?(((绘多图|审核|撤回|封禁|最大宽高)?(开启|关闭))|((((群聊|个人)(cd|CD))|撤回时间|次数)(\\d{1,5}|无限)))$",
                     fnc: "setgp",
                     // permission: "master",
                 },
@@ -275,9 +275,10 @@ export class setpolicy extends plugin {
         let reggcd = /#ap(全局)?设置(\d{5,11}|私聊)?群聊cd(\d{1,5})$/i
         let regpcd = /#ap(全局)?设置(\d{5,11}|私聊)?个人cd(\d{1,5})$/i
         let regrecallDelay = /#ap(全局)?设置(\d{5,11}|私聊)?撤回时间(\d{1,5})$/
+        let regmax_WidthAndHeight = /#ap(全局)?设置(\d{5,11}|私聊)?最大宽高(\d{1,5})$/
         let regusageLimit = /#ap(全局)?设置(\d{5,11}|私聊)?次数(\d{1,5}|无限)$/
 
-        let [enable, allowed_paint_more, JH, gcd, pcd, isRecall, recallDelay, isBan, usageLimit] = [
+        let [enable, allowed_paint_more, JH, gcd, pcd, isRecall, recallDelay, max_WidthAndHeight, isBan, usageLimit] = [
             regenable.exec(e.msg),
             regallowed_paint_more.exec(e.msg),
             regJH.exec(e.msg),
@@ -285,6 +286,7 @@ export class setpolicy extends plugin {
             regpcd.exec(e.msg),
             regisRecall.exec(e.msg),
             regrecallDelay.exec(e.msg),
+            regmax_WidthAndHeight.exec(e.msg),
             regisBan.exec(e.msg),
             regusageLimit.exec(e.msg),
         ]
@@ -354,6 +356,17 @@ export class setpolicy extends plugin {
                 return true
             }
             this.gp_Property(gid, 'recallDelay', num)
+        }
+        else if (max_WidthAndHeight) {
+            gid = max_WidthAndHeight[2] || gid || e.group_id
+            if (max_WidthAndHeight[1] == '全局') gid = 'global'
+            if (gid == '私聊') gid = 'private'
+            let num = Number(max_WidthAndHeight[3]) || 1
+            if (num > 2048) {
+                e.reply('不能超过2048')
+                return true
+            }
+            this.gp_Property(gid, 'max_WidthAndHeight', num)
         }
         else if (usageLimit) {
             gid = usageLimit[2] || gid || e.group_id
@@ -563,12 +576,14 @@ export class setpolicy extends plugin {
                                     : key == 'isBan' ? "封禁"
                                         : key == 'usageLimit' ? "每人每日用量限制"
                                             : key == 'allowed_paint_more' ? "允许绘多图"
-                                                : '???',
+                                                : key == 'max_WidthAndHeight' ? "最大宽高"
+                                                    : '???',
             `已设为`,
             (key == 'enable' || key == 'allowed_paint_more' || key == 'JH' || key == 'isRecall' || key == 'isBan') ? (value ? '开启' : '关闭')
                 : (key == 'gcd' || key == 'pcd' || key == 'recallDelay') ? `${value}秒`
                     : key == 'usageLimit' ? (value ? `${value}张` : '无限制')
-                        : '???'
+                        : key == 'max_WidthAndHeight' ? `${value}像素`
+                            : '???'
         ]
         this.e.reply(msg, true)
         return true

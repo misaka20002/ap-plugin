@@ -9,6 +9,15 @@
  * Copyright (c) 2022 by 渔火Arcadia 1761869682@qq.com, All Rights Reserved.
 -->
 
+# 写写bug：
+```
+Changelog：
+1、新增#派蒙绘图帮助
+2、增加更多控制，防止调皮的群友
+```
+
+
+
 <p align="center">
   <a href="https://ap-plugin.com/"><img src="./resources/readme/logo.png" width="200" height="200" alt="ap-plugin"></a>
 </p>

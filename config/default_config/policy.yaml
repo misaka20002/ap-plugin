@@ -9,6 +9,7 @@ gp:
   global:
     enable: true
     allowed_paint_more: false
+    max_WidthAndHeight: 2048
     JH: true
     gcd: 20
     pcd: 40
