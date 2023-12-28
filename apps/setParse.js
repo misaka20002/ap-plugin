@@ -5,6 +5,7 @@ import cfg from "../../../lib/config/config.js";
 import Config from '../components/ai_painting/config.js';
 import Log from '../utils/Log.js';
 import axios from "axios";
+import { Parse } from '../components/apidx.js';
 
 const parsePath = process.cwd() + "\/plugins\/ap-plugin\/config\/config\/parse.yaml";
 
@@ -28,6 +29,15 @@ export class set_parse extends plugin {
   }
 
   async set_parse(e) {
+    // 根据设置判断用户能否更改绘图参数
+    let current_group_policy = await Parse.parsecfg(e)
+    if (!e.isMaster && current_group_policy.apMaster.indexOf(e.user_id) == -1) {
+      if (!current_group_policy.allowed_user_more_parse) {
+        const pattern = /迭代次数|宽度|高度|高清修复步数|高清修复放大倍数/;
+        const match = pattern.exec(e.msg);
+        if (match) return await e.reply("不可以更改绘图参数哦，有需要请找管理员", false, { recallMsg: 15 });
+      }
+    }
     const samplerList = await getSamplers();
     const upscalerList = await getUpscalers();
     initialization(e);

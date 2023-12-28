@@ -68,6 +68,16 @@ export class Ai_Painting extends plugin {
     if (current_group_policy.isBan)
       if (current_group_policy.prohibitedUserList.indexOf(e.user_id) != -1)
         return await e.reply(["你的账号因违规使用屏蔽词绘图已被封禁或被管理员封禁"], true);
+    
+    
+    // 根据设置判断用户能否更改绘图参数
+    if (!e.isMaster && current_group_policy.apMaster.indexOf(e.user_id) == -1) {
+      if (!current_group_policy.allowed_user_more_parse) {
+        const pattern = /步数|×|Hires/i;
+        const match = pattern.exec(e.msg);
+        if (match) return await e.reply("不可以更改绘图参数哦，有需要请找管理员", false, { recallMsg: 15 });
+      }
+    }
 
 
     // 判断cd

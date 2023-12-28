@@ -94,6 +94,7 @@ export class paimonpainthelp extends plugin {
   #ap设置正面.*
   #ap全局设置(开启|关闭)
   #ap全局设置绘多图(开启|关闭)
+  #ap全局设置更改绘图参数(开启|关闭)
   #ap(开启|关闭)简洁模式
   #(ap)?设置使用(sd|db)鉴赏图片
   #(ap)?设置鉴赏模型.*

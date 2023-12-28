@@ -9,6 +9,7 @@ gp:
   global:
     enable: true
     allowed_paint_more: false
+    allowed_user_more_parse: false
     JH: true
     gcd: 20
     pcd: 40
