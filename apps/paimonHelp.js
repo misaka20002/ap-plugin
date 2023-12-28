@@ -149,20 +149,21 @@ export class paimonpainthelp extends plugin {
     let input_v = e.msg.replace(/^#(派蒙)?(绘|画)图设置最大宽高(帮助)?/, '').trim()
     let setting = await Config.getSetting();
     if (!input_v) {
-        let msg1 = `限制调用接口的最大宽高，防止爆显存，输入的数字需要为8的倍数`
-        let msg_show = `当前最大宽高设置：${setting.max_WidthAndHeight}\n`
-        let msg1_1 = `#派蒙绘图设置最大宽高2048`
-        let msgx = await common.makeForwardMsg(e, [msg1, msg_show, msg1_1], `派蒙绘图设置最大宽高帮助`);
-        return e.reply(msgx, false)
+      let msg1 = `限制调用接口的最大宽高，防止爆显存，输入的数字需要为8的倍数`
+      let msg2 = `限制如下：\n#ap设置默认宽度/高度[num]\n以图绘图、二次元的我、图片处理、ControlNet\n  ps.如果使用tag指令：如#绘图女孩,2048×2048 超过设置的最大值的话，会自动转为使用全局默认参数绘图`
+      let msg_show = `当前最大宽高设置：${setting.max_WidthAndHeight}`
+      let msg1_1 = `#派蒙绘图设置最大宽高768`
+      let msgx = await common.makeForwardMsg(e, [msg1, msg2, msg_show, msg1_1], `派蒙绘图设置最大宽高帮助`);
+      return e.reply(msgx, false)
     }
     if (input_v % 8 == 0) {
-        setting.max_WidthAndHeight = parseInt(input_v);
-        Config.setSetting(setting);
-        return e.reply(`最大宽高设置已设置为${input_v}！`)
+      setting.max_WidthAndHeight = parseInt(input_v);
+      Config.setSetting(setting);
+      return e.reply(`最大宽高设置已设置为${input_v}！`)
     } else {
-        return e.reply('输入的数字需要为8的倍数，详情#派蒙绘图设置最大宽高帮助')
+      return e.reply('输入的数字需要为8的倍数，详情#派蒙绘图设置最大宽高帮助')
     }
-}
+  }
 
 
 
