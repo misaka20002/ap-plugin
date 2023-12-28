@@ -156,7 +156,7 @@ export class paimonpainthelp extends plugin {
         return e.reply(msgx, false)
     }
     if (input_v % 8 == 0) {
-        setting.max_WidthAndHeight = input_v;
+        setting.max_WidthAndHeight = parseInt(input_v);
         Config.setSetting(setting);
         return e.reply(`最大宽高设置已设置为${input_v}！`)
     } else {
