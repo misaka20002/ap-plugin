@@ -3,6 +3,7 @@ import common from '../../../lib/common/common.js';
 import yaml from 'yaml'
 import fs from 'fs'
 import path from 'path'
+import Config from "../components/ai_painting/config.js";
 
 const Path = process.cwd();
 const Plugin_Name = 'ap-plugin'
@@ -24,6 +25,11 @@ export class paimonpainthelp extends plugin {
         {
           reg: '^#派蒙(绘|画)图删除用户(绘|画)图(设置|参数)',
           fnc: 'paimon_paint_delete_users_setting',
+          permission: 'master'
+        },
+        {
+          reg: '^#(派蒙)?(绘|画)图设置最大宽高(帮助)?',
+          fnc: 'paimon_set_setting_max_WidthAndHeight',
           permission: 'master'
         },
       ]
@@ -98,6 +104,7 @@ export class paimonpainthelp extends plugin {
   #?(关闭|开启)匹配Lora
   #?ap(全局|本群|我的)词云
   #?(取消|停止)(绘图|绘画)
+  #派蒙绘图设置最大宽高帮助
   #派蒙绘图删除用户绘图设置帮助`
     let msgx
     if (e.isMaster && input_v === 'pro') {
@@ -137,6 +144,25 @@ export class paimonpainthelp extends plugin {
     return e.reply(`已经删除${users}个用户设置，所有用户将使用默认配置。\n#ap查看(全局)默认参数`, true)
   }
 
+  /** ^#(派蒙)?(绘|画)图设置最大宽高(帮助)? */
+  async paimon_set_setting_max_WidthAndHeight(e) {
+    let input_v = e.msg.replace(/^#(派蒙)?(绘|画)图设置最大宽高(帮助)?/, '').trim()
+    let setting = await Config.getSetting();
+    if (!input_v) {
+        let msg1 = `限制调用接口的最大宽高，防止爆显存，输入的数字需要为8的倍数`
+        let msg_show = `当前最大宽高设置：${setting.max_WidthAndHeight}\n`
+        let msg1_1 = `#派蒙绘图设置最大宽高2048`
+        let msgx = await common.makeForwardMsg(e, [msg1, msg_show, msg1_1], `派蒙绘图设置最大宽高帮助`);
+        return e.reply(msgx, false)
+    }
+    if (input_v % 8 == 0) {
+        setting.max_WidthAndHeight = input_v;
+        Config.setSetting(setting);
+        return e.reply(`最大宽高设置已设置为${input_v}！`)
+    } else {
+        return e.reply('输入的数字需要为8的倍数，详情#派蒙绘图设置最大宽高帮助')
+    }
+}
 
 
 

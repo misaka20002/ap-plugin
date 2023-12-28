@@ -4,6 +4,7 @@ import {
 	parseImg
 } from '../utils/utils.js';
 import Pictools from '../utils/pic_tools.js';
+import Config from '../components/ai_painting/config.js';
 
 let FiguretypeUser = {}
 
@@ -44,8 +45,9 @@ export class Difference extends plugin {
 		let base64 = imgInfo.base64
 		let width = Math.round(imgInfo.width / 64) * 64
 		let height = Math.round(imgInfo.height / 64) * 64
-		if (width > 2048 || height > 2048) {
-			e.reply('图片长宽超过2048，无法重绘，请更换图片再试')
+		let setting = await Config.getSetting()
+		if (width > setting.max_WidthAndHeight || height > setting.max_WidthAndHeight) {
+			e.reply(`图片长宽超过${setting.max_WidthAndHeight}，无法重绘，请更换图片再试`)
 			return true
 		}
 		e.reply('正在图片差分中，请耐心等待喵~')

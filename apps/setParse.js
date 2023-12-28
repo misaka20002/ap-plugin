@@ -32,6 +32,7 @@ export class set_parse extends plugin {
     const upscalerList = await getUpscalers();
     initialization(e);
     let parseData = YAML.parse(fs.readFileSync(parsePath, "utf8"));
+    let setting = await Config.getSetting()
     if (!parseData[e.user_id]) {
       parseData[e.user_id] = {};
     }
@@ -69,9 +70,9 @@ export class set_parse extends plugin {
         parseData[e.user_id].steps = Number(e.msg.match(/迭代次数(.*)/)[1]);
       }
     } else if (e.msg.match(/宽度/)) {
-      // 宽度，1-2048，8的倍数，计算时需要消除浮点误差
-      if (e.msg.match(/宽度(.*)/)[1] < 1 || e.msg.match(/宽度(.*)/)[1] > 2048 || !Number.isInteger(Number(e.msg.match(/宽度(.*)/)[1])) || (e.msg.match(/宽度(.*)/)[1] % 8).toFixed(0) != 0) {
-        e.reply("宽度【" + e.msg.match(/宽度(.*)/)[1] + "】不在正确的范围内(1~2048)，或不是整数，或不是8的倍数" + "\n请重新输入", true);
+      // 宽度，1-setting.max_WidthAndHeight，8的倍数，计算时需要消除浮点误差
+      if (e.msg.match(/宽度(.*)/)[1] < 1 || e.msg.match(/宽度(.*)/)[1] > setting.max_WidthAndHeight || !Number.isInteger(Number(e.msg.match(/宽度(.*)/)[1])) || (e.msg.match(/宽度(.*)/)[1] % 8).toFixed(0) != 0) {
+        e.reply("宽度【" + e.msg.match(/宽度(.*)/)[1] + `】不在正确的范围内(1~${setting.max_WidthAndHeight})，或不是整数，或不是8的倍数` + "\n请重新输入", true);
         return true;
       }
       if (e.msg.match(/全局/)) {
@@ -85,9 +86,9 @@ export class set_parse extends plugin {
         parseData[e.user_id].width = Number(e.msg.match(/宽度(.*)/)[1]);
       }
     } else if (e.msg.match(/高度/)) {
-      // 高度，1-2048，8的倍数
-      if (e.msg.match(/高度(.*)/)[1] < 1 || e.msg.match(/高度(.*)/)[1] > 2048 || !Number.isInteger(Number(e.msg.match(/高度(.*)/)[1])) || (e.msg.match(/高度(.*)/)[1] % 8).toFixed(0) != 0) {
-        e.reply("高度【" + e.msg.match(/高度(.*)/)[1] + "】不在正确的范围内(1~2048)，或不是整数，或不是8的倍数" + "\n请重新输入", true);
+      // 高度，1-setting.max_WidthAndHeight，8的倍数
+      if (e.msg.match(/高度(.*)/)[1] < 1 || e.msg.match(/高度(.*)/)[1] > setting.max_WidthAndHeight || !Number.isInteger(Number(e.msg.match(/高度(.*)/)[1])) || (e.msg.match(/高度(.*)/)[1] % 8).toFixed(0) != 0) {
+        e.reply("高度【" + e.msg.match(/高度(.*)/)[1] + `】不在正确的范围内(1~${setting.max_WidthAndHeight})，或不是整数，或不是8的倍数` + "\n请重新输入", true);
         return true;
       }
       if (e.msg.match(/全局/)) {

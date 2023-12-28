@@ -7,9 +7,9 @@ export function supportGuoba() {
     pluginInfo: {
       name: "ap-plugin",
       title: "AP-Plugin绘图插件",
-      author: "@渔火Arcadia @0卡苏打水",
-      authorLink: "https://gitee.com/yhArcadia",
-      link: "https://gitee.com/yhArcadia/ap-plugin",
+      author: "@渔火Arcadia @0卡苏打水 @小呆毛",
+      authorLink: "https://github.com/misaka20002",
+      link: "https://github.com/misaka20002/ap-plugin",
       isV3: true,
       isV2: false,
       description: "基于Yunzai-Bot的AI绘图插件，使用Stable Diffusion接口",

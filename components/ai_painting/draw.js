@@ -272,6 +272,7 @@ async function i(paramdata, apiobj) {
 async function constructRequestOption(param, apiobj) {
     //Log.i(param)
     let ntags = param.ntags ? param.ntags : ''
+    let setting = await Config.getSetting()
     if (!param.base64) {
         let size = param.tags.match(/(\d+)\s*[×*]\s*(\d+)/)
         if (size) {
@@ -281,7 +282,7 @@ async function constructRequestOption(param, apiobj) {
             size[0] = Math.ceil(size[0] / 8) * 8;
             size[1] = Math.ceil(size[1] / 8) * 8;
         }        
-        if (size && (size[0] > 2048 || size[1] > 2048)) {
+        if (size && (size[0] > setting.max_WidthAndHeight || size[1] > setting.max_WidthAndHeight)) {
             size = null
         }
         param.tags = param.tags.replace(/(\d+)\s*[×*]\s*(\d+)/, '').trim()
@@ -345,7 +346,6 @@ async function constructRequestOption(param, apiobj) {
         }
     }
 
-    let setting = await Config.getSetting()
 
     let data;
     // 文生图

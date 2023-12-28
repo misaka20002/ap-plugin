@@ -98,8 +98,9 @@ export class ControlNet extends plugin {
       }, 60000);
       return false;
     }
-
-    if (height > 2048 || width > 2048) {
+    
+    let setting = await Config.getSetting()
+    if (height > setting.max_WidthAndHeight || width > setting.max_WidthAndHeight) {
       e.reply('图片过大，无法处理', true);
       return true;
     }
@@ -107,7 +108,6 @@ export class ControlNet extends plugin {
     e.reply(`● 正在使用ControlNet生成图片\n◎ 使用预处理器：${config[e.user_id].module}\n◎ 使用模型：${config[e.user_id].model}`);
 
     let paramData = parseData[e.user_id] || parseData.default;
-    let setting = await Config.getSetting()
 
     const data = {
       "enable_hr": paramData.enable_hr,
@@ -216,8 +216,9 @@ export class ControlNet extends plugin {
       e.reply('请携带图片使用该功能', true);
       return true;
     }
-
-    if (height > 2048 || width > 2048) {
+    
+    let setting = await Config.getSetting()
+    if (height > setting.max_WidthAndHeight || width > setting.max_WidthAndHeight) {
       e.reply('图片过大，无法处理', true);
       return true;
     }
