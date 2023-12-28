@@ -108,9 +108,9 @@ export class paimonpainthelp extends plugin {
   #派蒙绘图删除用户绘图设置帮助`
     let msgx
     if (e.isMaster && input_v === 'pro') {
-      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg3, msg3_1, msg3_2, msg4, msg5, msg6, msg9], `tts语音帮助-m`)
+      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg3, msg3_1, msg3_2, msg4, msg5, msg6, msg9], `派蒙绘图帮助-m`)
     } else {
-      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg3, msg3_1, msg3_2, msg4, msg5, msg6], `tts语音帮助`)
+      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg3, msg3_1, msg3_2, msg4, msg5, msg6], `派蒙绘图帮助`)
     }
     e.reply(msgx);
     return true;
