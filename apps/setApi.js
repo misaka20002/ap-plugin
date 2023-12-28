@@ -222,9 +222,11 @@ export class set extends plugin {
 	async config(e) {
 		let policy = await Config.getPolicy()
 		let gp = policy.gp
+		let setting = await Config.getSetting();
 
 		let msg = [
 			`全局CD：${policy.cd}秒\n`,
+			`绘图最大宽高设置${setting.max_WidthAndHeight}像素\n`,
 			`本地检索图片最大${policy.localNum}张\n`,
 			`保存图片至本地：${policy.isDownload ? '是' : '否'}\n`,
 			`有人绘制违规图片时通知主人：${policy.isTellMaster ? '是' : '否'}\n`,
