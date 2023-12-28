@@ -241,7 +241,6 @@ export class set extends plugin {
 			`\n      个人CD：${gp.global.pcd}秒`,
 			`\n      自动撤回图片：${gp.global.isRecall ? '是' : '否'}`,
 			`\n      自动撤回延时：${gp.global.recallDelay}秒`,
-			`\n      绘图最大宽高：${gp.global.max_WidthAndHeight}秒`,
 			`\n      封禁使用屏蔽词绘图的用户：${gp.global.isBan ? '是' : '否'}`,
 		]
 

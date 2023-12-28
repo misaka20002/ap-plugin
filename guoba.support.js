@@ -373,17 +373,6 @@ export function supportGuoba() {
           component: "Switch",
         },
         {
-          field: "policy.gp.global.max_WidthAndHeight",
-          label: "全局绘图最大宽高",
-          bottomHelpMessage: "默认为2048。绘图超过最大宽高则禁止绘制",
-          component: "InputNumber",
-          required: true,
-          componentProps: {
-            placeholder: "请输入全局绘图最大宽高，如2048",
-            addonAfter: "像素",
-          },
-        },
-        {
           field: "policy.gp.global.JH",
           label: "全局图片审核",
           bottomHelpMessage: "默认开启，关闭后图片将不会被审核",
@@ -464,17 +453,6 @@ export function supportGuoba() {
           label: "私聊启用绘更多图",
           bottomHelpMessage: "默认关闭，开启后可以超过1张但不可以超过10张",
           component: "Switch",
-        },
-        {
-          field: "policy.gp.private.max_WidthAndHeight",
-          label: "私聊绘图最大宽高",
-          bottomHelpMessage: "默认为2048。绘图超过最大宽高则禁止绘制",
-          component: "InputNumber",
-          required: true,
-          componentProps: {
-            placeholder: "请输入私聊绘图最大宽高，如2048",
-            addonAfter: "像素",
-          },
         },
         {
           field: "policy.gp.private.JH",
