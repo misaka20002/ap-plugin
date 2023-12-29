@@ -277,8 +277,7 @@ export class Ai_Painting extends plugin {
           res.info.enable_hr ? `高清修复步数：${res.info.hr_second_pass_steps}` : "",
           `正面：${res.info.prompt}`,
           `反面：${res.info.negative_prompt}`,
-          `耗时：${elapsed.toFixed(2)}秒`,
-          `更多指令请发送#派蒙绘图帮助`,
+          `耗时：${elapsed.toFixed(2)}秒  更多指令在#派蒙绘图帮助`,
         ].filter(Boolean).join('\n');
         let msg = [
           usageLimit ? `今日剩余${remainingTimes - 1}次\n` : "",
