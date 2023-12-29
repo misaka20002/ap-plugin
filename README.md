@@ -15,7 +15,9 @@ Changelog：
 1、新增#派蒙绘图帮助 #派蒙绘图帮助pro
 2、增加更多控制，防止调皮的群友
 ```
-
+```
+git clone https://github.com/misaka20002/ap-plugin.git ./plugins/ap-plugin
+```
 
 
 <p align="center">
