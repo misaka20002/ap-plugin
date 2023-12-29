@@ -4,6 +4,7 @@ import yaml from 'yaml'
 import fs from 'fs'
 import path from 'path'
 import Config from "../components/ai_painting/config.js";
+import { Parse } from '../components/apidx.js';
 
 const Path = process.cwd();
 const Plugin_Name = 'ap-plugin'
@@ -43,40 +44,54 @@ export class paimonpainthelp extends plugin {
     let msg1 = '小呆毛AI绘图指令：\n建议全都加个tag:loli,\n（算力由小呆毛的小pc提供）' +
       ''
     let msg2 = `原铁萝莉：
-  #绘图<lora:paimon:1>,loli,paimon gi,
-  #绘图<lora:Nahida3:1>,
-  #绘图<lora:Char-Genshin-Klee-V1:1>,loli,
-  #绘图<lora:yaoyao2-000008:1>,loli,
-  #绘图<lora:Char-Genshin-Furina:1>,furina \(genshin impact\),loli,
-萝王的工作：
-  #绘图<lora:Ryuuou no Oshigoto!_all:0.7>, hinatsuru ai,
-  #绘图<lora:Ryuuou no Oshigoto!_all:0.7> charlotte izoard,
-  #绘图<lora:Ryuuou no Oshigoto!_all:0.7> mizukoshi mio,`
-    let msg3 = `和泉纱雾+妖精：
-  #绘图<lora:Eromanga_all_resized:0.73> izumi sagiri,
-  #绘图<lora:Eromanga_all_resized:0.8> yamada elf,
-真寻酱：
+  #绘图<lora:paimon:1>,white hair,loli,
+  #绘图<lora:paimon2:1>,white hair,loli,
+  #绘图<lora:Nahida:1>,
+  #绘图<lora:nahida2:1>,white hair,1girl,
+  #绘图<lora:klee:1>,loli,
+  #绘图<lora:klee2:1>,
+  #绘图<lora:qiqi2:1>,loli,
+  #绘图<lora:diona2:1>,loli,
+  #绘图<lora:sayu2:1>,loli,
+  #绘图<lora:yaoyao2:1>,
+  #绘图<lora:hook:1>,blonde hair,1girl,
+  #绘图<lora:bailu2:1>,
+  #绘图<lora:Furina:1>,loli,furina \(genshin impact\),`
+    let msg2_1 = `原神大合集：
+  #绘图<lora:genshinfull:1>,[kukishinobudef, luminedef, doridef, fischldef, keqingdef, lisadef, raidenshogundef, yaemikodef, kujousaradef, beidoudef, dionadef, ganyudef, kamisatoayakadef, shenhedef, euladef, rosariadef, qiqidef, layladef, niloudef, kokomidef, yelandef, monadef, barbaradef, candacedef, colleidef, yaoyaodef, nahidadef, faruzandef, jeanfavonian, sucrosedef, sayudef, xianglingdef, dehyadef, yoimiyadef, kleedef, hutaodef, xinyandef, amber5star, yanfeidef, noelledef, yunjindef, ningguangdef]`
+    let msg3 = `和泉纱雾+山田妖精：
+  #绘图<lora:Eromanga_all_resized:0.73>,izumi sagiri,
+  #绘图<lora:Eromanga_all_resized:0.8>,yamada elf,
+不当哥-真寻酱：
   #绘图<lora:onimai_mahiro:1>,
 龙女仆-康纳：
   #绘图<lora:SaiKanna:1>,imkanna,`
     let msg3_1 = `点兔：
   #绘图<lora:Gochuumon_all_resized:0.7>,kafuu chino,
-  #绘图<lora:Gochuumon_all_resized:0.7> natsu megumi,
-  #绘图<lora:Gochuumon_all_resized:0.7> jouga maya,
-碧蓝档案：
+  #绘图<lora:Gochuumon_all_resized:0.7>,natsu megumi,
+  #绘图<lora:Gochuumon_all_resized:0.7>,jouga maya,
+萝王的工作：
+  #绘图<lora:Ryuuou no Oshigoto!_all:0.7>,hinatsuru ai,
+  #绘图<lora:Ryuuou no Oshigoto!_all:0.7>,charlotte izoard,
+  #绘图<lora:Ryuuou no Oshigoto!_all:0.7>,mizukoshi mio,`
+    let msg3_2 = `碧蓝档案：
   #绘图<lora:chara-arona-v1:1>,loli,
   #绘图<lora:takanashiHoshinoV3:1>,loli,
   #绘图<lora:soraV1>,loli,
-  #绘图<lora:KokonaBA-10:1>,loli,kokona,`
-    let msg3_2 = `公主连结：
+  #绘图<lora:KokonaBA-10:1>,loli,kokona,
+公主连结-镜华、可可萝：
   #绘图<lora:kyouka_v1:1>,loli,
-  #绘图<lora:kokkoro_v1:1>,loli,
-日在校园-桂心：
+  #绘图<lora:kokkoro_v1:1>,loli,`
+    let msg3_3 = `日在校园-桂心：
   #绘图<lora:KokoroKatsura:0.7>,KokoroKatsura,
 献上爆焰-小米：
-  #绘图<lora:Bakuen_KomekkoV2:0.7>, komekko,child,
+  #绘图<lora:Bakuen_KomekkoV2:0.7>,komekko,child,
+刀剑神域-希莉卡：
+  #绘图<lora:silica2:1>,
+莉可丽丝-胡桃：
+  #绘图<lora:lycoris_hutao2:1>,blonde hair,
 萝莉的时间-凛
-  #绘图<lora:KodomoNoJikan_kokonoe rin:0.7>, kokonoe rin,8k,masterpiece,absurdres,anime,`
+  #绘图<lora:KodomoNoJikan_kokonoe rin:0.7>,kokonoe rin,8k,masterpiece,absurdres,anime,`
     let msg4 = `通用：
   #绘图masterpiece,loli,cat tail,
   #绘图masterpiece,loli,2girls,
@@ -96,6 +111,10 @@ export class paimonpainthelp extends plugin {
   #ap全局设置(开启|关闭)
   #ap全局设置绘多图(开启|关闭)
   #ap全局设置更改绘图参数(开启|关闭)
+  #ap(全局|本群|我的)词云
+  #派蒙绘图设置最大宽高帮助
+  #派蒙绘图删除用户绘图设置帮助`
+  let msg9_1 = `无用功能：
   #ap(开启|关闭)简洁模式
   #(ap)?设置使用(sd|db)鉴赏图片
   #(ap)?设置鉴赏模型.*
@@ -104,15 +123,13 @@ export class paimonpainthelp extends plugin {
   #(ap)?设置违规图片展示方式(1|2|3|4)
   #ap(不)?屏蔽艾特
   #?(关闭|开启)匹配Lora
-  #?ap(全局|本群|我的)词云
-  #?(取消|停止)(绘图|绘画)
-  #派蒙绘图设置最大宽高帮助
-  #派蒙绘图删除用户绘图设置帮助`
+  #?(取消|停止)(绘图|绘画)`
+    let current_group_policy = await Parse.parsecfg(e)
     let msgx
-    if (e.isMaster && input_v === 'pro') {
-      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg3, msg3_1, msg3_2, msg4, msg5, msg6, msg9], `派蒙绘图帮助-m`)
+    if ((e.isMaster || current_group_policy.apMaster.indexOf(e.user_id)) && input_v === 'pro') {
+      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg2_1, msg3, msg3_1, msg3_2, msg3_3, msg4, msg5, msg6, msg9, msg9_1], `派蒙绘图帮助-m`)
     } else {
-      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg3, msg3_1, msg3_2, msg4, msg5, msg6], `派蒙绘图帮助`)
+      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg2_1, msg3, msg3_1, msg3_2, msg3_3, msg4, msg5, msg6], `派蒙绘图帮助`)
     }
     e.reply(msgx);
     return true;
