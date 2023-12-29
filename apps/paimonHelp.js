@@ -28,7 +28,7 @@ export class paimonpainthelp extends plugin {
           permission: 'master'
         },
         {
-          reg: '^#(派蒙)?(绘|画)图设置最大宽高(帮助)?',
+          reg: '^#派蒙(绘|画)图设置最大宽高(帮助)?',
           fnc: 'paimon_set_setting_max_WidthAndHeight',
           permission: 'master'
         },
@@ -146,9 +146,9 @@ export class paimonpainthelp extends plugin {
     return e.reply(`已经删除${users}个用户设置，所有用户将使用默认配置。\n#ap查看(全局)默认参数`, true)
   }
 
-  /** ^#(派蒙)?(绘|画)图设置最大宽高(帮助)? */
+  /** ^#派蒙(绘|画)图设置最大宽高(帮助)? */
   async paimon_set_setting_max_WidthAndHeight(e) {
-    let input_v = e.msg.replace(/^#(派蒙)?(绘|画)图设置最大宽高(帮助)?/, '').trim()
+    let input_v = e.msg.replace(/^#派蒙(绘|画)图设置最大宽高(帮助)?/, '').trim()
     let setting = await Config.getSetting();
     if (!input_v) {
       let msg1 = `限制调用接口的最大宽高，防止爆显存，输入的数字需要为8的倍数。`

@@ -68,6 +68,12 @@ export class Ai_Painting extends plugin {
     if (current_group_policy.isBan)
       if (current_group_policy.prohibitedUserList.indexOf(e.user_id) != -1)
         return await e.reply(["你的账号因违规使用屏蔽词绘图已被封禁或被管理员封禁"], true);
+
+
+    // 判断cd
+    let cdCheck = await CD.checkCD(e, current_group_policy)
+    if (cdCheck)
+      return await e.reply(cdCheck, true, { recallMsg: 15 });
     
     
     // 根据设置判断用户能否更改绘图参数
@@ -75,15 +81,12 @@ export class Ai_Painting extends plugin {
       if (!current_group_policy.allowed_user_more_parse) {
         const pattern = /步数|×|Hires/i;
         const match = pattern.exec(e.msg);
-        if (match) return await e.reply("不可以更改绘图参数哦，有需要请找管理员", false, { recallMsg: 15 });
+        if (match) {
+          CD.clearCD(e);
+          return await e.reply("部分绘图参数已锁定，有需要请找管理员", false, { recallMsg: 15 });
+        }
       }
     }
-
-
-    // 判断cd
-    let cdCheck = await CD.checkCD(e, current_group_policy)
-    if (cdCheck)
-      return await e.reply(cdCheck, true, { recallMsg: 15 });
 
 
     // 取绘图参数
@@ -97,7 +100,10 @@ export class Ai_Painting extends plugin {
 
     // 判断是否允许绘制多图
     if (!e.isMaster && current_group_policy.apMaster.indexOf(e.user_id) == -1) {
-      if (paramdata.num > 1 && !current_group_policy.allowed_paint_more) return await e.reply("只可以绘制1张图哦，有需要请找管理员", false, { recallMsg: 15 })
+      if (paramdata.num > 1 && !current_group_policy.allowed_paint_more) {
+        CD.clearCD(e);
+        return await e.reply("只可以绘制1张图哦，有需要请找管理员", false, { recallMsg: 15 })
+      }
     }
     
     // 当不允许绘多图时，禁止重复发起绘图

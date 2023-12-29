@@ -35,7 +35,7 @@ export class set_parse extends plugin {
       if (!current_group_policy.allowed_user_more_parse) {
         const pattern = /迭代次数|宽度|高度|高清修复步数|高清修复放大倍数/;
         const match = pattern.exec(e.msg);
-        if (match) return await e.reply("不可以更改绘图参数哦，有需要请找管理员", false, { recallMsg: 15 });
+        if (match) return await e.reply("部分绘图参数已锁定，有需要请找管理员", false, { recallMsg: 15 });
       }
     }
     const samplerList = await getSamplers();
