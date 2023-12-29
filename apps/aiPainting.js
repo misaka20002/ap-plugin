@@ -278,12 +278,13 @@ export class Ai_Painting extends plugin {
           `正面：${res.info.prompt}`,
           `反面：${res.info.negative_prompt}`,
           `耗时：${elapsed.toFixed(2)}秒`,
+          `更多指令请发送#派蒙绘图帮助`,
         ].filter(Boolean).join('\n');
         let msg = [
           usageLimit ? `今日剩余${remainingTimes - 1}次\n` : "",
           {...segment.image(`base64://${res.base64}`), origin: true},
         ]
-        // Log.i(info.length)                                           /*  */
+        // Log.i(info.length)
         let max_fold = setting.max_fold
         if (info.length < max_fold) {
           msg.push('\n' + info);
