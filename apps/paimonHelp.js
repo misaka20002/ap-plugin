@@ -58,7 +58,7 @@ export class paimonpainthelp extends plugin {
   #绘图<lora:bailu2:1>,
   #绘图<lora:Furina:1>,loli,furina \(genshin impact\),`
     let msg2_1 = `原神大合集：
-  #绘图<lora:genshinfull:1>,[kukishinobudef, luminedef, doridef, fischldef, keqingdef, lisadef, raidenshogundef, yaemikodef, kujousaradef, beidoudef, dionadef, ganyudef, kamisatoayakadef, shenhedef, euladef, rosariadef, qiqidef, layladef, niloudef, kokomidef, yelandef, monadef, barbaradef, candacedef, colleidef, yaoyaodef, nahidadef, faruzandef, jeanfavonian, sucrosedef, sayudef, xianglingdef, dehyadef, yoimiyadef, kleedef, hutaodef, xinyandef, amber5star, yanfeidef, noelledef, yunjindef, ningguangdef]`
+  #绘图<lora:genshinfull:1>,[ 萝莉: kleedef, nahidadef, sayudef, yaoyaodef, dionadef, qiqidef, doridef, 久岐忍: kukishinobudef, 荧: luminedef, 菲谢尔&皮肤: fischldef, fischlein, 刻晴&皮肤: keqingdef, keqingopulent, 丽莎&皮肤: lisadef, lisasobriquet, 雷电将军: raidenshogundef, 八重神子: yaemikodef, 九条裟罗: kujousaradef, 北斗: beidoudef, 甘雨: ganyudef, 神里绫华&皮肤: kamisatoayakadef, kamisatoayakaspring, 申鹤: shenhedef, 优菈: euladef, 罗莎莉亚: rosariadef, 莱依拉: layladef, 妮露: niloudef, 心海: kokomidef, 夜兰: yelandef, 莫娜: monadef, 芭芭拉&皮肤: barbaradef, barbarasum, 坎蒂丝: candacedef, 科莱: colleidef, 珐露珊: faruzandef, 琴团长&皮肤: jeanfavonian, jeanseabreeze, 砂糖: sucrosedef, 香菱: xianglingdef, 迪希雅: dehyadef, 宵宫: yoimiyadef, 胡桃: hutaodef, 辛焱: xinyandef, 安柏: amber5star, 烟绯: yanfeidef, 诺艾尔&皮肤: noelledef, noellekfc, 云堇: yunjindef, 凝光&皮肤: ningguangdef, ningguangorc, ]`
     let msg3 = `和泉纱雾+山田妖精：
   #绘图<lora:Eromanga_all_resized:0.73>,izumi sagiri,
   #绘图<lora:Eromanga_all_resized:0.8>,yamada elf,
@@ -126,7 +126,7 @@ export class paimonpainthelp extends plugin {
   #?(取消|停止)(绘图|绘画)`
     let current_group_policy = await Parse.parsecfg(e)
     let msgx
-    if ((e.isMaster || current_group_policy.apMaster.indexOf(e.user_id)) && input_v === 'pro') {
+    if ((e.isMaster || current_group_policy.apMaster.indexOf(e.user_id)) && (input_v === 'pro' || input_v === 'm')) {
       msgx = await common.makeForwardMsg(e, [msg1, msg2, msg2_1, msg3, msg3_1, msg3_2, msg3_3, msg4, msg5, msg6, msg9, msg9_1], `派蒙绘图帮助-m`)
     } else {
       msgx = await common.makeForwardMsg(e, [msg1, msg2, msg2_1, msg3, msg3_1, msg3_2, msg3_3, msg4, msg5, msg6], `派蒙绘图帮助`)
