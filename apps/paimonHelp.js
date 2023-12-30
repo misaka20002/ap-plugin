@@ -49,7 +49,7 @@ export class paimonpainthelp extends plugin {
   #绘图<lora:Nahida:1>,
   #绘图<lora:nahida2:1>,white hair,1girl,
   #绘图<lora:klee:1>,loli,
-  #绘图<lora:klee2:1>,
+  #绘图<lora:klee2:1>,blonde hair,
   #绘图<lora:qiqi2:1>,loli,
   #绘图<lora:diona2:1>,loli,
   #绘图<lora:sayu2:1>,loli,
@@ -79,9 +79,12 @@ export class paimonpainthelp extends plugin {
   #绘图<lora:takanashiHoshinoV3:1>,loli,
   #绘图<lora:soraV1>,loli,
   #绘图<lora:KokonaBA-10:1>,loli,kokona,
+  #绘图<lora:cherino:1>,shako cap,white hair,loli,
 公主连结-镜华、可可萝：
   #绘图<lora:kyouka_v1:1>,loli,
   #绘图<lora:kokkoro_v1:1>,loli,`
+    let msg3_2_1 = `碧蓝档案大合集：
+  #绘图<lora:bluearchivefull1-000006:1>,[ yuzudef, yuukadef, yoshimidef, wakamodef, uidef, tsurugidef, tsukuyodef, tsubakidef, tokidef, saoridef, miyudef, mikadef, maridef, kokonadef, koharudef, shizukodef, shirokodef, shiguredef, serinadef, serikadef, senadef, sayadef, sakurakodef, sakidef, nonomidef, nerudef, natsudef, nagisadef, mutsukidef, momokadef, momoidef, moedef, miyakodef, misakidef, minedef, mimoridef, midoridef, michirudef, megudef, mashirodef, marinadef, makidef, koyukidef, kotoridef, kazusadef, kayokodef, karindef, kannadef, kahodef, kaededef, junkodef, izunadef, izumidef, irohadef, ioridef, hoshinodef, hiyoridef, hinatadef, hinadef, himaridef, hifumidef, hibikidef, hasumidef, harunadef, harukadef, haredef, hanakodef, hanaedef, fuukadef, fubukidef, eimidef, chisedef, chinatsudef, chihirodef, cherinodef, azusadef, ayanedef, atsukodef, asunadef, arudef, akaridef, airidef, shundef, arisdef, akodef, akanedef, ]`
     let msg3_3 = `日在校园-桂心：
   #绘图<lora:KokoroKatsura:0.7>,KokoroKatsura,
 献上爆焰-小米：
@@ -127,9 +130,9 @@ export class paimonpainthelp extends plugin {
     let current_group_policy = await Parse.parsecfg(e)
     let msgx
     if ((e.isMaster || current_group_policy.apMaster.indexOf(e.user_id)) && (input_v === 'pro' || input_v === 'm')) {
-      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg2_1, msg3, msg3_1, msg3_2, msg3_3, msg4, msg5, msg6, msg9, msg9_1], `派蒙绘图帮助-m`)
+      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg2_1, msg3, msg3_1, msg3_2, msg3_2_1, msg3_3, msg4, msg5, msg6, msg9, msg9_1], `派蒙绘图帮助-m`)
     } else {
-      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg2_1, msg3, msg3_1, msg3_2, msg3_3, msg4, msg5, msg6], `派蒙绘图帮助`)
+      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg2_1, msg3, msg3_1, msg3_2, msg3_2_1, msg3_3, msg4, msg5, msg6], `派蒙绘图帮助`)
     }
     e.reply(msgx);
     return true;
