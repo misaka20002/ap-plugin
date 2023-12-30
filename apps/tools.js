@@ -15,6 +15,7 @@ import cfg from "../../../lib/config/config.js";
 import puppeteer from '../../../lib/puppeteer/puppeteer.js'
 import Config from '../components/ai_painting/config.js';
 import axios from 'axios';
+import { Parse } from '../components/apidx.js';
 
 const _path = process.cwd();
 
@@ -87,7 +88,12 @@ export class Tools extends plugin {
 
     async WithDraw(e) {
         // 没引用则放行指令
-        if (!e.source) return false;
+        if (!e.source) return e.reply('喵？要撤回哪条信息呢？', false);
+        // ap绘图黑名单成员不允许使用#撤回
+        let current_group_policy = await Parse.parsecfg(e)
+        if (current_group_policy.isBan)
+            if (current_group_policy.prohibitedUserList.indexOf(e.user_id) != -1)
+                return await e.reply(["撤回失败，你的账号因违规已被封禁或被管理员封禁"], true);        
         // 如果是撤回机器人的消息,则不做权限判断
         if (e.source.user_id == Bot.uin) {
             await this.withdrawFn(e);
