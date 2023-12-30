@@ -75,14 +75,14 @@ export class paimonpainthelp extends plugin {
   #绘图<lora:Ryuuou no Oshigoto!_all:0.7>,charlotte izoard,
   #绘图<lora:Ryuuou no Oshigoto!_all:0.7>,mizukoshi mio,`
     let msg3_2 = `碧蓝档案：
-  #绘图<lora:chara-arona-v1:1>,loli,
-  #绘图<lora:takanashiHoshinoV3:1>,loli,
-  #绘图<lora:soraV1>,loli,
-  #绘图<lora:KokonaBA-10:1>,loli,kokona,
+  #绘图<lora:arona:1>,loli,
+  #绘图<lora:takanashiHoshino:1>,loli,
+  #绘图<lora:sora>,loli,
+  #绘图<lora:Kokona:1>,loli,kokona,
   #绘图<lora:cherino:1>,shako cap,white hair,loli,
 公主连结-镜华、可可萝：
-  #绘图<lora:kyouka_v1:1>,loli,
-  #绘图<lora:kokkoro_v1:1>,loli,`
+  #绘图<lora:kyouka:1>,loli,
+  #绘图<lora:kokkoro:1>,loli,`
     let msg3_2_1 = `碧蓝档案大合集：
   #绘图<lora:bluearchivefull1-000006:1>,[ yuzudef, yuukadef, yoshimidef, wakamodef, uidef, tsurugidef, tsukuyodef, tsubakidef, tokidef, saoridef, miyudef, mikadef, maridef, kokonadef, koharudef, shizukodef, shirokodef, shiguredef, serinadef, serikadef, senadef, sayadef, sakurakodef, sakidef, nonomidef, nerudef, natsudef, nagisadef, mutsukidef, momokadef, momoidef, moedef, miyakodef, misakidef, minedef, mimoridef, midoridef, michirudef, megudef, mashirodef, marinadef, makidef, koyukidef, kotoridef, kazusadef, kayokodef, karindef, kannadef, kahodef, kaededef, junkodef, izunadef, izumidef, irohadef, ioridef, hoshinodef, hiyoridef, hinatadef, hinadef, himaridef, hifumidef, hibikidef, hasumidef, harunadef, harukadef, haredef, hanakodef, hanaedef, fuukadef, fubukidef, eimidef, chisedef, chinatsudef, chihirodef, cherinodef, azusadef, ayanedef, atsukodef, asunadef, arudef, akaridef, airidef, shundef, arisdef, akodef, akanedef, ]`
     let msg3_3 = `日在校园-桂心：
