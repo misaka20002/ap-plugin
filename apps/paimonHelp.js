@@ -117,7 +117,9 @@ export class paimonpainthelp extends plugin {
   #ap(全局|本群|我的)词云
   #派蒙绘图设置最大宽高帮助
   #派蒙绘图删除用户绘图设置帮助`
-  let msg9_1 = `无用功能：
+  let msg9_1 = `其他功能：
+  #取图链
+  #图片差分
   #ap(开启|关闭)简洁模式
   #(ap)?设置使用(sd|db)鉴赏图片
   #(ap)?设置鉴赏模型.*

@@ -110,7 +110,7 @@ export class Tools extends plugin {
             senderIs == 1 ||
             cfg.masterQQ.includes(e.source.user_id)
         ) {
-            e.reply(segment.image('https://gchat.qpic.cn/gchatpic_new/1761869682/2077086404-3170617512-116FDFF74709D345FAF0EACD13357D61/0?term=3&is_origin=0'))
+            e.reply("呜呜，人家不能撤回这条消息呢")
             return true;
         }
         await this.withdrawFn(e);
