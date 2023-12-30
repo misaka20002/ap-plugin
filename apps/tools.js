@@ -102,7 +102,7 @@ export class Tools extends plugin {
         let { botIs, senderIs, victim, victimIs } = await this.getPermissions(e);
         // 权限不够
         if (botIs <= victimIs) {
-            // e.reply生草图片
+            e.reply("诶？人家不能撤回这条消息呢")
             return true;
         }
         // 主人可命令撤回任何权限内消息
