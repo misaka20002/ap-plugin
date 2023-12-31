@@ -56,6 +56,7 @@ export class paimonpainthelp extends plugin {
   #绘图<lora:yaoyao2:1>,
   #绘图<lora:hook:1>,blonde hair,1girl,
   #绘图<lora:bailu2:1>,
+  #绘图<lora:kirara:1>,
   #绘图<lora:Furina:1>,loli,furina \(genshin impact\),`
     let msg2_1 = `原神大合集：
   #绘图<lora:genshinfull:1>,[ 萝莉: kleedef, nahidadef, sayudef, yaoyaodef, dionadef, qiqidef, doridef, 久岐忍: kukishinobudef, 荧: luminedef, 菲谢尔&皮肤: fischldef, fischlein, 刻晴&皮肤: keqingdef, keqingopulent, 丽莎&皮肤: lisadef, lisasobriquet, 雷电将军: raidenshogundef, 八重神子: yaemikodef, 九条裟罗: kujousaradef, 北斗: beidoudef, 甘雨: ganyudef, 神里绫华&皮肤: kamisatoayakadef, kamisatoayakaspring, 申鹤: shenhedef, 优菈: euladef, 罗莎莉亚: rosariadef, 莱依拉: layladef, 妮露: niloudef, 心海: kokomidef, 夜兰: yelandef, 莫娜: monadef, 芭芭拉&皮肤: barbaradef, barbarasum, 坎蒂丝: candacedef, 科莱: colleidef, 珐露珊: faruzandef, 琴团长&皮肤: jeanfavonian, jeanseabreeze, 砂糖: sucrosedef, 香菱: xianglingdef, 迪希雅: dehyadef, 宵宫: yoimiyadef, 胡桃: hutaodef, 辛焱: xinyandef, 安柏: amber5star, 烟绯: yanfeidef, 诺艾尔&皮肤: noelledef, noellekfc, 云堇: yunjindef, 凝光&皮肤: ningguangdef, ningguangorc, ]`
@@ -73,7 +74,9 @@ export class paimonpainthelp extends plugin {
 萝王的工作：
   #绘图<lora:Ryuuou no Oshigoto!_all:0.7>,hinatsuru ai,
   #绘图<lora:Ryuuou no Oshigoto!_all:0.7>,charlotte izoard,
-  #绘图<lora:Ryuuou no Oshigoto!_all:0.7>,mizukoshi mio,`
+  #绘图<lora:Ryuuou no Oshigoto!_all:0.7>,mizukoshi mio,
+虚拟主播
+  #绘图<lora:<lora:gura:1>,loli,`
     let msg3_2 = `碧蓝档案：
   #绘图<lora:arona:1>,loli,
   #绘图<lora:takanashiHoshino:1>,loli,
