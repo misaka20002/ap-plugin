@@ -188,18 +188,21 @@ export class paimonpainthelp extends plugin {
       try {
         msg_show = data.join('\n');
       } catch (err) {
-        fs.writeFileSync(collection_yaml, '- #绘图')
+        fs.writeFileSync(collection_yaml, ['#绘图'])
+        msg_show = '暂无'
       }
       let msg9 = `添加收藏请#派蒙绘图添加收藏xxxx`
       let msg10 = `删除收藏请#派蒙绘图删除收藏xxxx`
-      let msgx = await common.makeForwardMsg(e, [msg1, msg_show, msg9, msg10], `派蒙绘图收藏`);
+      let msgx
+      if (e.isMaster) msgx = await common.makeForwardMsg(e, [msg1, msg_show, msg9, msg10], `派蒙绘图收藏-m`);
+      else msgx = await common.makeForwardMsg(e, [msg1, msg_show], `派蒙绘图收藏`);
       return e.reply(msgx, false)
-    } else if (e.msg.match(/加入|添加/)) {
+    } else if (e.msg.match(/加入|添加/) && e.isMaster) {
       let data = readYaml(collection_yaml)
       data.push(input_v)
       writeYaml(collection_yaml, data)
       return e.reply(`收藏已添加：${input_v}`)
-    } else if (e.msg.match(/删除/)) {
+    } else if (e.msg.match(/删除/ && e.isMaster)) {
       let data = readYaml(collection_yaml)
       let index = data.indexOf(input_v)
       if (index > -1) {
@@ -209,7 +212,7 @@ export class paimonpainthelp extends plugin {
       } else {
         return e.reply(`收藏不存在：${input_v}`)
       }
-    } else e.reply(`输入错误，请输入#派蒙绘图收藏帮助`)
+    } else e.reply(`喵？请输入#派蒙绘图收藏帮助`)
   }
 
   /** ^#派蒙(绘|画)图设置最大宽高(帮助)? */
@@ -260,6 +263,6 @@ async function updateConfig(key, value) {
 /** 创建collection.yaml */
 function init_collection() {
   if (!fs.existsSync(collection_yaml)) {
-    fs.writeFileSync(collection_yaml, '- #绘图')
+    fs.writeFileSync(collection_yaml, ['#绘图'])
   }
 }
