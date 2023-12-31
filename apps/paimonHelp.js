@@ -187,7 +187,7 @@ export class paimonpainthelp extends plugin {
       try {
         msg_show = data.join('\n');
       } catch (err) {
-        fs.writeFileSync(collection_yaml, ['收藏列表：'], 'utf8')
+        writeYaml(collection_yaml, ['收藏列表：'])
         msg_show = '暂无'
       }
       let msg9 = `添加收藏请#派蒙绘图添加收藏xxxx`
@@ -262,6 +262,6 @@ async function updateConfig(key, value) {
 /** 创建collection.yaml */
 function init_collection() {
   if (!fs.existsSync(collection_yaml)) {
-    fs.writeFileSync(collection_yaml, ['收藏列表：'], 'utf8')
+    writeYaml(collection_yaml, ['收藏列表：'])
   }
 }
