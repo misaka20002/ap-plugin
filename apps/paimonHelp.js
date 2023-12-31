@@ -198,6 +198,10 @@ export class paimonpainthelp extends plugin {
       return e.reply(msgx, false)
     } else if (e.msg.match(/加入|添加/) && e.isMaster) {
       let data = readYaml(collection_yaml)
+      // 如果YAML文件是空的，那么data变量将为null。在这种情况下，如果尝试使用data.push(str)，将导致Cannot read properties of null (reading 'push')错误。为了解决这个问题，我们可以添加一些条件来检查data是否为null，并在为null时初始化它。
+      if (!data) {
+        data = [];
+      }
       data.push(input_v)
       writeYaml(collection_yaml, data)
       return e.reply(`收藏已添加：${input_v}`)
