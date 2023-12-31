@@ -182,20 +182,19 @@ export class paimonpainthelp extends plugin {
   async paimon_paint_collection(e) {
     let input_v = e.msg.replace(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(帮助)?/, '').trim()
     if (!input_v) {
-      let msg1 = `派蒙绘图收藏：`
       let data = readYaml(collection_yaml)
       let msg_show
       try {
         msg_show = data.join('\n');
       } catch (err) {
-        fs.writeFileSync(collection_yaml, ['#绘图'])
+        fs.writeFileSync(collection_yaml, ['收藏列表：'], 'utf8')
         msg_show = '暂无'
       }
       let msg9 = `添加收藏请#派蒙绘图添加收藏xxxx`
       let msg10 = `删除收藏请#派蒙绘图删除收藏xxxx`
       let msgx
-      if (e.isMaster) msgx = await common.makeForwardMsg(e, [msg1, msg_show, msg9, msg10], `派蒙绘图收藏-m`);
-      else msgx = await common.makeForwardMsg(e, [msg1, msg_show], `派蒙绘图收藏`);
+      if (e.isMaster) msgx = await common.makeForwardMsg(e, [msg_show, msg9, msg10], `派蒙绘图收藏-m`);
+      else msgx = await common.makeForwardMsg(e, [msg_show], `派蒙绘图收藏`);
       return e.reply(msgx, false)
     } else if (e.msg.match(/加入|添加/) && e.isMaster) {
       let data = readYaml(collection_yaml)
@@ -263,6 +262,6 @@ async function updateConfig(key, value) {
 /** 创建collection.yaml */
 function init_collection() {
   if (!fs.existsSync(collection_yaml)) {
-    fs.writeFileSync(collection_yaml, ['#绘图'])
+    fs.writeFileSync(collection_yaml, ['收藏列表：'], 'utf8')
   }
 }
