@@ -188,7 +188,7 @@ export class paimonpainthelp extends plugin {
       try {
         msg_show = data.join('\n');
       } catch (err) {
-        fs.writeFileSync(collection_yaml, '#绘图<lora:nahida:1>,')
+        fs.writeFileSync(collection_yaml, '- #绘图')
       }
       let msg9 = `添加收藏请#派蒙绘图添加收藏xxxx`
       let msg10 = `删除收藏请#派蒙绘图删除收藏xxxx`
@@ -260,7 +260,6 @@ async function updateConfig(key, value) {
 /** 创建collection.yaml */
 function init_collection() {
   if (!fs.existsSync(collection_yaml)) {
-    // 创建一个空文件
-    fs.writeFileSync(collection_yaml, '#绘图<lora:nahida:1>,')
+    fs.writeFileSync(collection_yaml, '- #绘图')
   }
 }
