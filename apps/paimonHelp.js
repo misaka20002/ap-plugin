@@ -184,7 +184,12 @@ export class paimonpainthelp extends plugin {
     if (!input_v) {
       let msg1 = `派蒙绘图收藏：`
       let data = readYaml(collection_yaml)
-      const msg_show = data.join('\n');
+      let msg_show
+      try {
+        msg_show = data.join('\n');
+      } catch (err) {
+        fs.writeFileSync(collection_yaml, '#绘图<lora:nahida:1>,')
+      }
       let msg9 = `添加收藏请#派蒙绘图添加收藏xxxx`
       let msg10 = `删除收藏请#派蒙绘图删除收藏xxxx`
       let msgx = await common.makeForwardMsg(e, [msg1, msg_show, msg9, msg10], `派蒙绘图收藏`);
@@ -256,6 +261,6 @@ async function updateConfig(key, value) {
 function init_collection() {
   if (!fs.existsSync(collection_yaml)) {
     // 创建一个空文件
-    fs.writeFileSync(collection_yaml, '')
+    fs.writeFileSync(collection_yaml, '#绘图<lora:nahida:1>,')
   }
 }
