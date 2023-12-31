@@ -9,6 +9,7 @@ import { Parse } from '../components/apidx.js';
 const Path = process.cwd();
 const Plugin_Name = 'ap-plugin'
 const Plugin_Path = path.join(Path, 'plugins', Plugin_Name)
+const collection_yaml = `${Plugin_Path}/config/config/collection.yaml`
 
 
 export class paimonpainthelp extends plugin {
@@ -33,8 +34,13 @@ export class paimonpainthelp extends plugin {
           fnc: 'paimon_set_setting_max_WidthAndHeight',
           permission: 'master'
         },
+        {
+          reg: '^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(帮助)?',
+          fnc: 'paimon_paint_collection'
+        },
       ]
     })
+    init_collection()
   }
 
 
@@ -118,9 +124,10 @@ export class paimonpainthelp extends plugin {
   #ap全局设置绘多图(开启|关闭)
   #ap全局设置更改绘图参数(开启|关闭)
   #ap(全局|本群|我的)词云
+  #派蒙绘图收藏帮助
   #派蒙绘图设置最大宽高帮助
   #派蒙绘图删除用户绘图设置帮助`
-  let msg9_1 = `其他功能：
+    let msg9_1 = `其他功能：
   #取图链
   #图片差分
   #ap(开启|关闭)简洁模式
@@ -171,6 +178,35 @@ export class paimonpainthelp extends plugin {
     return e.reply(`已经删除${users}个用户设置，所有用户将使用默认配置。\n#ap查看(全局)默认参数`, true)
   }
 
+  /** ^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(帮助)? */
+  async paimon_paint_collection(e) {
+    let input_v = e.msg.replace(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(帮助)?/, '').trim()
+    if (!input_v) {
+      let msg1 = `派蒙绘图收藏：`
+      let data = readYaml(collection_yaml)
+      const msg_show = data.join('\n');
+      let msg9 = `添加收藏请#派蒙绘图添加收藏xxxx`
+      let msg10 = `删除收藏请#派蒙绘图删除收藏xxxx`
+      let msgx = await common.makeForwardMsg(e, [msg1, msg_show, msg9, msg10], `派蒙绘图收藏`);
+      return e.reply(msgx, false)
+    } else if (e.msg.match(/加入|添加/)) {
+      let data = readYaml(collection_yaml)
+      data.push(input_v)
+      writeYaml(collection_yaml, data)
+      return e.reply(`收藏已添加：${input_v}`)
+    } else if (e.msg.match(/删除/)) {
+      let data = readYaml(collection_yaml)
+      let index = data.indexOf(input_v)
+      if (index > -1) {
+        data.splice(index, 1)
+        writeYaml(collection_yaml, data)
+        return e.reply(`收藏已删除：${input_v}`)
+      } else {
+        return e.reply(`收藏不存在：${input_v}`)
+      }
+    } else e.reply(`输入错误，请输入#派蒙绘图收藏帮助`)
+  }
+
   /** ^#派蒙(绘|画)图设置最大宽高(帮助)? */
   async paimon_set_setting_max_WidthAndHeight(e) {
     let input_v = e.msg.replace(/^#派蒙(绘|画)图设置最大宽高(帮助)?/, '').trim()
@@ -214,4 +250,12 @@ async function updateConfig(key, value) {
   data[key] = value
   writeYaml(Config_PATH, data)
   return data
+}
+
+/** 创建collection.yaml */
+function init_collection() {
+  if (!fs.existsSync(collection_yaml)) {
+    // 创建一个空文件
+    fs.writeFileSync(collection_yaml, '')
+  }
 }
