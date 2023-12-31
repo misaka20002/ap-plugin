@@ -201,7 +201,7 @@ export class paimonpainthelp extends plugin {
       data.push(input_v)
       writeYaml(collection_yaml, data)
       return e.reply(`收藏已添加：${input_v}`)
-    } else if (e.msg.match(/删除/ && e.isMaster)) {
+    } else if (e.msg.match(/删除/) && e.isMaster) {
       let data = readYaml(collection_yaml)
       let index = data.indexOf(input_v)
       if (index > -1) {
