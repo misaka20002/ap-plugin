@@ -107,6 +107,7 @@ export class paimonpainthelp extends plugin {
     let msg4 = `通用：
   #绘图masterpiece,loli,cat tail,
   #绘图masterpiece,loli,2girls,
+  #绘图(baby, child body:1.5),
   #绘图一个小女孩在天空下绘画`
     let msg5 = `画师风格：
   <lora:kantoku_v1:0.9>,`
@@ -180,33 +181,34 @@ export class paimonpainthelp extends plugin {
 
   /** ^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(帮助)? */
   async paimon_paint_collection(e) {
+    if (!fs.existsSync(collection_yaml)) {
+      writeYaml(collection_yaml, [])
+    }
+    let data = readYaml(collection_yaml)
+    // 如果YAML文件是空的，那么data变量将为null。在这种情况下，如果尝试使用data.push(str)、data.indexOf(str)，将导致Cannot read properties of null (reading 'push')错误。为了解决这个问题，我们可以添加一些条件来检查data是否为null，并在为null时初始化它。
+    if (!data) {
+      data = [];
+    }
     let input_v = e.msg.replace(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(帮助)?/, '').trim()
     if (!input_v) {
-      let data = readYaml(collection_yaml)
+      let msg1 = '派蒙绘图收藏：'      
       let msg_show
       try {
         msg_show = data.join('\n');
       } catch (err) {
-        writeYaml(collection_yaml, ['收藏列表：'])
         msg_show = '暂无'
       }
       let msg9 = `添加收藏请#派蒙绘图添加收藏xxxx`
       let msg10 = `删除收藏请#派蒙绘图删除收藏xxxx`
       let msgx
-      if (e.isMaster) msgx = await common.makeForwardMsg(e, [msg_show, msg9, msg10], `派蒙绘图收藏-m`);
-      else msgx = await common.makeForwardMsg(e, [msg_show], `派蒙绘图收藏`);
+      if (e.isMaster) msgx = await common.makeForwardMsg(e, [msg1, msg_show, msg9, msg10], `派蒙绘图收藏-m`);
+      else msgx = await common.makeForwardMsg(e, [msg1, msg_show], `派蒙绘图收藏`);
       return e.reply(msgx, false)
-    } else if (e.msg.match(/加入|添加/) && e.isMaster) {
-      let data = readYaml(collection_yaml)
-      // 如果YAML文件是空的，那么data变量将为null。在这种情况下，如果尝试使用data.push(str)，将导致Cannot read properties of null (reading 'push')错误。为了解决这个问题，我们可以添加一些条件来检查data是否为null，并在为null时初始化它。
-      if (!data) {
-        data = [];
-      }
+    } else if (e.msg.match(/加入|添加/) && e.isMaster) {      
       data.push(input_v)
       writeYaml(collection_yaml, data)
       return e.reply(`收藏已添加：${input_v}`)
     } else if (e.msg.match(/删除/) && e.isMaster) {
-      let data = readYaml(collection_yaml)
       let index = data.indexOf(input_v)
       if (index > -1) {
         data.splice(index, 1)
@@ -266,6 +268,6 @@ async function updateConfig(key, value) {
 /** 创建collection.yaml */
 function init_collection() {
   if (!fs.existsSync(collection_yaml)) {
-    writeYaml(collection_yaml, ['收藏列表：'])
+    writeYaml(collection_yaml, [])
   }
 }
