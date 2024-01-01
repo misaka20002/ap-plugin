@@ -196,7 +196,7 @@ export class paimonpainthelp extends plugin {
       try {
         msg_show = data.join('\n');
       } catch (err) {
-        msg_show = '暂无'
+        msg_show = 'config/collection.yaml格式错误，请备份内容后删除该文件'
       }
       let msg9 = `添加收藏请#派蒙绘图添加收藏xxxx`
       let msg10 = `删除收藏请#派蒙绘图删除收藏xxxx`
