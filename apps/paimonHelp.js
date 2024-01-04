@@ -49,7 +49,7 @@ export class paimonpainthelp extends plugin {
     let input_v = e.msg.replace(/^#派蒙(绘|画)图帮助/, '').trim()
     let msg1 = '小呆毛AI绘图指令：\n建议全都加个tag:loli,\n（算力由小呆毛的小pc提供）' +
       ''
-    let msg2 = `原铁萝莉：
+    let msg2 = `原铁粥萝莉：
   #绘图<lora:paimon:1>,white hair,loli,
   #绘图<lora:paimon2:1>,white hair,loli,
   #绘图<lora:Nahida:1>,
@@ -62,6 +62,7 @@ export class paimonpainthelp extends plugin {
   #绘图<lora:yaoyao2:1>,
   #绘图<lora:hook:1>,blonde hair,1girl,
   #绘图<lora:bailu2:1>,
+  #绘图<lora:铃兰:1>,
   #绘图<lora:kirara:1>,
   #绘图<lora:Furina:1>,loli,furina \(genshin impact\),`
     let msg2_1 = `原神大合集：
