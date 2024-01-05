@@ -35,7 +35,7 @@ export class paimonpainthelp extends plugin {
           permission: 'master'
         },
         {
-          reg: '^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(帮助)?',
+          reg: '^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?(.*)$',
           fnc: 'paimon_paint_collection'
         },
       ]
@@ -82,7 +82,7 @@ export class paimonpainthelp extends plugin {
   #绘图<lora:Ryuuou no Oshigoto!_all:0.7>,hinatsuru ai,
   #绘图<lora:Ryuuou no Oshigoto!_all:0.7>,charlotte izoard,
   #绘图<lora:Ryuuou no Oshigoto!_all:0.7>,mizukoshi mio,
-虚拟主播
+虚拟主播:
   #绘图<lora:<lora:gura:1>,loli,`
     let msg3_2 = `碧蓝档案：
   #绘图<lora:arona:1>,loli,
@@ -181,7 +181,7 @@ export class paimonpainthelp extends plugin {
     return e.reply(`已经删除${users}个用户设置，所有用户将使用默认配置。\n#ap查看(全局)默认参数`, true)
   }
 
-  /** ^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(帮助)? */
+  /** ^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?(.*)$ */
   async paimon_paint_collection(e) {
     if (!fs.existsSync(collection_yaml)) {
       writeYaml(collection_yaml, [])
@@ -191,8 +191,8 @@ export class paimonpainthelp extends plugin {
     if (!data) {
       data = [];
     }
-    let input_v = e.msg.replace(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(帮助)?/, '').trim()
-    if (!input_v) {
+    let input_match = e.msg.trim().match(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?(.*)$/)
+    if (!input_match[5]) {
       let msg1 = '派蒙绘图收藏：'
       let msg9 = `添加收藏请#派蒙绘图添加收藏xxxx`
       let msg10 = `删除收藏请#派蒙绘图删除收藏xxxx`
@@ -206,18 +206,18 @@ export class paimonpainthelp extends plugin {
       if (e.isMaster) msgx = await common.makeForwardMsg(e, chunk_is_master, `派蒙绘图收藏-m`);
       else msgx = await common.makeForwardMsg(e, chunk, `派蒙绘图收藏`);
       return e.reply(msgx, false)
-    } else if (e.msg.match(/加入|添加/) && e.isMaster) {      
-      data.push(input_v)
+    } else if ((input_match[2] == '加入' || input_match[2] == '添加' || input_match[3] == '加入' || input_match[3] == '添加') && e.isMaster) {      
+      data.push(input_match[5])
       writeYaml(collection_yaml, data)
-      return e.reply(`收藏已添加：${input_v}`)
-    } else if (e.msg.match(/删除/) && e.isMaster) {
-      let index = data.indexOf(input_v)
+      return e.reply(`收藏已添加：${input_match[5]}`)
+    } else if ((input_match[2] == '删除' || input_match[3] == '删除') && e.isMaster) {
+      let index = data.indexOf(input_match[5])
       if (index > -1) {
         data.splice(index, 1)
         writeYaml(collection_yaml, data)
-        return e.reply(`收藏已删除：${input_v}`)
+        return e.reply(`收藏已删除：${input_match[5]}`)
       } else {
-        return e.reply(`收藏不存在：${input_v}`)
+        return e.reply(`收藏不存在：${input_match[5]}`)
       }
     } else e.reply(`喵？请输入#派蒙绘图收藏帮助`)
   }
