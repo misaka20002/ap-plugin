@@ -114,7 +114,8 @@ export class paimonpainthelp extends plugin {
   <lora:kantoku_v1:0.9>,`
     let msg6 = `额外指令：
   #pt列表
-  #lora列表`
+  #lora列表
+  #派蒙绘图帮助pro`
     let msg9 = `管理员功能：
   #ap帮助
   #ap管理帮助
