@@ -192,18 +192,14 @@ export class paimonpainthelp extends plugin {
     }
     let input_v = e.msg.replace(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(帮助)?/, '').trim()
     if (!input_v) {
-      let msg1 = '派蒙绘图收藏：'      
-      let msg_show
-      try {
-        msg_show = data.join('\n');
-      } catch (err) {
-        msg_show = 'config/collection.yaml格式错误，请备份内容后删除该文件'
-      }
+      let msg1 = '派蒙绘图收藏：'
       let msg9 = `添加收藏请#派蒙绘图添加收藏xxxx`
       let msg10 = `删除收藏请#派蒙绘图删除收藏xxxx`
+      let chunk_is_master = msg1.concat(data, msg9, msg10);
+      let chunk_isn_master = msg1.concat(data);
       let msgx
-      if (e.isMaster) msgx = await common.makeForwardMsg(e, [msg1, msg_show, msg9, msg10], `派蒙绘图收藏-m`);
-      else msgx = await common.makeForwardMsg(e, [msg1, msg_show], `派蒙绘图收藏`);
+      if (e.isMaster) msgx = await common.makeForwardMsg(e, chunk_is_master, `派蒙绘图收藏-m`);
+      else msgx = await common.makeForwardMsg(e, chunk_isn_master, `派蒙绘图收藏`);
       return e.reply(msgx, false)
     } else if (e.msg.match(/加入|添加/) && e.isMaster) {      
       data.push(input_v)
