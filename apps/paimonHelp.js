@@ -195,11 +195,15 @@ export class paimonpainthelp extends plugin {
       let msg1 = '派蒙绘图收藏：'
       let msg9 = `添加收藏请#派蒙绘图添加收藏xxxx`
       let msg10 = `删除收藏请#派蒙绘图删除收藏xxxx`
-      let chunk_is_master = msg1.concat(data, msg9, msg10);
-      let chunk_isn_master = msg1.concat(data);
+      let chunk = [];
+      chunk.push(msg1);
+      chunk = chunk.concat(data);
+      let chunk_is_master = chunk
+      chunk_is_master.push(msg9);
+      chunk_is_master.push(msg10);
       let msgx
       if (e.isMaster) msgx = await common.makeForwardMsg(e, chunk_is_master, `派蒙绘图收藏-m`);
-      else msgx = await common.makeForwardMsg(e, chunk_isn_master, `派蒙绘图收藏`);
+      else msgx = await common.makeForwardMsg(e, chunk, `派蒙绘图收藏`);
       return e.reply(msgx, false)
     } else if (e.msg.match(/加入|添加/) && e.isMaster) {      
       data.push(input_v)
