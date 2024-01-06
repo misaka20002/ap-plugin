@@ -115,7 +115,8 @@ export class paimonpainthelp extends plugin {
     let msg6 = `额外指令：
   #pt列表
   #lora列表
-  #派蒙绘图帮助pro`
+  #派蒙绘图帮助pro
+  #派蒙绘图收藏`
     let msg9 = `管理员功能：
   #ap帮助
   #ap管理帮助
