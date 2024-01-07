@@ -1,14 +1,3 @@
-<!--
- * @Author: 渔火Arcadia  https://github.com/yhArcadia
- * @Date: 2022-12-27 01:29:18
- * @LastEditors: 苏沫柒 3146312184@qq.com
- * @LastEditTime: 2023-04-16 14:17:12
- * @FilePath: \Yunzai-Bot\plugins\ap-plugin\components\help\Admi_Help.md
- * @Description: 
- * 
- * Copyright (c) 2022 by 渔火Arcadia 1761869682@qq.com, All Rights Reserved. 
--->
-
 # 管理
 
 * **#ap设置** 

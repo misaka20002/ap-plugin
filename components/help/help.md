@@ -1,13 +1,3 @@
-<!--
- * @Author: 渔火Arcadia  https://github.com/yhArcadia
- * @Date: 2022-12-27 01:29:18
- * @LastEditors: 苏沫柒 3146312184@qq.com
- * @LastEditTime: 2023-04-17 02:37:08
- * @FilePath: \Yunzai-Bot\plugins\ap-plugin\components\help\help.md
- * @Description: 
- * 
- * Copyright (c) 2022 by 渔火Arcadia 1761869682@qq.com, All Rights Reserved. 
--->
 # 绘图
 
 * **#绘图** [ `正面tag` ]  [ **横图**|**方图** ] [ **步数**`30` ] [ **种子**`1234567` ] [ `长度`**×**`宽度` ] [ **重绘幅度**`0.55` ] [ **提示词相关性**`7` ] [ **接口**`2` ] [ `3`**张** ] [`采样器`] [ **Hires**`倍数` ] [ **ntags=**`反面tag` ] [ `指定图片` ]
