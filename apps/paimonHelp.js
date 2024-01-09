@@ -162,7 +162,7 @@ export class paimonpainthelp extends plugin {
     let current_group_policy = await Parse.parsecfg(e)
     let msgx
     if ((e.isMaster || current_group_policy.apMaster.indexOf(e.user_id)) && (input_v === 'pro' || input_v === 'm')) {
-      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg2_1_1, msg2_2, msg3, msg3_1, msg3_2, msg3_2_1, msg3_2_2, msg3_2_3, msg3_2_9, msg3_3, msg4, msg5, msg6, msg9, msg9_1], `派蒙绘图帮助-m`)
+      msgx = await common.makeForwardMsg(e, [msg6, msg9, msg9_1], `派蒙绘图帮助-m`)
     } else if (input_v === 'f' || input_v === 'split') {
       msg1 = msg1.split(/\n/).filter(Boolean).map(item => item.trim())
       msg2 = msg2.split(/\n/).filter(Boolean).map(item => item.trim())
@@ -180,23 +180,7 @@ export class paimonpainthelp extends plugin {
       msg5 = msg5.split(/\n/).filter(Boolean).map(item => item.trim())
       msg6 = msg6.split(/\n/).filter(Boolean).map(item => item.trim())
 
-      msg1 = await common.makeForwardMsg(e, msg1, msg1[0])
-      msg2 = await common.makeForwardMsg(e, msg2, msg2[0])
-      msg3 = await common.makeForwardMsg(e, msg3, msg3[0])
-      msg4 = await common.makeForwardMsg(e, msg4, msg4[0])
-      msg5 = await common.makeForwardMsg(e, msg5, msg5[0])
-      msg6 = await common.makeForwardMsg(e, msg6, msg6[0])
-      msg2_1_1 = await common.makeForwardMsg(e, msg2_1_1, msg2_1_1[0])
-      msg2_2 = await common.makeForwardMsg(e, msg2_2, msg2_2[0])
-      msg3_1 = await common.makeForwardMsg(e, msg3_1, msg3_1[0])
-      msg3_2 = await common.makeForwardMsg(e, msg3_2, msg3_2[0])
-      msg3_2_1 = await common.makeForwardMsg(e, msg3_2_1, msg3_2_1[0])
-      msg3_2_2 = await common.makeForwardMsg(e, msg3_2_2, msg3_2_2[0])
-      msg3_2_3 = await common.makeForwardMsg(e, msg3_2_3, msg3_2_3[0])
-      msg3_2_9 = await common.makeForwardMsg(e, msg3_2_9, msg3_2_9[0])
-      msg3_3 = await common.makeForwardMsg(e, msg3_3, msg3_3[0])
-
-      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg2_1_1, msg2_2, msg3, msg3_1, msg3_2, msg3_2_1, msg3_2_2, msg3_2_3, msg3_2_9, msg3_3, msg4, msg5, msg6], `派蒙绘图帮助-f`)
+      msgx = await common.makeForwardMsg(e, [...msg1, ...msg2, ...msg2_1_1, ...msg2_2, ...msg3, ...msg3_1, ...msg3_2, ...msg3_2_1, ...msg3_2_2, ...msg3_2_3, ...msg3_2_9, ...msg3_3, ...msg4, ...msg5, ...msg6], `派蒙绘图帮助-f`)
     } else {
       msgx = await common.makeForwardMsg(e, [msg1, msg2, msg2_1_1, msg2_2, msg3, msg3_1, msg3_2, msg3_2_1, msg3_2_2, msg3_2_3, msg3_2_9, msg3_3, msg4, msg5, msg6], `派蒙绘图帮助`)
     }
