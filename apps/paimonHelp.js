@@ -54,7 +54,6 @@ export class paimonpainthelp extends plugin {
   #绘图<lora:paimon2:1>,white hair,loli,
   #绘图<lora:Nahida:1>,
   #绘图<lora:nahida2:1>,white hair,1girl,
-  #绘图<lora:klee:1>,loli,
   #绘图<lora:klee2:1>,blonde hair,
   #绘图<lora:qiqi2:1>,loli,
   #绘图<lora:diona2:1>,loli,
@@ -65,7 +64,10 @@ export class paimonpainthelp extends plugin {
   #绘图<lora:铃兰:1>,
   #绘图<lora:kirara:1>,
   #绘图<lora:Furina:1>,loli,furina \(genshin impact\),`
-    let msg2_1 = `原神大合集：
+    let msg2_1_1 = `可莉服装自定义：
+  #绘图<lora:klee:0.9>,loli,klee \(genshin impact\),bloomers, brown gloves, knee boots, cabbie hat, red coat, scarf, backpack
+  #绘图<lora:klee:0.9>,loli,klee \(blossoming starlight\) \(genshin impact\),bloomers, black gloves, kneehighs, mary janes, witch hat, red skirt, white shirt, shawl, waist apron, bag`
+    let msg2_2 = `原神大合集：
   #绘图<lora:genshinfull:1>,[ 萝莉: kleedef, nahidadef, sayudef, yaoyaodef, dionadef, qiqidef, doridef, 久岐忍: kukishinobudef, 荧: luminedef, 菲谢尔&皮肤: fischldef, fischlein, 刻晴&皮肤: keqingdef, keqingopulent, 丽莎&皮肤: lisadef, lisasobriquet, 雷电将军: raidenshogundef, 八重神子: yaemikodef, 九条裟罗: kujousaradef, 北斗: beidoudef, 甘雨: ganyudef, 神里绫华&皮肤: kamisatoayakadef, kamisatoayakaspring, 申鹤: shenhedef, 优菈: euladef, 罗莎莉亚: rosariadef, 莱依拉: layladef, 妮露: niloudef, 心海: kokomidef, 夜兰: yelandef, 莫娜: monadef, 芭芭拉&皮肤: barbaradef, barbarasum, 坎蒂丝: candacedef, 科莱: colleidef, 珐露珊: faruzandef, 琴团长&皮肤: jeanfavonian, jeanseabreeze, 砂糖: sucrosedef, 香菱: xianglingdef, 迪希雅: dehyadef, 宵宫: yoimiyadef, 胡桃: hutaodef, 辛焱: xinyandef, 安柏: amber5star, 烟绯: yanfeidef, 诺艾尔&皮肤: noelledef, noellekfc, 云堇: yunjindef, 凝光&皮肤: ningguangdef, ningguangorc, ]`
     let msg3 = `和泉纱雾+山田妖精：
   #绘图<lora:Eromanga_all_resized:0.73>,izumi sagiri,
@@ -89,11 +91,25 @@ export class paimonpainthelp extends plugin {
   #绘图<lora:takanashiHoshino:1>,loli,
   #绘图<lora:sora>,loli,
   #绘图<lora:Kokona:1>,loli,kokona,
-  #绘图<lora:cherino:1>,shako cap,white hair,loli,
 公主连结-镜华、可可萝：
   #绘图<lora:kyouka:1>,loli,
   #绘图<lora:kokkoro:1>,loli,`
-    let msg3_2_1 = `碧蓝档案大合集：
+  let msg3_2_1 = `碧蓝档案cherino服装自定义：
+  #绘图<lora:cherino:1>,loli,cherino-fi, hello,shako cap, white jacket, white coat, uniform, white gloves, white shorts, black pantyhose, fur-trimmed shoes, fur-trimmed boots,
+  #绘图<lora:cherino:1>,loli,cherino-fi, halo, cherinosummer-fi, halo, school swimsuit, white swimsuit, open kimono, pink kimono,`
+  let msg3_2_2 = `魔法少女-伊莉雅服装自定义：
+  魔法少女#绘图<lora:illyasviel:0.7>,loli,aaillya, long hair, two side up, hair ornament, small breasts, magical girl, cape, yellow ascot, pink dress, sleeveless, detached sleeves, white gloves, white skirt, pink thighhighs,
+  校服#绘图<lora:illyasviel:0.7>,loli,aaillya, long hair, beret, white headwear, small breasts, school uniform, neck ribbon, white shirt, collared shirt, short sleeves, black skirt,
+  刺客#绘图<lora:illyasviel:0.7>,loli,aaillya, small breasts, hood up, skull mask, torn scarf, black scarf, bare shoulders, short jumpsuit, arm wrap, single thighhigh, black thighhighs,
+  吾王#绘图<lora:illyasviel:0.7>,loli,aaillya, ponytail, sidelocks, hair bow, black bow, small breasts, detached collar, bare shoulders, armor, strapless dress, white dress, detached sleeves, gauntlets,
+  野兽模式#绘图<lora:illyasviel:0.7>,loli,aaillya, long hair, fake animal ears, jingle bell, red ribbon, hair ornament, small breasts, tail, fur collar, black leotard, clothing cutout, center opening, animal hands, black gloves, paw gloves, navel, black thighhighs, elbow gloves,`
+  let msg3_2_3 = `碧蓝航线-拉菲服装自定义：
+  日常#绘图<lora:laffey:0.7>,loli,aalaffey, long hair, collarbone, white shirt, white camisole, off shoulder, pink jacket, open clothes, long sleeves, pleated skirt, red skirt, white thighhighs,
+  浴服#绘图<lora:laffey:0.7>,loli,bblaffey, japanese clothes, print kimono, blue kimono, floral print, long sleeves, wide sleeves, sleeves past wrists, sash, obi,
+  校服#绘图<lora:laffey:0.7>,loli,cclaffey, long hair, beret, blue choker, school uniform, white sailor collar, yellow bowtie, bare shoulders, blue shirt, puffy sleeves, wrist cuffs, navel, pleated skirt, blue skirt, white thighhighs,
+  私服#绘图<lora:laffey:0.7>,loli,ddlaffey, long hair, white pantyhose, plaid, midriff, plaid skirt, detached sleeves, navel, pleated skirt, collarbone, bare shoulders, crop top, ribbon choker, black choker, white shirt, pink skirt, black bow,
+  花嫁#绘图<lora:laffey:0.7>,loli,eelaffey, smile, long hair, white dress, wedding dress, strapless, bare shoulders, white gloves, collarbone, ribbon choker, blue flower,`
+    let msg3_2_9 = `碧蓝档案大合集：
   #绘图<lora:bluearchivefull1-000006:1>,[ yuzudef, yuukadef, yoshimidef, wakamodef, uidef, tsurugidef, tsukuyodef, tsubakidef, tokidef, saoridef, miyudef, mikadef, maridef, kokonadef, koharudef, shizukodef, shirokodef, shiguredef, serinadef, serikadef, senadef, sayadef, sakurakodef, sakidef, nonomidef, nerudef, natsudef, nagisadef, mutsukidef, momokadef, momoidef, moedef, miyakodef, misakidef, minedef, mimoridef, midoridef, michirudef, megudef, mashirodef, marinadef, makidef, koyukidef, kotoridef, kazusadef, kayokodef, karindef, kannadef, kahodef, kaededef, junkodef, izunadef, izumidef, irohadef, ioridef, hoshinodef, hiyoridef, hinatadef, hinadef, himaridef, hifumidef, hibikidef, hasumidef, harunadef, harukadef, haredef, hanakodef, hanaedef, fuukadef, fubukidef, eimidef, chisedef, chinatsudef, chihirodef, cherinodef, azusadef, ayanedef, atsukodef, asunadef, arudef, akaridef, airidef, shundef, arisdef, akodef, akanedef, ]`
     let msg3_3 = `日在校园-桂心：
   #绘图<lora:KokoroKatsura:0.7>,KokoroKatsura,
@@ -146,9 +162,43 @@ export class paimonpainthelp extends plugin {
     let current_group_policy = await Parse.parsecfg(e)
     let msgx
     if ((e.isMaster || current_group_policy.apMaster.indexOf(e.user_id)) && (input_v === 'pro' || input_v === 'm')) {
-      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg2_1, msg3, msg3_1, msg3_2, msg3_2_1, msg3_3, msg4, msg5, msg6, msg9, msg9_1], `派蒙绘图帮助-m`)
+      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg2_1_1, msg2_2, msg3, msg3_1, msg3_2, msg3_2_1, msg3_2_2, msg3_2_3, msg3_2_9, msg3_3, msg4, msg5, msg6, msg9, msg9_1], `派蒙绘图帮助-m`)
+    } else if (input_v === 'f' || input_v === 'split') {
+      msg1 = msg1.split(/\n/).filter(Boolean).map(item => item.trim())
+      msg2 = msg2.split(/\n/).filter(Boolean).map(item => item.trim())
+      msg2_1_1 = msg2_1_1.split(/\n/).filter(Boolean).map(item => item.trim())
+      msg2_2 = msg2_2.split(/\n/).filter(Boolean).map(item => item.trim())
+      msg3 = msg3.split(/\n/).filter(Boolean).map(item => item.trim())
+      msg3_1 = msg3_1.split(/\n/).filter(Boolean).map(item => item.trim())
+      msg3_2 = msg3_2.split(/\n/).filter(Boolean).map(item => item.trim())
+      msg3_2_1 = msg3_2_1.split(/\n/).filter(Boolean).map(item => item.trim())
+      msg3_2_2 = msg3_2_2.split(/\n/).filter(Boolean).map(item => item.trim())
+      msg3_2_3 = msg3_2_3.split(/\n/).filter(Boolean).map(item => item.trim())
+      msg3_2_9 = msg3_2_9.split(/\n/).filter(Boolean).map(item => item.trim())
+      msg3_3 = msg3_3.split(/\n/).filter(Boolean).map(item => item.trim())
+      msg4 = msg4.split(/\n/).filter(Boolean).map(item => item.trim())
+      msg5 = msg5.split(/\n/).filter(Boolean).map(item => item.trim())
+      msg6 = msg6.split(/\n/).filter(Boolean).map(item => item.trim())
+
+      msg1 = await common.makeForwardMsg(e, msg1, msg1[0])
+      msg2 = await common.makeForwardMsg(e, msg2, msg2[0])
+      msg3 = await common.makeForwardMsg(e, msg3, msg3[0])
+      msg4 = await common.makeForwardMsg(e, msg4, msg4[0])
+      msg5 = await common.makeForwardMsg(e, msg5, msg5[0])
+      msg6 = await common.makeForwardMsg(e, msg6, msg6[0])
+      msg2_1_1 = await common.makeForwardMsg(e, msg2_1_1, msg2_1_1[0])
+      msg2_2 = await common.makeForwardMsg(e, msg2_2, msg2_2[0])
+      msg3_1 = await common.makeForwardMsg(e, msg3_1, msg3_1[0])
+      msg3_2 = await common.makeForwardMsg(e, msg3_2, msg3_2[0])
+      msg3_2_1 = await common.makeForwardMsg(e, msg3_2_1, msg3_2_1[0])
+      msg3_2_2 = await common.makeForwardMsg(e, msg3_2_2, msg3_2_2[0])
+      msg3_2_3 = await common.makeForwardMsg(e, msg3_2_3, msg3_2_3[0])
+      msg3_2_9 = await common.makeForwardMsg(e, msg3_2_9, msg3_2_9[0])
+      msg3_3 = await common.makeForwardMsg(e, msg3_3, msg3_3[0])
+
+      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg2_1_1, msg2_2, msg3, msg3_1, msg3_2, msg3_2_1, msg3_2_2, msg3_2_3, msg3_2_9, msg3_3, msg4, msg5, msg6], `派蒙绘图帮助-f`)
     } else {
-      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg2_1, msg3, msg3_1, msg3_2, msg3_2_1, msg3_3, msg4, msg5, msg6], `派蒙绘图帮助`)
+      msgx = await common.makeForwardMsg(e, [msg1, msg2, msg2_1_1, msg2_2, msg3, msg3_1, msg3_2, msg3_2_1, msg3_2_2, msg3_2_3, msg3_2_9, msg3_3, msg4, msg5, msg6], `派蒙绘图帮助`)
     }
     e.reply(msgx);
     return true;
