@@ -230,16 +230,19 @@ export class paimonpainthelp extends plugin {
     let input_match = e.msg.trim().match(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?(.*)$/)
     // 如果有引用则使用引用
     if (e.source) {
-      let reply;
+      if (input_match[5]) {
+        return e.reply(`喵？请输入#派蒙绘图收藏帮助；人家不知道你要收藏的是“引用回复”还是：“${input_match[5]}”`)
+      }
+      let quote_reply;
       if (e.isGroup) {
-        reply = (await e.group.getChatHistory(e.source.seq, 1))
+        quote_reply = (await e.group.getChatHistory(e.source.seq, 1))
           .pop()?.message;
       } else {
-        reply = (await e.friend.getChatHistory(e.source.time, 1))
+        quote_reply = (await e.friend.getChatHistory(e.source.time, 1))
           .pop()?.message;
       }
-      if (reply) {
-        for (let val of reply) {
+      if (quote_reply) {
+        for (let val of quote_reply) {
           if (val.type == "text") {
             input_match[5] = val.text;
             break;
@@ -249,9 +252,9 @@ export class paimonpainthelp extends plugin {
     }
     // 如果有引用则使用引用-END
     if (!input_match[5]) {
-      let msg1 = '派蒙绘图收藏：'
-      let msg9 = `添加收藏请#派蒙绘图添加收藏xxxx`
-      let msg10 = `删除收藏请#派蒙绘图删除收藏xxxx`
+      let msg1 = '派蒙绘图咒语收藏：'
+      let msg9 = `添加收藏请#派蒙绘图添加收藏[文本]`
+      let msg10 = `删除收藏请#派蒙绘图删除收藏[文本]`
       let msg11 = `也可以使用引用回复`
       let chunk = [];
       chunk.push(msg1);
