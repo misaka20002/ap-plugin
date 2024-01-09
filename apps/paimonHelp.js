@@ -94,16 +94,16 @@ export class paimonpainthelp extends plugin {
 公主连结-镜华、可可萝：
   #绘图<lora:kyouka:1>,loli,
   #绘图<lora:kokkoro:1>,loli,`
-  let msg3_2_1 = `碧蓝档案cherino服装自定义：
+    let msg3_2_1 = `碧蓝档案cherino服装自定义：
   #绘图<lora:cherino:1>,loli,cherino-fi, hello,shako cap, white jacket, white coat, uniform, white gloves, white shorts, black pantyhose, fur-trimmed shoes, fur-trimmed boots,
   #绘图<lora:cherino:1>,loli,cherino-fi, halo, cherinosummer-fi, halo, school swimsuit, white swimsuit, open kimono, pink kimono,`
-  let msg3_2_2 = `魔法少女-伊莉雅服装自定义：
+    let msg3_2_2 = `魔法少女-伊莉雅服装自定义：
   魔法少女#绘图<lora:illyasviel:0.7>,loli,aaillya, long hair, two side up, hair ornament, small breasts, magical girl, cape, yellow ascot, pink dress, sleeveless, detached sleeves, white gloves, white skirt, pink thighhighs,
   校服#绘图<lora:illyasviel:0.7>,loli,aaillya, long hair, beret, white headwear, small breasts, school uniform, neck ribbon, white shirt, collared shirt, short sleeves, black skirt,
   刺客#绘图<lora:illyasviel:0.7>,loli,aaillya, small breasts, hood up, skull mask, torn scarf, black scarf, bare shoulders, short jumpsuit, arm wrap, single thighhigh, black thighhighs,
   吾王#绘图<lora:illyasviel:0.7>,loli,aaillya, ponytail, sidelocks, hair bow, black bow, small breasts, detached collar, bare shoulders, armor, strapless dress, white dress, detached sleeves, gauntlets,
   野兽模式#绘图<lora:illyasviel:0.7>,loli,aaillya, long hair, fake animal ears, jingle bell, red ribbon, hair ornament, small breasts, tail, fur collar, black leotard, clothing cutout, center opening, animal hands, black gloves, paw gloves, navel, black thighhighs, elbow gloves,`
-  let msg3_2_3 = `碧蓝航线-拉菲服装自定义：
+    let msg3_2_3 = `碧蓝航线-拉菲服装自定义：
   日常#绘图<lora:laffey:0.7>,loli,aalaffey, long hair, collarbone, white shirt, white camisole, off shoulder, pink jacket, open clothes, long sleeves, pleated skirt, red skirt, white thighhighs,
   浴服#绘图<lora:laffey:0.7>,loli,bblaffey, japanese clothes, print kimono, blue kimono, floral print, long sleeves, wide sleeves, sleeves past wrists, sash, obi,
   校服#绘图<lora:laffey:0.7>,loli,cclaffey, long hair, beret, blue choker, school uniform, white sailor collar, yellow bowtie, bare shoulders, blue shirt, puffy sleeves, wrist cuffs, navel, pleated skirt, blue skirt, white thighhighs,
@@ -131,8 +131,9 @@ export class paimonpainthelp extends plugin {
     let msg6 = `额外指令：
   #pt列表
   #lora列表
-  #派蒙绘图帮助pro
-  #派蒙绘图收藏`
+  #派蒙绘图帮助分段
+  #派蒙绘图收藏
+  管理员指令：#派蒙绘图帮助pro`
     let msg9 = `管理员功能：
   #ap帮助
   #ap管理帮助
@@ -162,8 +163,8 @@ export class paimonpainthelp extends plugin {
     let current_group_policy = await Parse.parsecfg(e)
     let msgx
     if ((e.isMaster || current_group_policy.apMaster.indexOf(e.user_id)) && (input_v === 'pro' || input_v === 'm')) {
-      msgx = await common.makeForwardMsg(e, [msg6, msg9, msg9_1], `派蒙绘图帮助-m`)
-    } else if (input_v === 'f' || input_v === 'split') {
+      msgx = await common.makeForwardMsg(e, [msg6, msg9, msg9_1], `#派蒙绘图帮助m`)
+    } else if (input_v === 'f' || input_v === '分段' || input_v === '分') {
       msg1 = msg1.split(/\n/).filter(Boolean).map(item => item.trim())
       msg2 = msg2.split(/\n/).filter(Boolean).map(item => item.trim())
       msg2_1_1 = msg2_1_1.split(/\n/).filter(Boolean).map(item => item.trim())
@@ -180,7 +181,7 @@ export class paimonpainthelp extends plugin {
       msg5 = msg5.split(/\n/).filter(Boolean).map(item => item.trim())
       msg6 = msg6.split(/\n/).filter(Boolean).map(item => item.trim())
 
-      msgx = await common.makeForwardMsg(e, [...msg1, ...msg2, ...msg2_1_1, ...msg2_2, ...msg3, ...msg3_1, ...msg3_2, ...msg3_2_1, ...msg3_2_2, ...msg3_2_3, ...msg3_2_9, ...msg3_3, ...msg4, ...msg5, ...msg6], `派蒙绘图帮助-f`)
+      msgx = await common.makeForwardMsg(e, [...msg1, ...msg2, ...msg2_1_1, ...msg2_2, ...msg3, ...msg3_1, ...msg3_2, ...msg3_2_1, ...msg3_2_2, ...msg3_2_3, ...msg3_2_9, ...msg3_3, ...msg4, ...msg5, ...msg6], `#派蒙绘图帮助f`)
     } else {
       msgx = await common.makeForwardMsg(e, [msg1, msg2, msg2_1_1, msg2_2, msg3, msg3_1, msg3_2, msg3_2_1, msg3_2_2, msg3_2_3, msg3_2_9, msg3_3, msg4, msg5, msg6], `派蒙绘图帮助`)
     }
@@ -227,21 +228,43 @@ export class paimonpainthelp extends plugin {
       data = [];
     }
     let input_match = e.msg.trim().match(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?(.*)$/)
+    // 如果有引用则使用引用
+    if (e.source) {
+      let reply;
+      if (e.isGroup) {
+        reply = (await e.group.getChatHistory(e.source.seq, 1))
+          .pop()?.message;
+      } else {
+        reply = (await e.friend.getChatHistory(e.source.time, 1))
+          .pop()?.message;
+      }
+      if (reply) {
+        for (let val of reply) {
+          if (val.type == "text") {
+            input_match[5] = val.text;
+            break;
+          }
+        }
+      }
+    }
+    // 如果有引用则使用引用-END
     if (!input_match[5]) {
       let msg1 = '派蒙绘图收藏：'
       let msg9 = `添加收藏请#派蒙绘图添加收藏xxxx`
       let msg10 = `删除收藏请#派蒙绘图删除收藏xxxx`
+      let msg11 = `也可以使用引用回复`
       let chunk = [];
       chunk.push(msg1);
       chunk = chunk.concat(data);
       let chunk_is_master = chunk
       chunk_is_master.push(msg9);
       chunk_is_master.push(msg10);
+      chunk_is_master.push(msg11);
       let msgx
       if (e.isMaster) msgx = await common.makeForwardMsg(e, chunk_is_master, `派蒙绘图收藏-m`);
       else msgx = await common.makeForwardMsg(e, chunk, `派蒙绘图收藏`);
       return e.reply(msgx, false)
-    } else if ((input_match[2] == '加入' || input_match[2] == '添加' || input_match[3] == '加入' || input_match[3] == '添加') && e.isMaster) {      
+    } else if ((input_match[2] == '加入' || input_match[2] == '添加' || input_match[3] == '加入' || input_match[3] == '添加') && e.isMaster) {
       data.push(input_match[5])
       writeYaml(collection_yaml, data)
       return e.reply(`收藏已添加：${input_match[5]}`)
