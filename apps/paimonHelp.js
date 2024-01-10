@@ -162,7 +162,7 @@ export class paimonpainthelp extends plugin {
   #?(取消|停止)(绘图|绘画)`
     let current_group_policy = await Parse.parsecfg(e)
     let msgx
-    if ((e.isMaster || current_group_policy.apMaster.indexOf(e.user_id)) && (input_v === 'pro' || input_v === 'm')) {
+    if ((e.isMaster || current_group_policy.apMaster.indexOf(e.user_id)) && (input_v === 'pro' || input_v === 'p' || input_v === 'm')) {
       msgx = await common.makeForwardMsg(e, [msg6, msg9, msg9_1], `#派蒙绘图帮助m`)
     } else if (input_v === 'f' || input_v === '分段' || input_v === '分') {
       msg1 = msg1.split(/\n/).filter(Boolean).map(item => item.trim())
