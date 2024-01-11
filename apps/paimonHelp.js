@@ -227,7 +227,7 @@ export class paimonpainthelp extends plugin {
     if (!data) {
       data = [];
     }
-    let input_match = e.msg.trim().replace(/\n/g, '').match(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?(.*)$/)
+    let input_match = e.msg.trim().match(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?(.*)$/)
     // 如果有引用则使用引用
     if (e.source) {
       if (input_match[5]) {
