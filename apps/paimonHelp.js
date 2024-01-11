@@ -227,7 +227,7 @@ export class paimonpainthelp extends plugin {
     if (!data) {
       data = [];
     }
-    let input_match = e.msg.trim().match(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?(.*)$/)
+    let input_match = e.msg.trim().replace(/(\r\n|\n|\r)/gm, '').match(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?(.*)$/)
     // 如果有引用则使用引用
     if (e.source) {
       if (input_match[5]) {
@@ -244,13 +244,16 @@ export class paimonpainthelp extends plugin {
       if (quote_reply) {
         for (let val of quote_reply) {
           if (val.type == "text") {
-            input_match[5] = val.text.trim().replace(/\n/g, '');
+            input_match[5] = val.text.trim().replace(/(\r\n|\n|\r)/gm, '');
             break;
           }
         }
       }
     }
     // 如果有引用则使用引用-END
+    if (!input_match) {
+      return e.reply(`请不要有换行符QAQ`) // text.match() 如果有换行符则返回null，如果text.match(/../m)多行匹配的话，也就匹配到第一行。
+    }
     if (!input_match[5]) {
       let msg1 = '派蒙绘图咒语收藏：'
       let msg9 = `添加收藏请#派蒙绘图添加收藏[文本]`
