@@ -35,7 +35,7 @@ export class paimonpainthelp extends plugin {
           permission: 'master'
         },
         {
-          reg: '^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?(.*)$',
+          reg: '^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?',
           fnc: 'paimon_paint_collection'
         },
       ]
@@ -217,7 +217,7 @@ export class paimonpainthelp extends plugin {
     return e.reply(`已经删除${users}个用户设置，所有用户将使用默认配置。\n#ap查看(全局)默认参数`, true)
   }
 
-  /** ^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?(.*)$ */
+  /** ^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)? */
   async paimon_paint_collection(e) {
     if (!fs.existsSync(collection_yaml)) {
       writeYaml(collection_yaml, [])
@@ -227,8 +227,8 @@ export class paimonpainthelp extends plugin {
     if (!data) {
       data = [];
     }
-    let input_match = e.msg.trim().match(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?(.*)$/m)
-    let input_replace = e.msg.replace(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?/, '')
+    let input_match = e.msg.match(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?/m)
+    let input_replace = e.msg.replace(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?/, '').trim()
     // 如果有引用则使用引用
     if (e.source) {
       if (input_replace) {
