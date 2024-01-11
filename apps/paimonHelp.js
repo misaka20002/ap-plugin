@@ -227,11 +227,12 @@ export class paimonpainthelp extends plugin {
     if (!data) {
       data = [];
     }
-    let input_match = e.msg.trim().replace(/(\r\n|\n|\r)/gm, '').match(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?(.*)$/)
+    let input_match = e.msg.trim().match(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?(.*)$/m)
+    let input_replace = e.msg.replace(/^#派蒙(绘|画)图(加入|添加|查看|删除)?收藏(加入|添加|查看|删除)?(帮助)?/, '')
     // 如果有引用则使用引用
     if (e.source) {
-      if (input_match[5]) {
-        return e.reply(`喵？请输入#派蒙绘图收藏帮助；人家不知道你要收藏的是“引用回复”还是：“${input_match[5]}”`)
+      if (input_replace) {
+        return e.reply(`喵？请输入#派蒙绘图收藏帮助；人家不知道你要收藏的是“引用回复”还是：“${input_replace}”`)
       }
       let quote_reply;
       if (e.isGroup) {
@@ -244,7 +245,7 @@ export class paimonpainthelp extends plugin {
       if (quote_reply) {
         for (let val of quote_reply) {
           if (val.type == "text") {
-            input_match[5] = val.text.trim().replace(/(\r\n|\n|\r)/gm, '');
+            input_replace = val.text.trim()
             break;
           }
         }
@@ -252,9 +253,9 @@ export class paimonpainthelp extends plugin {
     }
     // 如果有引用则使用引用-END
     if (!input_match) {
-      return e.reply(`请不要有换行符QAQ`) // text.match() 如果有换行符则返回null，如果text.match(/../m)多行匹配的话，也就匹配到第一行。
+      return e.reply(`.match()错误QAQ\n请输入#派蒙绘图收藏帮助`) // text.match() 如果有换行符则返回null，如果text.match(/../m)多行匹配的话，也就匹配到第一行。
     }
-    if (!input_match[5]) {
+    if (!input_replace) {
       let msg1 = '派蒙绘图咒语收藏：'
       let msg9 = `添加收藏请#派蒙绘图添加收藏[文本]`
       let msg10 = `删除收藏请#派蒙绘图删除收藏[文本]`
@@ -271,17 +272,17 @@ export class paimonpainthelp extends plugin {
       else msgx = await common.makeForwardMsg(e, chunk, `派蒙绘图收藏`);
       return e.reply(msgx, false)
     } else if ((input_match[2] == '加入' || input_match[2] == '添加' || input_match[3] == '加入' || input_match[3] == '添加') && e.isMaster) {
-      data.push(input_match[5])
+      data.push(input_replace)
       writeYaml(collection_yaml, data)
-      return e.reply(`收藏已添加：${input_match[5]}`)
+      return e.reply(`收藏已添加：${input_replace}`)
     } else if ((input_match[2] == '删除' || input_match[3] == '删除') && e.isMaster) {
-      let index = data.indexOf(input_match[5])
+      let index = data.indexOf(input_replace)
       if (index > -1) {
         data.splice(index, 1)
         writeYaml(collection_yaml, data)
-        return e.reply(`收藏已删除：${input_match[5]}`)
+        return e.reply(`收藏已删除：${input_replace}`)
       } else {
-        return e.reply(`收藏不存在：${input_match[5]}`)
+        return e.reply(`收藏不存在：${input_replace}`)
       }
     } else e.reply(`喵？请输入#派蒙绘图收藏帮助`)
   }
