@@ -128,7 +128,7 @@ export class paimonpainthelp extends plugin {
   #绘图一个小女孩在天空下绘画`
     let msg5 = `画师/作品风格：
   <lora:kantoku_v1:0.9>,
-  <lora:gape:0.7>,`
+  <lora:gape:0.6>,`
     let msg6 = `额外指令：
   #pt列表
   #lora列表
