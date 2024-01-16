@@ -85,7 +85,7 @@ export class paimonpainthelp extends plugin {
   #绘图<lora:Ryuuou no Oshigoto!_all:0.7>,charlotte izoard,
   #绘图<lora:Ryuuou no Oshigoto!_all:0.7>,mizukoshi mio,
 虚拟主播:
-  #绘图<lora:<lora:gura:1>,loli,`
+  #绘图<lora:gura:1>,loli,`
     let msg3_2 = `碧蓝档案：
   #绘图<lora:arona:1>,loli,
   #绘图<lora:takanashiHoshino:1>,loli,
@@ -128,7 +128,8 @@ export class paimonpainthelp extends plugin {
   #绘图一个小女孩在天空下绘画`
     let msg5 = `画师/作品风格：
   <lora:kantoku_v1:0.9>,
-  <lora:gape:0.6>,`
+  <lora:gape:0.6>,
+  <lora:HeartShapedBoob:1>,`
     let msg6 = `额外指令：
   #pt列表
   #lora列表
@@ -161,6 +162,9 @@ export class paimonpainthelp extends plugin {
   #ap(不)?屏蔽艾特
   #?(关闭|开启)匹配Lora
   #?(取消|停止)(绘图|绘画)`
+    let xl_msg1_1 = `XL-LORA
+  #绘图<lora:xxxxx:1>,
+  #绘图<lora:xxxxx:1>,loli,`
     let current_group_policy = await Parse.parsecfg(e)
     let msgx
     if ((e.isMaster || current_group_policy.apMaster.indexOf(e.user_id)) && (input_v === 'pro' || input_v === 'p' || input_v === 'm')) {
