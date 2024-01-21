@@ -1,8 +1,8 @@
 /*
  * @Author: 渔火Arcadia  https://github.com/yhArcadia
  * @Date: 2023-01-04 20:22:48
- * @LastEditors: 渔火Arcadia
- * @LastEditTime: 2023-01-12 21:16:40
+ * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
+ * @LastEditTime: 2024-01-21 16:21:19
  * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\tools.js
  * @Description: 一些小工具
  * 
@@ -40,7 +40,7 @@ export class Tools extends plugin {
                     fnc: 'image_template'
                 },
                 {
-                    reg: "^#?撤回$",
+                    reg: "^#?ap撤回$",
                     fnc: "WithDraw",
                 },
                 {
