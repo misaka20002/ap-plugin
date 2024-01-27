@@ -1,8 +1,8 @@
 /*
  * @Author: 渔火Arcadia  https://github.com/yhArcadia
  * @Date: 2022-12-18 23:34:10
- * @LastEditors: 苏沫柒 3146312184@qq.com
- * @LastEditTime: 2023-05-06 22:10:08
+ * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
+ * @LastEditTime: 2024-01-28 02:58:31
  * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\ai_painting.js
  * @Description: #绘图
  * 
@@ -79,7 +79,7 @@ export class Ai_Painting extends plugin {
     // 根据设置判断用户能否更改绘图参数
     if (!e.isMaster && current_group_policy.apMaster.indexOf(e.user_id) == -1) {
       if (!current_group_policy.allowed_user_more_parse) {
-        const pattern = /步数|×|Hires/i;
+        const pattern = /步数|&?steps=|(\d+)\s*[×*]\s*(\d+)|hires/i;
         const match = pattern.exec(e.msg);
         if (match) {
           CD.clearCD(e);
