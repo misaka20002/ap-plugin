@@ -1,8 +1,8 @@
 /*
  * @Author: 0卡苏打水
  * @Date: 2022-12-23 22:19:02
- * @LastEditors: 苏沫柒 3146312184@qq.com
- * @LastEditTime: 2023-05-07 16:47:41
+ * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
+ * @LastEditTime: 2024-02-23 22:41:30
  * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\appreciate.js
  * @Description: 鉴赏图片获取tags
  */
@@ -161,10 +161,10 @@ async function AppreciatePictures(e) {
         let setting = await Config.getSetting()
         let model = setting.appreciation.model
         if (setting.appreciation.useSD) {
-            await e.reply([segment.at(e.user_id), `少女使用标签器${model}鉴赏中~（*/∇＼*）`, true])
+            await e.reply([segment.at(e.user_id), `少女使用标签器${model}鉴赏中~（*/∇＼*）`], true)
             var msg = await requestAppreciateSD(base64)
         } else {
-            await e.reply([segment.at(e.user_id), '少女使用DeepDanbooru鉴赏中~（*/∇＼*）', true])
+            await e.reply([segment.at(e.user_id), '少女使用DeepDanbooru鉴赏中~（*/∇＼*）'], true)
             var msg = await requestAppreciate(base64)
         }
         if (!msg) {
@@ -175,7 +175,7 @@ async function AppreciatePictures(e) {
         let end = new Date().getTime();
         let time = ((end - start) / 1000).toFixed(2);
 
-        await e.reply([segment.at(e.user_id), `鉴赏用时：${time}秒`, true])
+        await e.reply([segment.at(e.user_id), `鉴赏用时：${time}秒`], true)
         e.reply(msg, true)
         if (figure_type_user[e.user_id]) {
             delete figure_type_user[e.user_id];
