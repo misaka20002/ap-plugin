@@ -13,7 +13,7 @@ let uping = false
  * 处理插件更新
  */
 export class update extends plugin {
-  constructor () {
+  constructor() {
     super({
       name: 'AP-更新插件',
       event: 'message',
@@ -31,7 +31,7 @@ export class update extends plugin {
    * rule - 更新ap
    * @returns
    */
-  async update () {
+  async update() {
     if (!this.e.isMaster) return false
 
     /** 检查是否正在更新中 */
@@ -55,7 +55,7 @@ export class update extends plugin {
     }
   }
 
-  restart () {
+  restart() {
     new Restart(this.e).restart()
   }
 
@@ -64,7 +64,7 @@ export class update extends plugin {
    * @param {boolean} isForce 是否为强制更新
    * @returns
    */
-  async runUpdate (isForce) {
+  async runUpdate(isForce) {
     let command = 'git -C ./plugins/ap-plugin/ pull --no-rebase'
     if (isForce) {
       command = `git -C ./plugins/ap-plugin/ checkout . && ${command}`
@@ -107,7 +107,7 @@ export class update extends plugin {
    * @param {string} plugin 插件名称
    * @returns
    */
-  async getLog (plugin = '') {
+  async getLog(plugin = '') {
     const cm = `cd ./plugins/${plugin}/ && git log  -20 --oneline --pretty=format:"%h||[%cd]  %s" --date=format:"%m-%d %H:%M"`
 
     let logAll
@@ -148,7 +148,7 @@ export class update extends plugin {
    * @param {string} plugin 插件名称
    * @returns
    */
-  async getcommitId (plugin = '') {
+  async getcommitId(plugin = '') {
     const cm = `git -C ./plugins/${plugin}/ rev-parse --short HEAD`
 
     let commitId = await execSync(cm, { encoding: 'utf-8' })
@@ -162,7 +162,7 @@ export class update extends plugin {
    * @param {string} plugin 插件名称
    * @returns
    */
-  async getTime (plugin = '') {
+  async getTime(plugin = '') {
     const cm = `cd ./plugins/${plugin}/ && git log -1 --oneline --pretty=format:"%cd" --date=format:"%m-%d %H:%M"`
 
     let time = ''
@@ -183,7 +183,7 @@ export class update extends plugin {
    * @param {string} end 最后一条信息
    * @returns
    */
-  async makeForwardMsg (title, msg, end) {
+  async makeForwardMsg(title, msg, end) {
     let nickname = Bot.nickname
     if (this.e.isGroup) {
       const info = await Bot.getGroupMemberInfo(this.e.group_id, Bot.uin)
@@ -219,20 +219,21 @@ export class update extends plugin {
       forwardMsg = await this.e.friend.makeForwardMsg(forwardMsg)
     }
 
-let dec = 'ap-plugin 更新日志'
+    let dec = 'ap-plugin 更新日志'
     /** 处理描述 */
-if (typeof (forwardMsg.data) === 'object') {
+    if (typeof (forwardMsg.data) === 'object') {
       let detail = forwardMsg.data?.meta?.detail
       if (detail) {
         detail.news = [{ text: dec }]
       }
     } else {
-    forwardMsg.data = forwardMsg.data
-      .replace(/\n/g, '')
-      .replace(/<title color="#777777" size="26">(.+?)<\/title>/g, '___')
-      .replace(/___+/, `<title color="#777777" size="26">${title}</title>`)
+      forwardMsg.data = forwardMsg.data
+        .replace(/\n/g, '')
+        .replace(/<title color="#777777" size="26">(.+?)<\/title>/g, '___')
+        .replace(/___+/, `<title color="#777777" size="26">${title}</title>`)
 
-    return forwardMsg
+      return forwardMsg
+    }
   }
 
   /**
@@ -241,7 +242,7 @@ if (typeof (forwardMsg.data) === 'object') {
    * @param {string} stdout
    * @returns
    */
-  async gitErr (err, stdout) {
+  async gitErr(err, stdout) {
     const msg = '更新失败！'
     const errMsg = err.toString()
     stdout = stdout.toString()
@@ -261,8 +262,8 @@ if (typeof (forwardMsg.data) === 'object') {
     if (errMsg.includes('be overwritten by merge')) {
       await this.reply(
         msg +
-          `存在冲突：\n${errMsg}\n` +
-          '请解决冲突后再更新，或者执行#强制更新，放弃本地修改'
+        `存在冲突：\n${errMsg}\n` +
+        '请解决冲突后再更新，或者执行#强制更新，放弃本地修改'
       )
       return
     }
@@ -285,7 +286,7 @@ if (typeof (forwardMsg.data) === 'object') {
    * @param {string} cmd git命令
    * @returns
    */
-  async execSync (cmd) {
+  async execSync(cmd) {
     return new Promise((resolve, reject) => {
       exec(cmd, { windowsHide: true }, (error, stdout, stderr) => {
         resolve({ error, stdout, stderr })
@@ -297,7 +298,7 @@ if (typeof (forwardMsg.data) === 'object') {
    * 检查git是否安装
    * @returns
    */
-  async checkGit () {
+  async checkGit() {
     const ret = await execSync('git --version', { encoding: 'utf-8' })
     if (!ret || !ret.includes('git version')) {
       await this.reply('请先安装git')
