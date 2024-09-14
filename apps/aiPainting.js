@@ -2,7 +2,7 @@
  * @Author: 渔火Arcadia  https://github.com/yhArcadia
  * @Date: 2022-12-18 23:34:10
  * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
- * @LastEditTime: 2024-09-14 22:16:13
+ * @LastEditTime: 2024-09-14 22:54:36
  * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\ai_painting.js
  * @Description: #绘图
  * 
@@ -462,8 +462,8 @@ export class Ai_Painting extends plugin {
       }
 
       remaining_tasks = 0;
-      return true
     }
+    return true
   }
 
   async again(e) {
