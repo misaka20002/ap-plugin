@@ -2,7 +2,7 @@
  * @Author: 渔火Arcadia  https://github.com/yhArcadia
  * @Date: 2022-12-18 23:34:10
  * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
- * @LastEditTime: 2024-01-28 02:58:31
+ * @LastEditTime: 2024-09-14 22:16:13
  * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\ai_painting.js
  * @Description: #绘图
  * 
@@ -61,21 +61,28 @@ export class Ai_Painting extends plugin {
 
     // 判断功能是否开启
     if (!e.isMaster && current_group_policy.apMaster.indexOf(e.user_id) == -1)
-      if (!current_group_policy.enable) return await e.reply("AI绘图功能未开启", false, { recallMsg: 15 });
+      if (!current_group_policy.enable) {
+        await e.reply("AI绘图功能未开启", false, { recallMsg: 15 });
+        return false
+      }
 
 
     // 判断是否禁用用户
     if (current_group_policy.isBan)
-      if (current_group_policy.prohibitedUserList.indexOf(e.user_id) != -1)
-        return await e.reply(["你的账号因违规使用屏蔽词绘图已被封禁或被管理员封禁"], true);
+      if (current_group_policy.prohibitedUserList.indexOf(e.user_id) != -1) {
+        await e.reply(["你的账号因违规使用屏蔽词绘图已被封禁或被管理员封禁"], true);
+        return false
+      }
 
 
     // 判断cd
     let cdCheck = await CD.checkCD(e, current_group_policy)
-    if (cdCheck)
-      return await e.reply(cdCheck, true, { recallMsg: 15 });
-    
-    
+    if (cdCheck) {
+      await e.reply(cdCheck, true, { recallMsg: 15 });
+      return false
+    }
+
+
     // 根据设置判断用户能否更改绘图参数
     if (!e.isMaster && current_group_policy.apMaster.indexOf(e.user_id) == -1) {
       if (!current_group_policy.allowed_user_more_parse) {
@@ -83,7 +90,8 @@ export class Ai_Painting extends plugin {
         const match = pattern.exec(e.msg);
         if (match) {
           CD.clearCD(e);
-          return await e.reply("部分绘图参数已锁定，有需要请找管理员", false, { recallMsg: 15 });
+          await e.reply("部分绘图参数已锁定，有需要请找管理员", false, { recallMsg: 15 });
+          return false;
         }
       }
     }
@@ -93,7 +101,8 @@ export class Ai_Painting extends plugin {
     let paramdata = await Parse.mergeParam(e)
     if (paramdata.code) {
       CD.clearCD(e)
-      return await e.reply(paramdata.msg, true, { recallMsg: 15 })
+      await e.reply(paramdata.msg, true, { recallMsg: 15 })
+      return false;
     }
     // Log.i('绘图参数：\n', paramdata)                       /*  */
 
@@ -102,15 +111,17 @@ export class Ai_Painting extends plugin {
     if (!e.isMaster && current_group_policy.apMaster.indexOf(e.user_id) == -1) {
       if (paramdata.num > 1 && !current_group_policy.allowed_paint_more) {
         CD.clearCD(e);
-        return await e.reply("只可以绘制1张图哦，有需要请找管理员", false, { recallMsg: 15 })
+        await e.reply("只可以绘制1张图哦，有需要请找管理员", false, { recallMsg: 15 })
+        return false
       }
     }
-    
+
     // 当不允许绘多图时，禁止重复发起绘图
     if (!e.isMaster && current_group_policy.apMaster.indexOf(e.user_id) == -1) {
       if (!current_group_policy.allowed_paint_more && remaining_tasks) {
         CD.clearCD(e);
-        return await e.reply(`当前已有绘图任务进行中，请稍候`, true);
+        await e.reply(`当前已有绘图任务进行中，请稍候`, true);
+        return false
       }
     }
 
@@ -118,7 +129,8 @@ export class Ai_Painting extends plugin {
     // 禁止重复发起批量绘图
     if (paramdata.num > 1 && remaining_tasks) {
       CD.clearCD(e);
-      return await e.reply(`当前已有批量绘图任务进行中，剩余${remaining_tasks}张图，请稍候`, true);
+      await e.reply(`当前已有批量绘图任务进行中，剩余${remaining_tasks}张图，请稍候`, true);
+      return false
     }
 
 
@@ -130,12 +142,15 @@ export class Ai_Painting extends plugin {
     if (remainingTimes < 0) remainingTimes = 0;
     if (usageLimit) {
       // 剩余可用次数
-      if (remainingTimes == 0)
-        return await e.reply(`你今天已经绘制过${used}张图片了，请明天再来~`);
+      if (remainingTimes == 0) {
+        await e.reply(`你今天已经绘制过${used}张图片了，请明天再来~`);
+        return false
+      }
       // 请求张数大于剩余次数
       if (paramdata.num > remainingTimes) {
         CD.clearCD(e);
-        return await e.reply(["今日剩余可用次数不足，剩余次数：", `${remainingTimes}`, "次"], true, { recallMsg: 15 });
+        await e.reply(["今日剩余可用次数不足，剩余次数：", `${remainingTimes}`, "次"], true, { recallMsg: 15 });
+        return false
       }
     }
 
@@ -147,7 +162,8 @@ export class Ai_Painting extends plugin {
       paramdata = await Parse.transtag(paramdata)
       if (paramdata.param.tags == '寄' || paramdata.param.ntags == '寄') {
         CD.clearCD(e)
-        return await e.reply("翻译接口寄了，请尝试避免使用中文字符")
+        await e.reply("翻译接口寄了，请尝试避免使用中文字符")
+        return false
       }
     }
 
@@ -190,15 +206,16 @@ export class Ai_Painting extends plugin {
     } catch (err) {
       Log.w(err)
     }
-    
-    
+
+
     // 检测屏蔽词
     let prohibitedWords = []
     if (!e.isMaster && current_group_policy.apMaster.indexOf(e.user_id) == -1) {
       [prohibitedWords, paramdata] = await Parse.checkWords(paramdata)
       if (prohibitedWords.length && current_group_policy.isBan) {
         Policy.banUser(e.user_id)// 封禁用户
-        return await e.reply(`tags中包含屏蔽词：${prohibitedWords.join('、')}\n您的账号已被禁止使用绘图功能。如属误封，请截图您的此条消息，然后联系机器人主人解封~`, true)
+        await e.reply(`tags中包含屏蔽词：${prohibitedWords.join('、')}\n您的账号已被禁止使用绘图功能。如属误封，请截图您的此条消息，然后联系机器人主人解封~`, true)
+        return false
       }
     }
 
@@ -220,7 +237,8 @@ export class Ai_Painting extends plugin {
       const end = new Date();
       if (res.code) {// 收到报错蚂，清除CD，发送报错信息
         CD.clearCD(e)
-        return await e.reply(res.description, true)
+        await e.reply(res.description, true)
+        return false
       }
 
       // logger.warn(res);                                              /* */
@@ -232,7 +250,7 @@ export class Ai_Painting extends plugin {
         if (current_group_policy.isTellMaster) {
           let msg = [
             "【aiPainting】不合规图片：\n",
-            {...segment.image(`base64://${res.base64}`), origin: true},
+            { ...segment.image(`base64://${res.base64}`), origin: true },
             `\n来自${e.isGroup ? `群【${(await Bot.getGroupInfo(e.group_id)).group_name}】(${e.group_id})的` : ""}用户【${await getuserName(e)}】(${e.user_id})`,
             `\n正面：${res.info.prompt}`,
             `\n反面：${res.info.negative_prompt}`,
@@ -243,13 +261,13 @@ export class Ai_Painting extends plugin {
           await e.reply(["图片不合规，不予展示", `\nMD5：${res.md5}`], true)
         } else if (setting.nsfw_show == 2) {// 展示图链二维码
           let qrcode = await Pictools.text_to_qrcode(`https://c2cpicdw.qpic.cn/offpic_new/0//0000000000-0000000000-${res.md5}/0?term=2`)
-          await e.reply(["图片不合规，不予展示\n",segment.image(`base64://${qrcode.replace('data:image/png;base64,', '')}`)], true)
+          await e.reply(["图片不合规，不予展示\n", segment.image(`base64://${qrcode.replace('data:image/png;base64,', '')}`)], true)
         } else if (setting.nsfw_show == 3) {// 展示图床链接
           let img = Buffer.from(res.base64, 'base64')
           let url = await Pictools.upload(img)
           await e.reply(["图片不合规，不予展示\n", url], true)
         } else if (setting.nsfw_show == 4) {// 展示卡片
-            await e.reply(segment.share(`https://c2cpicdw.qpic.cn/offpic_new/0//0000000000-0000000000-${res.md5}/0?term=2`, '图片不合规，不予展示', 'https://i.postimg.cc/wBSf50bC/1.png', '啾咪啊，这里有人涩涩啊！！！'))
+          await e.reply(segment.share(`https://c2cpicdw.qpic.cn/offpic_new/0//0000000000-0000000000-${res.md5}/0?term=2`, '图片不合规，不予展示', 'https://i.postimg.cc/wBSf50bC/1.png', '啾咪啊，这里有人涩涩啊！！！'))
         }
         this.addUsage(e.user_id, 1);
         return true
@@ -257,10 +275,10 @@ export class Ai_Painting extends plugin {
 
       let concise_mode = setting.concise_mode
       const elapsed = (end - start) / 1000;
-      
+
       // 如果简洁模式开启，则只发送图片
       if (concise_mode) {
-        e.reply([segment.at(e.user_id), {...segment.image(`base64://${res.base64}`), origin: true}, `生成总耗时${elapsed.toFixed(2)}秒`] , false, { recallMsg: current_group_policy.isRecall ? current_group_policy.recallDelay : 0 })
+        e.reply([segment.at(e.user_id), { ...segment.image(`base64://${res.base64}`), origin: true }, `生成总耗时${elapsed.toFixed(2)}秒`], false, { recallMsg: current_group_policy.isRecall ? current_group_policy.recallDelay : 0 })
         this.addUsage(e.user_id, 1)
         return true
       } else {
@@ -282,7 +300,7 @@ export class Ai_Painting extends plugin {
         ].filter(Boolean).join('\n');
         let msg = [
           usageLimit ? `今日剩余${remainingTimes - 1}次\n` : "",
-          {...segment.image(`base64://${res.base64}`), origin: true},
+          { ...segment.image(`base64://${res.base64}`), origin: true },
         ]
         // Log.i(info.length)
         let max_fold = setting.max_fold
@@ -355,7 +373,8 @@ export class Ai_Painting extends plugin {
         else if (res.code) {
           CD.clearCD(e)
           remaining_tasks = 0
-          return await e.reply(res.description, true)
+          await e.reply(res.description, true)
+          return false
         }
 
         // 图片违规时，通知主人
@@ -363,7 +382,7 @@ export class Ai_Painting extends plugin {
           if (current_group_policy.isTellMaster) {
             let msg = [
               "【aiPainting】不合规图片：\n",
-              {...segment.image(`base64://${res.base64}`), origin: true},
+              { ...segment.image(`base64://${res.base64}`), origin: true },
               `\n来自${e.isGroup ? `群【${(await Bot.getGroupInfo(e.group_id)).group_name}】(${e.group_id})的` : ""}用户【${await getuserName(e)}】(${e.user_id})`,
               `\n正面：${res.info.prompt}`,
               `\n反面：${res.info.negative_prompt}`,
@@ -382,7 +401,7 @@ export class Ai_Painting extends plugin {
 
         // 存入合并消息等待发送
         data_msg.push({
-          message: [{...segment.image(`base64://${res.base64}`), origin: true}, paramdata.param.seed == -1 ? `\n随机种子：${res.seed}` : ''],
+          message: [{ ...segment.image(`base64://${res.base64}`), origin: true }, paramdata.param.seed == -1 ? `\n随机种子：${res.seed}` : ''],
           nickname: Bot.nickname,
           user_id: Bot.uin,
         });
