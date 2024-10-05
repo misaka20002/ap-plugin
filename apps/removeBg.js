@@ -1,8 +1,8 @@
 /*
  * @Author: 0卡苏打水
  * @Date: 2023-01-04 19:44:45
- * @LastEditors: 渔火Arcadia
- * @LastEditTime: 2023-01-05 16:34:04
+ * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
+ * @LastEditTime: 2024-10-05 13:10:11
  * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\remove_bg.js
  * @Description: 去除图片背景
  * 
@@ -74,17 +74,23 @@ export class RemoveBackground extends plugin {
             let base64 = Buffer.from(img.data, 'binary')
                 .toString('base64');
             let hash = await getHash(e);
-            let response = await axios.post(
-                API + `push/`, {
-                'fn_index': 1,
-                'data': [
-                    'data:image/jpeg;base64,' + base64
-                ],
-                'action': 'predict',
-                'session_hash': hash
-            },
+            let response = null
+            response = await axios.post(
+                API + `push/`,
+                {
+                    'fn_index': 1,
+                    'data': [
+                        'data:image/jpeg;base64,' + base64
+                    ],
+                    'action': 'predict',
+                    'session_hash': hash
+                },
+                {
+                    timeout: 60000 // 设置超时时间为60秒
+                }
             )
             let statushash = response.data.hash
+            await new Promise((resolve) => setTimeout(resolve, 1000));
             let res = await axios.post(
                 API + 'status/',
                 {
@@ -92,7 +98,8 @@ export class RemoveBackground extends plugin {
                 },
             )
             let status = res.data.status
-            while (status != 'COMPLETE') {
+            while (status == 'PENDING') {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
                 res = await axios.post(
                     API + 'status/',
                     {
@@ -100,14 +107,16 @@ export class RemoveBackground extends plugin {
                     },
                 )
                 status = res.data.status
-                await new Promise((resolve) => setTimeout(resolve, 1000));
+            }
+            if (status != 'COMPLETE') {
+                logger.error("[AP-抠图]错误：\n", res.data)
             }
             let end = new Date()
             let time = ((end.getTime() - start.getTime()) / 1000).toFixed(2)
             e.reply(`耗时${time}s，正在发送结果...`, false, { at: true, recallMsg: 5 })
             res.data.data.data[1] = res.data.data.data[1].replace(/^data:image\/png;base64,/, "")
             let buffer = Buffer.from(res.data.data.data[1], 'base64')
-            await e.reply({...segment.image(buffer), origin: true}, true)
+            await e.reply({ ...segment.image(buffer), origin: true }, true)
             delete FiguretypeUser[e.user_id];
             return true
         } else {
