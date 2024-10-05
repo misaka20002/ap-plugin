@@ -96,6 +96,9 @@ export class RemoveBackground extends plugin {
                 {
                     'hash': statushash
                 },
+                {
+                    timeout: 10000 // 设置超时时间为10秒
+                }
             )
             let status = res.data.status
             while (status == 'PENDING') {
@@ -105,6 +108,9 @@ export class RemoveBackground extends plugin {
                     {
                         'hash': statushash
                     },
+                    {
+                        timeout: 10000 // 设置超时时间为10秒
+                    }
                 )
                 status = res.data.status
             }
