@@ -2,7 +2,7 @@
  * @Author: 0卡苏打水
  * @Date: 2023-01-04 19:44:45
  * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
- * @LastEditTime: 2024-10-05 13:10:11
+ * @LastEditTime: 2024-10-06 00:58:48
  * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\remove_bg.js
  * @Description: 去除图片背景
  * 
@@ -101,7 +101,8 @@ export class RemoveBackground extends plugin {
                 }
             )
             let status = res.data.status
-            while (status == 'PENDING') {
+            let count_RB_times = 0;
+            while (status == 'PENDING' && count_RB_times < 600) {
                 await new Promise((resolve) => setTimeout(resolve, 1000));
                 res = await axios.post(
                     API + 'status/',
@@ -113,9 +114,13 @@ export class RemoveBackground extends plugin {
                     }
                 )
                 status = res.data.status
+                count_RB_times++;
             }
             if (status != 'COMPLETE') {
-                logger.error("[AP-抠图]错误：\n", res.data)
+                if (count_RB_times >= 600)
+                    logger.error("[AP-抠图]错误：等待超时10分钟。")
+                else
+                    logger.error("[AP-抠图]错误：\n", res.data)
             }
             let end = new Date()
             let time = ((end.getTime() - start.getTime()) / 1000).toFixed(2)
