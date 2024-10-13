@@ -2,7 +2,7 @@
  * @Author: 渔火Arcadia  https://github.com/yhArcadia
  * @Date: 2022-12-18 23:34:10
  * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
- * @LastEditTime: 2024-09-14 22:54:36
+ * @LastEditTime: 2024-10-14 01:51:54
  * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\ai_painting.js
  * @Description: #绘图
  * 
@@ -18,6 +18,7 @@ import { Parse, CD, Policy, Draw } from '../components/apidx.js';
 import Config from '../components/ai_painting/config.js';
 import _ from 'lodash';
 import Pictools from '../utils/pic_tools.js';
+const isTrss = Array.isArray(Bot.uin)
 
 // 批量绘图的剩余张数
 let remaining_tasks = 0;
@@ -225,7 +226,7 @@ export class Ai_Painting extends plugin {
       paramdata.param.base64 ? "以图生图" : "绘制", "中，请稍候......",
       paramdata.num > 1 ? "绘制多张图片所需时间较长，请耐心等待" : "",
       remaining_tasks ? "\n\n※当前有进行中的批量绘图任务，您可能需要等待较长时间，请见谅" : "",
-    ], false, { at: true, recallMsg: 20 });
+    ], false, { at: true, recallMsg: isTrss ? 0 : 20 });
 
 
 
