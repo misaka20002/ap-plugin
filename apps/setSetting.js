@@ -32,14 +32,6 @@ export class setSetting extends plugin {
         },
         {
           /** 命令正则匹配 */
-          reg: "^#ap(开启|关闭)简洁模式$",
-          /** 执行方法 */
-          fnc: "setSimple",
-          /** 主人权限 */
-          permission: "master",
-        },
-        {
-          /** 命令正则匹配 */
           reg: "^#ap设置合并字数.*",
           /** 执行方法 */
           fnc: "setMerge",
@@ -139,19 +131,6 @@ export class setSetting extends plugin {
     Config.setSetting(setting);
     e.reply(
       `全局正面已设置为：${positivePrompt}，每次绘画时会自动使用该正面Prompt`,
-    );
-    return true;
-  }
-
-  async setSimple(e) {
-    const setting = await Config.getSetting();
-    const simple = e.msg.replace("#ap", "").replace("简洁模式", "").trim();
-    setting.concise_mode = simple == "开启";
-    Config.setSetting(setting);
-    e.reply(
-      `简洁模式已${simple}，单次绘图将${
-        simple == "开启" ? "不" : ""
-      }显示详细信息`,
     );
     return true;
   }

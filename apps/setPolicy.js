@@ -1,8 +1,8 @@
 /*
  * @Author: 渔火Arcadia  https://github.com/yhArcadia
  * @Date: 2022-12-25 16:57:47
- * @LastEditors: 渔火Arcadia
- * @LastEditTime: 2023-01-11 14:29:43
+ * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
+ * @LastEditTime: 2024-10-17 11:35:31
  * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\set_policy.js
  * @Description: 设置ap策略
  * 
@@ -270,6 +270,7 @@ export class setpolicy extends plugin {
         let regenable = /#ap(全局)?设置(\d{5,11}|私聊)?(开启|关闭)$/
         let regallowed_paint_more = /#ap(全局)?设置(\d{5,11}|私聊)?绘多图(开启|关闭)$/
         let regallowed_user_more_parse = /#ap(全局)?设置(\d{5,11}|私聊)?更改绘图参数(开启|关闭)$/
+        let reg_simple_mode = /#ap(全局)?设置(\d{5,11}|私聊)?简洁模式(开启|关闭)$/
         let regJH = /#ap(全局)?设置(\d{5,11}|私聊)?审核(开启|关闭)$/
         let regisRecall = /#ap(全局)?设置(\d{5,11}|私聊)?撤回(开启|关闭)$/
         let regisBan = /#ap(全局)?设置(\d{5,11}|私聊)?封禁(开启|关闭)$/
@@ -278,10 +279,11 @@ export class setpolicy extends plugin {
         let regrecallDelay = /#ap(全局)?设置(\d{5,11}|私聊)?撤回时间(\d{1,5})$/
         let regusageLimit = /#ap(全局)?设置(\d{5,11}|私聊)?次数(\d{1,5}|无限)$/
 
-        let [enable, allowed_paint_more, allowed_user_more_parse, JH, gcd, pcd, isRecall, recallDelay, isBan, usageLimit] = [
+        let [enable, allowed_paint_more, allowed_user_more_parse, simple_mode, JH, gcd, pcd, isRecall, recallDelay, isBan, usageLimit] = [
             regenable.exec(e.msg),
             regallowed_paint_more.exec(e.msg),
             regallowed_user_more_parse.exec(e.msg),
+            reg_simple_mode.exec(e.msg),
             regJH.exec(e.msg),
             reggcd.exec(e.msg),
             regpcd.exec(e.msg),
@@ -314,6 +316,14 @@ export class setpolicy extends plugin {
             let isopen = true
             if (allowed_user_more_parse[3] == '关闭') isopen = false
             this.gp_Property(gid, 'allowed_user_more_parse', isopen)
+        }
+        else if (simple_mode) {
+            gid = simple_mode[2] || gid || e.group_id
+            if (simple_mode[1] == '全局') gid = 'global'
+            if (gid == '私聊') gid = 'private'
+            let isopen = true
+            if (simple_mode[3] == '关闭') isopen = false
+            this.gp_Property(gid, 'simple_mode', isopen)
         }
         else if (JH) {
             gid = JH[2] || gid || e.group_id
@@ -574,9 +584,10 @@ export class setpolicy extends plugin {
                                         : key == 'usageLimit' ? "每人每日用量限制"
                                             : key == 'allowed_paint_more' ? "允许绘多图"
                                                 : key == 'allowed_user_more_parse' ? "允许用户更改绘图参数"
-                                                    : '???',
+                                                    : key == 'simple_mode' ? "简洁模式"
+                                                        : '???',
             `已设为`,
-            (key == 'enable' || key == 'allowed_paint_more' || key == 'allowed_user_more_parse' || key == 'JH' || key == 'isRecall' || key == 'isBan') ? (value ? '开启' : '关闭')
+            (key == 'enable' || key == 'allowed_paint_more' || key == 'allowed_user_more_parse' || key == 'simple_mode' || key == 'JH' || key == 'isRecall' || key == 'isBan') ? (value ? '开启' : '关闭')
                 : (key == 'gcd' || key == 'pcd' || key == 'recallDelay') ? `${value}秒`
                     : key == 'usageLimit' ? (value ? `${value}张` : '无限制')
                         : '???'

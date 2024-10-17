@@ -1,8 +1,8 @@
 /*
  * @Author: 渔火Arcadia  https://github.com/yhArcadia
  * @Date: 2022-12-19 12:02:16
- * @LastEditors: 苏沫柒 3146312184@qq.com
- * @LastEditTime: 2023-05-07 10:36:53
+ * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
+ * @LastEditTime: 2024-10-17 11:37:07
  * @FilePath: \Yunzai-Bot\plugins\ap-plugin\components\ai_painting\parse.js
  * @Description: 解析整合特定内容
  *
@@ -73,6 +73,10 @@ class Parse {
         gid in policy.gp && "allowed_user_more_parse" in policy.gp[gid]
           ? policy.gp[gid].allowed_user_more_parse
           : policy.gp.global.allowed_user_more_parse,
+      simple_mode:
+        gid in policy.gp && "simple_mode" in policy.gp[gid]
+          ? policy.gp[gid].simple_mode
+          : policy.gp.global.simple_mode,
       isDownload: policy.isDownload,
       isAllowSearchLocalImg: policy.isAllowSearchLocalImg,
     };

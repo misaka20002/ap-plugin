@@ -2,7 +2,7 @@
  * @Author: 渔火Arcadia  https://github.com/yhArcadia
  * @Date: 2022-12-18 23:34:10
  * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
- * @LastEditTime: 2024-10-14 01:51:54
+ * @LastEditTime: 2024-10-17 11:44:44
  * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\ai_painting.js
  * @Description: #绘图
  * 
@@ -220,13 +220,14 @@ export class Ai_Painting extends plugin {
       }
     }
 
-
-    e.reply([
-      prohibitedWords.length ? `已去除关键词中包含的屏蔽词：${prohibitedWords.join('、')}\n已收到绘图请求，正在` : "已收到绘图请求，正在",
-      paramdata.param.base64 ? "以图生图" : "绘制", "中，请稍候......",
-      paramdata.num > 1 ? "绘制多张图片所需时间较长，请耐心等待" : "",
-      remaining_tasks ? "\n\n※当前有进行中的批量绘图任务，您可能需要等待较长时间，请见谅" : "",
-    ], false, { at: true, recallMsg: isTrss ? 0 : 20 });
+    // 简洁模式
+    if (!current_group_policy.simple_mode)
+      e.reply([
+        prohibitedWords.length ? `已去除关键词中包含的屏蔽词：${prohibitedWords.join('、')}\n已收到绘图请求，正在` : "已收到绘图请求，正在",
+        paramdata.param.base64 ? "以图生图" : "绘制", "中，请稍候......",
+        paramdata.num > 1 ? "绘制多张图片所需时间较长，请耐心等待" : "",
+        remaining_tasks ? "\n\n※当前有进行中的批量绘图任务，您可能需要等待较长时间，请见谅" : "",
+      ], false, { at: true, recallMsg: isTrss ? 0 : 20 });
 
 
 
@@ -274,12 +275,12 @@ export class Ai_Painting extends plugin {
         return true
       }
 
-      let concise_mode = setting.concise_mode
       const elapsed = (end - start) / 1000;
 
       // 如果简洁模式开启，则只发送图片
-      if (concise_mode) {
-        e.reply([segment.at(e.user_id), { ...segment.image(`base64://${res.base64}`), origin: true }, `生成总耗时${elapsed.toFixed(2)}秒`], false, { recallMsg: current_group_policy.isRecall ? current_group_policy.recallDelay : 0 })
+      if (current_group_policy.simple_mode) {
+        // e.reply([segment.at(e.user_id), { ...segment.image(`base64://${res.base64}`), origin: true }, `生成总耗时${elapsed.toFixed(2)}秒`], false, { recallMsg: current_group_policy.isRecall ? current_group_policy.recallDelay : 0 })
+        e.reply({ ...segment.image(`base64://${res.base64}`), origin: true }, false, { recallMsg: current_group_policy.isRecall ? current_group_policy.recallDelay : 0 })
         this.addUsage(e.user_id, 1)
         return true
       } else {
