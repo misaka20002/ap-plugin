@@ -2,7 +2,7 @@
  * @Author: 渔火Arcadia  https://github.com/yhArcadia
  * @Date: 2022-12-25 16:57:47
  * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
- * @LastEditTime: 2024-10-17 11:35:31
+ * @LastEditTime: 2024-10-17 12:15:33
  * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\set_policy.js
  * @Description: 设置ap策略
  * 
@@ -68,7 +68,7 @@ export class setpolicy extends plugin {
                     // permission: "master",
                 },
                 {
-                    reg: "^#ap(全局)?设置(\\d{5,11}|私聊)?(((绘多图|更改绘图参数|审核|撤回|封禁)?(开启|关闭))|((((群聊|个人)(cd|CD))|撤回时间|次数)(\\d{1,5}|无限)))$",
+                    reg: "^#ap(全局)?设置(\\d{5,11}|私聊)?(((绘多图|更改绘图参数|简洁模式|审核|撤回|封禁)?(开启|关闭))|((((群聊|个人)(cd|CD))|撤回时间|次数)(\\d{1,5}|无限)))$",
                     fnc: "setgp",
                     // permission: "master",
                 },
