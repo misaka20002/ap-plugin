@@ -16,7 +16,7 @@ import Translate from "../../utils/translate.js";
 import Log from "../../utils/Log.js";
 
 class Parse {
-  constructor() {}
+  constructor() { }
 
   /** 获取指定群的ap策略
    * @return {object} gpolicy：此群的ap策略
@@ -65,6 +65,14 @@ class Parse {
         gid in policy.gp && "usageLimit" in policy.gp[gid]
           ? policy.gp[gid].usageLimit
           : policy.gp.global.usageLimit,
+      allowed_paint_more:
+        gid in policy.gp && "allowed_paint_more" in policy.gp[gid]
+          ? policy.gp[gid].allowed_paint_more
+          : policy.gp.global.allowed_paint_more,
+      allowed_user_more_parse:
+        gid in policy.gp && "allowed_user_more_parse" in policy.gp[gid]
+          ? policy.gp[gid].allowed_user_more_parse
+          : policy.gp.global.allowed_user_more_parse,
       isDownload: policy.isDownload,
       isAllowSearchLocalImg: policy.isAllowSearchLocalImg,
     };
@@ -200,16 +208,16 @@ class Parse {
     const shape = reg.Landscape.test(msg)
       ? "Landscape"
       : reg.Square.test(msg)
-      ? "Square"
-      : "";
+        ? "Square"
+        : "";
     const steps = reg.steps.test(msg) ? reg.steps.exec(msg)[2] : NaN;
     let scale = reg.scale.test(msg) ? reg.scale.exec(msg)[2] : NaN;
     const strength = reg.strength.test(msg) ? reg.strength.exec(msg)[2] : NaN;
     let seed = reg.seed.test(msg)
       ? reg.seed.exec(msg)[2]
       : num <= 1
-      ? `${Math.floor(Math.random() * 2147483647)}`
-      : NaN;
+        ? `${Math.floor(Math.random() * 2147483647)}`
+        : NaN;
     const specifyAPI = reg.specifyAPI.test(msg)
       ? reg.specifyAPI.exec(msg)[1]
       : NaN;
