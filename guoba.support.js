@@ -289,6 +289,12 @@ export function supportGuoba() {
           component: "Switch",
         },
         {
+          field: "policy.gp.global.simple_mode",
+          label: "全局启用简洁模式",
+          bottomHelpMessage: "默认关闭，开启后将仅发送图片",
+          component: "Switch",
+        },
+        {
           field: "policy.gp.global.allowed_user_more_parse",
           label: "全局启用允许用户更改绘图参数",
           bottomHelpMessage: "默认关闭，开启后允许用户更改绘图参数",
