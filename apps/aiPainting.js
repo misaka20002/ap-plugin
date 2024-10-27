@@ -53,8 +53,9 @@ export class Ai_Painting extends plugin {
     // 判断功能是否开启
     if (!e.isMaster && current_group_policy.apMaster.indexOf(e.user_id) == -1)
       if (!current_group_policy.enable) {
-        await e.reply("AI绘图功能未开启", false, { recallMsg: isTrss ? 0 : 20 });
+        logger.info("[AP]SD绘图功能未开启")
         return false
+        await e.reply("SD绘图功能未开启", false, { recallMsg: isTrss ? 0 : 20 });
       }
 
 
