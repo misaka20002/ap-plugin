@@ -1,14 +1,3 @@
-/*
- * @Author: 渔火Arcadia  https://github.com/yhArcadia
- * @Date: 2022-12-25 16:57:47
- * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
- * @LastEditTime: 2024-10-17 12:15:33
- * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\set_policy.js
- * @Description: 设置ap策略
- * 
- * Copyright (c) 2022 by 渔火Arcadia 1761869682@qq.com, All Rights Reserved. 
- */
-
 import plugin from '../../../lib/plugins/plugin.js';
 import Config from '../components/ai_painting/config.js'
 import Log from '../utils/Log.js';

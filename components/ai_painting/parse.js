@@ -1,13 +1,3 @@
-/*
- * @Author: 渔火Arcadia  https://github.com/yhArcadia
- * @Date: 2022-12-19 12:02:16
- * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
- * @LastEditTime: 2024-10-17 11:37:07
- * @FilePath: \Yunzai-Bot\plugins\ap-plugin\components\ai_painting\parse.js
- * @Description: 解析整合特定内容
- *
- * Copyright (c) 2022 by 渔火Arcadia 1761869682@qq.com, All Rights Reserved.
- */
 import Config from "./config.js";
 import { parseImg, chNum2Num, sleep } from "../../utils/utils.js";
 import { Pictools } from "../../utils/utidx.js";

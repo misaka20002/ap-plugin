@@ -1,14 +1,3 @@
-/*
- * @Author: 渔火Arcadia  https://github.com/yhArcadia
- * @Date: 2023-01-04 20:22:48
- * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
- * @LastEditTime: 2024-01-22 20:05:39
- * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\tools.js
- * @Description: 一些小工具
- * 
- * Copyright (c) 2023 by 渔火Arcadia 1761869682@qq.com, All Rights Reserved. 
- */
-
 import plugin from '../../../lib/plugins/plugin.js'
 import { parseImg } from '../utils/utils.js';
 import cfg from "../../../lib/config/config.js";

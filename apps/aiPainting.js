@@ -1,13 +1,3 @@
-/*
- * @Author: 渔火Arcadia  https://github.com/yhArcadia
- * @Date: 2022-12-18 23:34:10
- * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
- * @LastEditTime: 2024-10-17 11:44:44
- * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\ai_painting.js
- * @Description: #绘图
- * 
- * Copyright (c) 2022 by 渔火Arcadia 1761869682@qq.com, All Rights Reserved. 
- */
 import moment from 'moment';
 import common from '../../../lib/common/common.js'
 import cfg from '../../../lib/config/config.js'
@@ -63,7 +53,7 @@ export class Ai_Painting extends plugin {
     // 判断功能是否开启
     if (!e.isMaster && current_group_policy.apMaster.indexOf(e.user_id) == -1)
       if (!current_group_policy.enable) {
-        await e.reply("AI绘图功能未开启", false, { recallMsg: 15 });
+        await e.reply("AI绘图功能未开启", false, { recallMsg: isTrss ? 0 : 20 });
         return false
       }
 
@@ -79,7 +69,7 @@ export class Ai_Painting extends plugin {
     // 判断cd
     let cdCheck = await CD.checkCD(e, current_group_policy)
     if (cdCheck) {
-      await e.reply(cdCheck, true, { recallMsg: 15 });
+      await e.reply(cdCheck, true, { recallMsg: isTrss ? 0 : 20 });
       return false
     }
 
@@ -91,7 +81,7 @@ export class Ai_Painting extends plugin {
         const match = pattern.exec(e.msg);
         if (match) {
           CD.clearCD(e);
-          await e.reply("部分绘图参数已锁定，有需要请找管理员", false, { recallMsg: 15 });
+          await e.reply("部分绘图参数已锁定，有需要请找管理员", false, { recallMsg: isTrss ? 0 : 20 });
           return false;
         }
       }
@@ -102,7 +92,7 @@ export class Ai_Painting extends plugin {
     let paramdata = await Parse.mergeParam(e)
     if (paramdata.code) {
       CD.clearCD(e)
-      await e.reply(paramdata.msg, true, { recallMsg: 15 })
+      await e.reply(paramdata.msg, true, { recallMsg: isTrss ? 0 : 20 })
       return false;
     }
     // Log.i('绘图参数：\n', paramdata)                       /*  */
@@ -112,7 +102,7 @@ export class Ai_Painting extends plugin {
     if (!e.isMaster && current_group_policy.apMaster.indexOf(e.user_id) == -1) {
       if (paramdata.num > 1 && !current_group_policy.allowed_paint_more) {
         CD.clearCD(e);
-        await e.reply("只可以绘制1张图哦，有需要请找管理员", false, { recallMsg: 15 })
+        await e.reply("只可以绘制1张图哦，有需要请找管理员", false, { recallMsg: isTrss ? 0 : 20 })
         return false
       }
     }
@@ -150,7 +140,7 @@ export class Ai_Painting extends plugin {
       // 请求张数大于剩余次数
       if (paramdata.num > remainingTimes) {
         CD.clearCD(e);
-        await e.reply(["今日剩余可用次数不足，剩余次数：", `${remainingTimes}`, "次"], true, { recallMsg: 15 });
+        await e.reply(["今日剩余可用次数不足，剩余次数：", `${remainingTimes}`, "次"], true, { recallMsg: isTrss ? 0 : 20 });
         return false
       }
     }
@@ -159,7 +149,7 @@ export class Ai_Painting extends plugin {
     // 翻译中文
     let chReg = /(?:[\u3400-\u4DB5\u4E00-\u9FEA\uFA0E\uFA0F\uFA11\uFA13\uFA14\uFA1F\uFA21\uFA23\uFA24\uFA27-\uFA29]|[\uD840-\uD868\uD86A-\uD86C\uD86F-\uD872\uD874-\uD879][\uDC00-\uDFFF]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D\uDC20-\uDFFF]|\uD873[\uDC00-\uDEA1\uDEB0-\uDFFF]|\uD87A[\uDC00-\uDFE0])+/
     if (chReg.test(paramdata.rawtag.tags + paramdata.rawtag.ntags)) {
-      e.reply('检测到中文Prompt，进行翻译......', true, { recallMsg: 15 })
+      e.reply('检测到中文Prompt，进行翻译......', true, { recallMsg: isTrss ? 0 : 20 })
       paramdata = await Parse.transtag(paramdata)
       if (paramdata.param.tags == '寄' || paramdata.param.ntags == '寄') {
         CD.clearCD(e)

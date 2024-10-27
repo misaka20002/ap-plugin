@@ -1,11 +1,3 @@
-/*
- * @Author: 0卡苏打水
- * @Date: 2022-12-23 22:19:02
- * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
- * @LastEditTime: 2024-02-25 00:58:42
- * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\appreciate.js
- * @Description: 鉴赏图片获取tags
- */
 import plugin from '../../../lib/plugins/plugin.js'
 import fetch from 'node-fetch'
 import axios from 'axios'

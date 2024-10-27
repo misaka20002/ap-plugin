@@ -1,13 +1,3 @@
-/*
- * @Author: 0卡苏打水
- * @Date: 2023-01-04 19:44:45
- * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
- * @LastEditTime: 2024-10-06 00:58:48
- * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\remove_bg.js
- * @Description: 去除图片背景
- * 
- * Copyright (c) 2023 by 渔火Arcadia 1761869682@qq.com, All Rights Reserved. 
- */
 import plugin from '../../../lib/plugins/plugin.js'
 import Config from '../components/ai_painting/config.js'
 import fetch from 'node-fetch'
