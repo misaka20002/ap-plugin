@@ -1,8 +1,8 @@
 /*
  * @Author: 渔火Arcadia  https://github.com/yhArcadia
  * @Date: 2022-12-22 15:04:19
- * @LastEditors: 渔火Arcadia
- * @LastEditTime: 2022-12-23 21:53:46
+ * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
+ * @LastEditTime: 2024-11-03 19:25:42
  * @FilePath: \Yunzai-Bot\plugins\ap-plugin\utils\pic_tools.js
  * @Description: 图片工具
  * 
@@ -22,6 +22,7 @@ import { bs64Size } from "./utils.js";
 import * as cheerio from 'cheerio';
 import FormData from 'form-data'
 import QRCode from 'qrcode'
+const isTrss = Array.isArray(Bot.uin)
 
 
 /**图片工具 */
@@ -103,7 +104,7 @@ class Pictools extends plugin {
      * @return {string} 图片url
      */
     async base64_to_imgurl(base64) {
-        Bot.pickUser(Bot.uin).sendMsg([segment.image(`base64://${base64}`), false, { recallMsg: 20 }]);
+        Bot.pickUser(Bot.uin).sendMsg([segment.image(`base64://${base64}`), false, { recallMsg: isTrss ? 0 : 15 }]);
         let picinfo = await this.getPicInfo(base64, true)
         let md5 = picinfo.md5
         return `https://c2cpicdw.qpic.cn/offpic_new/0//0000000000-0000000000-${md5}/0?term=2`

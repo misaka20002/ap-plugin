@@ -5,6 +5,7 @@ import pic_tools from '../utils/pic_tools.js';
 import Config from '../components/ai_painting/config.js';
 let apcfg = await Config.getcfg()
 const api = apcfg.Real_CUGAN
+const isTrss = Array.isArray(Bot.uin)
 
 export class SR extends plugin {
     constructor() {
@@ -74,7 +75,7 @@ export class SR extends plugin {
         let modelname = `up${scale}x-latest-${con}.pth`;
 
         e.reply([`源图${res.width}x${res.height}，使用${scale}重唱${con}分支，大清晰术！`], false, {
-            recallMsg: 30,
+            recallMsg: isTrss ? 0 : 15,
             at: true,
         });
 
@@ -161,7 +162,7 @@ export class SR extends plugin {
         let strength = e.msg.match(/强度([0-1](\.[0-9]{1,3})?)/);
         if (!strength) strength = 0.6;
         else strength = parseFloat(strength[1]);
-        await e.reply([`源图${res.width}x${res.height}，使用${setting.realesrgan.model1}算法与${setting.realesrgan.model2}算法，${scale}倍放大，强度${strength}，大清晰术！`], false, { recallMsg: 30, at: true });
+        await e.reply([`源图${res.width}x${res.height}，使用${setting.realesrgan.model1}算法与${setting.realesrgan.model2}算法，${scale}倍放大，强度${strength}，大清晰术！`], false, { recallMsg: isTrss ? 0 : 15, at: true });
         let config = await Config.getcfg()
         let apiobj = config.APIList[config.usingAPI - 1]
         let url = apiobj.url + '/sdapi/v1/extra-single-image';

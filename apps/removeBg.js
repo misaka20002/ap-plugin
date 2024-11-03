@@ -3,6 +3,7 @@ import Config from '../components/ai_painting/config.js'
 import fetch from 'node-fetch'
 import axios from 'axios'
 import { parseImg } from '../utils/utils.js'
+const isTrss = Array.isArray(Bot.uin)
 
 const _path = process.cwd();
 let ap_cfg = await Config.getcfg()
@@ -45,13 +46,13 @@ export class RemoveBackground extends plugin {
         const API = 'https://' + URL.split('/')[4] + '-anime-remove-background.hf.space/api/queue/'
 
         if (FiguretypeUser[e.user_id]) {
-            e.reply('当前有任务在列表中排队，请不要重复发送，去背景完成后会自动发送结果，如果长时间没有结果，请等待1分钟再试', false, { at: true, recallMsg: 15 })
+            e.reply('当前有任务在列表中排队，请不要重复发送，去背景完成后会自动发送结果，如果长时间没有结果，请等待1分钟再试', false, { at: true, recallMsg: isTrss ? 0 : 15 })
             return true
         }
         e = await parseImg(e)
 
         if (this.e.img) {
-            e.reply('正在为图像去背景，请稍候...', false, { at: true, recallMsg: 15 })
+            e.reply('正在为图像去背景，请稍候...', false, { at: true, recallMsg: isTrss ? 0 : 15 })
             FiguretypeUser[e.user_id] = setTimeout(() => {
                 if (FiguretypeUser[e.user_id]) {
                     delete FiguretypeUser[e.user_id];

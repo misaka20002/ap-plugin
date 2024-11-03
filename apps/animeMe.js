@@ -48,6 +48,7 @@ export class Anime_me extends plugin {
     // 判断功能是否开启
     if (!e.isMaster && gpolicy.apMaster.indexOf(e.user_id) == -1) {
       if (!gpolicy.enable) {
+        return false;
         return await e.reply("aiPainting功能未开启", false, { recallMsg: 15 });
       }
     }

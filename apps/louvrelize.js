@@ -5,6 +5,7 @@ import { parseImg } from '../utils/utils.js'
 import Log from '../utils/Log.js';
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
+const isTrss = Array.isArray(Bot.uin)
 
 let FiguretypeUser = {}
 let getImagetime = {}
@@ -97,7 +98,7 @@ export class louvreimg extends plugin {
 		if (FiguretypeUser[e.user_id]) {
 			e.reply('当前有任务在列表中排队，请不要重复发送，生成完成后会自动发送结果，如果长时间没有结果，请等待1分钟再试', false, {
 				at: true,
-				recallMsg: 15
+				recallMsg: isTrss ? 0 : 15
 			})
 			return true
 		}
@@ -194,7 +195,7 @@ export class louvreimg extends plugin {
 					if (style.watermark == false) {
 						e.reply('未开启水印，无法开启初回', false, {
 							at: true,
-							recallMsg: 15
+							recallMsg: isTrss ? 0 : 15
 						})
 						return true
 					}
@@ -210,7 +211,7 @@ export class louvreimg extends plugin {
 					} else {
 						e.reply('线迹轻重参数错误，应该在80-126之间，已默认为118', false, {
 							at: true,
-							recallMsg: 15
+							recallMsg: isTrss ? 0 : 15
 						})
 						style.shadeLimit = 118
 					}
@@ -225,7 +226,7 @@ export class louvreimg extends plugin {
 					} else {
 						e.reply('调子数量参数错误，应该在20-200之间，已默认为108', false, {
 							at: true,
-							recallMsg: 15
+							recallMsg: isTrss ? 0 : 15
 						})
 						style.shadeLight = 108
 					}
@@ -245,7 +246,7 @@ export class louvreimg extends plugin {
 			if (/^#?(louvre|卢浮宫)$/.test(e.msg.trim())) {
 				e.reply('正在生成卢浮宫风格，请稍等\n当前生成参数：\n精细程度：' + style.convoluteName + '\n降噪：' + (style.denoise ? '开启' : '关闭') + '\n水印：' + (style.watermark ? '开启' : '关闭') + '\nKiss：' + (style.kuma ? '开启' : '关闭') + '\n初回：' + (style.hajimei ? '开启' : '关闭') + '\n线迹轻重：' + style.shadeLimit + '\n调子数量：' + style.shadeLight, true, {
 					at: true,
-					recallMsg: 15
+					recallMsg: isTrss ? 0 : 15
 				})
 			}
 		}
@@ -268,7 +269,7 @@ export class louvreimg extends plugin {
 			.format('mm:ss')
 		e.reply(`生成完成，耗时${time}，正在发送...`, false, {
 			at: true,
-			recallMsg: 15
+			recallMsg: isTrss ? 0 : 15
 		})
 		e.reply([
 			segment.image('base64://' + res.replace(/^data:image\/\w+;base64,/, "")),

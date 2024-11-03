@@ -6,6 +6,7 @@ import Config from '../components/ai_painting/config.js';
 import Log from '../utils/Log.js';
 import axios from "axios";
 import { Parse } from '../components/apidx.js';
+const isTrss = Array.isArray(Bot.uin)
 
 const parsePath = process.cwd() + "\/plugins\/ap-plugin\/config\/config\/parse.yaml";
 
@@ -35,7 +36,7 @@ export class set_parse extends plugin {
       if (!current_group_policy.allowed_user_more_parse) {
         const pattern = /迭代次数|宽度|高度|高清修复步数|高清修复放大倍数/;
         const match = pattern.exec(e.msg);
-        if (match) return await e.reply("部分绘图参数已锁定，有需要请找管理员", false, { recallMsg: 15 });
+        if (match) return await e.reply("部分绘图参数已锁定，有需要请找管理员", false, { recallMsg: isTrss ? 0 : 15 });
       }
     }
     const samplerList = await getSamplers();
@@ -245,7 +246,7 @@ export class set_parse extends plugin {
       }
     } else {
       parseDataUser = parseData[e.user_id];
-      msg = `${ e.nickname || e.member.nickname }当前设置：\n`;
+      msg = `${e.nickname || e.member.nickname}当前设置：\n`;
     }
     msg += "【采样方法】：" + parseDataUser.sampler + "\n";
     msg += "【迭代次数】：" + parseDataUser.steps + "\n";
@@ -291,7 +292,7 @@ async function getSamplers() {
   };
   if (apiobj.account_password) {
     headers.Authorization = `Basic ${Buffer.from(apiobj.account_id + ':' + apiobj.account_password, 'utf8').toString('base64')} `,
-    headers.User_Agent = `AP-Plugin`
+      headers.User_Agent = `AP-Plugin`
   }
   try {
     let res = await axios.get(url, {

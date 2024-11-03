@@ -1,8 +1,8 @@
 /*
  * @Author: 渔火Arcadia  https://github.com/yhArcadia
  * @Date: 2023-01-07 22:07:55
- * @LastEditors: 渔火Arcadia
- * @LastEditTime: 2023-01-10 23:54:05
+ * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
+ * @LastEditTime: 2024-11-03 19:22:36
  * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\local_img.js
  * @Description: 管理本地图片
  * 
@@ -61,6 +61,7 @@ export class LocalImg extends plugin {
                 return e.reply('你没有权限哦~')
             }
             if (!current_group_policy.enable) {
+                return false;
                 return await e.reply("aiPainting功能未开启", false, { recallMsg: 15 });
             }
         }

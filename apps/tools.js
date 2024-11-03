@@ -5,6 +5,7 @@ import puppeteer from '../../../lib/puppeteer/puppeteer.js'
 import Config from '../components/ai_painting/config.js';
 import axios from 'axios';
 import { Parse } from '../components/apidx.js';
+const isTrss = Array.isArray(Bot.uin)
 
 const _path = process.cwd();
 
@@ -73,12 +74,12 @@ export class Tools extends plugin {
 
     async WithDraw(e) {
         // 没引用则放行指令
-        if (!e.source) return e.reply('喵？要撤回哪条信息呢？', false, { recallMsg: 15 });
+        if (!e.source) return e.reply('喵？要撤回哪条信息呢？', false, { recallMsg: isTrss ? 0 : 15 });
         // ap绘图黑名单成员不允许使用#撤回
         let current_group_policy = await Parse.parsecfg(e)
         if (current_group_policy.isBan)
             if (current_group_policy.prohibitedUserList.indexOf(e.user_id) != -1)
-                return await e.reply(["撤回失败，你的账号因违规已被封禁或被管理员封禁"], false, { recallMsg: 15 });        
+                return await e.reply(["撤回失败，你的账号因违规已被封禁或被管理员封禁"], false, { recallMsg: isTrss ? 0 : 15 });
         // 如果是撤回机器人的消息,则不做权限判断
         if (e.source.user_id == Bot.uin) {
             await this.withdrawFn(e);
@@ -87,7 +88,7 @@ export class Tools extends plugin {
         let { botIs, senderIs, victim, victimIs } = await this.getPermissions(e);
         // 权限不够
         if (botIs <= victimIs) {
-            e.reply("诶？人家不能撤回这条消息呢", false, { recallMsg: 15 })
+            e.reply("诶？人家不能撤回这条消息呢", false, { recallMsg: isTrss ? 0 : 15 })
             return true;
         }
         // 主人可命令撤回任何权限内消息
@@ -101,7 +102,7 @@ export class Tools extends plugin {
             senderIs == 1 ||
             cfg.masterQQ.includes(e.source.user_id)
         ) {
-            e.reply("呜呜，人家不能撤回这条消息呢", false, { recallMsg: 15 })
+            e.reply("呜呜，人家不能撤回这条消息呢", false, { recallMsg: isTrss ? 0 : 15 })
             return true;
         }
         await this.withdrawFn(e);
