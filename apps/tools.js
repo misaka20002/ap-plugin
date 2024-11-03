@@ -29,10 +29,10 @@ export class Tools extends plugin {
                     reg: '^#?图链模板$',
                     fnc: 'image_template'
                 },
-                // {
-                //     reg: "^#?撤回$",
-                //     fnc: "WithDraw",
-                // },
+                {
+                    reg: "^#ap撤回$",
+                    fnc: "WithDraw",
+                },
                 {
                     reg: "^#?ap(全局|本群|我的)词云$",
                     fnc: "apWordCloud",
