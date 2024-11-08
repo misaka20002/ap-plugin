@@ -24,7 +24,7 @@ export class appreciate extends plugin {
             rule: [
                 {
                     /** 命令正则匹配 */
-                    reg: '^#?鉴赏$',
+                    reg: '^#?(AP|ap)鉴赏$',
                     /** 执行方法 */
                     fnc: 'appreciate'
                 },
