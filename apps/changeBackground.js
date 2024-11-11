@@ -1,8 +1,8 @@
 /*
  * @Author: 0卡苏打水su
  * @Date: 2023-01-11 22:58:18
- * @LastEditors: 苏沫柒 3146312184@qq.com
- * @LastEditTime: 2023-02-19 12:23:34
+ * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
+ * @LastEditTime: 2024-11-11 12:06:30
  * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\change_background.js
  * @Description: 图片局部重绘功能
  * 
@@ -57,6 +57,19 @@ export class example extends plugin {
 		})
 	}
 	async ChangeBackground(e) {
+		e = await parseImg(e)
+		// 获取设置
+		let setting = await Config.getSetting();
+		// 获取本群策略
+		let current_group_policy = await Parse.parsecfg(e)
+		// 判断功能是否开启
+		if (!e.isMaster && current_group_policy.apMaster.indexOf(e.user_id) == -1)
+			if (!current_group_policy.enable) {
+				logger.info("[AP]SD绘图功能未开启")
+				return false
+				await e.reply("SD绘图功能未开启", false, { recallMsg: isTrss ? 0 : 20 });
+			}
+
 		if (API == '') {
 			return e.reply('当前无可用的去背景接口')
 		}
@@ -97,7 +110,6 @@ export class example extends plugin {
 		var height = imgdata.height
 		width = Math.round(width / 64) * 64
 		height = Math.round(height / 64) * 64
-		let setting = await Config.getSetting();
 		if (width > setting.max_WidthAndHeight || height > setting.max_WidthAndHeight) {
 			e.reply(`图片长宽超过${setting.max_WidthAndHeight}，无法重绘，请更换图片再试`)
 			return true
@@ -138,7 +150,6 @@ export class example extends plugin {
 			var mask_blur = 1
 		}
 		var msg = e.msg.replace(/^#?更?换(背景|人物)/, '')
-		let current_group_policy = await Parse.parsecfg(this.e)
 		let paramdata = {
 			param: {
 				sampler: 'DPM++ 2S a Karras',
@@ -192,6 +203,19 @@ export class example extends plugin {
 	}
 
 	async PartialRedraw(e) {
+		e = await parseImg(e)
+		// 获取设置
+		let setting = await Config.getSetting();
+		// 获取本群策略
+		let current_group_policy = await Parse.parsecfg(e)
+		// 判断功能是否开启
+		if (!e.isMaster && current_group_policy.apMaster.indexOf(e.user_id) == -1)
+			if (!current_group_policy.enable) {
+				logger.info("[AP]SD绘图功能未开启")
+				return false
+				await e.reply("SD绘图功能未开启", false, { recallMsg: isTrss ? 0 : 20 });
+			}
+
 		if (API == '') {
 			return e.reply('当前无可用的去背景接口')
 		}
@@ -224,7 +248,6 @@ export class example extends plugin {
 		var height = imgdata.height
 		width = Math.round(width / 64) * 64
 		height = Math.round(height / 64) * 64
-		let setting = await Config.getSetting();
 		if (width > setting.max_WidthAndHeight || height > setting.max_WidthAndHeight) {
 			e.reply(`图片长宽超过${setting.max_WidthAndHeight}，无法重绘，请更换图片再试`)
 			return true
@@ -244,7 +267,6 @@ export class example extends plugin {
 		var MaskImg = await getBlackPixelImage(BlackImgBase64);
 		if (!MaskImg) return e.reply('出错：重绘功能需要安装依赖：canvas\n请在yunzai根目录执行如下命令来安装依赖：\ncnpm install canvas --canvas_binary_host_mirror=https://registry.npmmirror.com/-/binary/canvas\n\n若安装依赖后仍出现此报错，您可查看控制台报错并联系开发者反馈')
 		var msg = e.msg.replace(/^#?局部重绘/, '')
-		let current_group_policy = await Parse.parsecfg(this.e)
 		let paramdata = {
 			param: {
 				sampler: 'DPM++ 2S a Karras',
