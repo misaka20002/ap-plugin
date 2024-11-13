@@ -16,11 +16,11 @@ export class SR extends plugin {
             priority: 1009,
             rule: [
                 {
-                    reg: "^#?大清晰术([234二三四双]重吟?唱?)?(强力术式|中等术式|弱术式|不变式|原式)?$",
+                    reg: "^#?ap大清晰术([234二三四双]重吟?唱?)?(强力术式|中等术式|弱术式|不变式|原式)?$",
                     fnc: "Real_CUGAN",
                 },
                 {// 倍数1-8，最多两位小数，强度0-1，最多三位小数
-                    reg: "^#?清晰术([1-8](\\.[0-9]{1,2})?)倍(强度([0-1](\\.[0-9]{1,3})?))?$",
+                    reg: "^#?ap清晰术([1-8](\\.[0-9]{1,2})?)倍(强度([0-1](\\.[0-9]{1,3})?))?$",
                     fnc: "SDSR",
                 },
             ],
@@ -156,7 +156,7 @@ export class SR extends plugin {
         if (res.height * res.width > 1310 * 1410) {
             e.reply("好、好大(//// ^ ////)……等我一下下哦！~");
         }
-        let scale = e.msg.match(/^#?清晰术([1-8](\.[0-9]{1,2})?)倍(强度([0-1](\.[0-9]{1,3})?))?$/);
+        let scale = e.msg.match(/^#?ap清晰术([1-8](\.[0-9]{1,2})?)倍(强度([0-1](\.[0-9]{1,3})?))?$/);
         if (!scale) scale = 2;
         else scale = parseFloat(scale[1]);
         let strength = e.msg.match(/强度([0-1](\.[0-9]{1,3})?)/);
@@ -194,7 +194,7 @@ export class SR extends plugin {
             });
             await e.reply(segment.image(`base64://${response.data.image.replace(/data:image\/png;|base64,/g, "")}`), true)
         } catch (error) {
-            e.reply('大清晰术失败了呢(っ °Д °;)っ', true)
+            e.reply('ap清晰术失败了呢(っ °Д °;)っ', true)
         }
         return true
     }
