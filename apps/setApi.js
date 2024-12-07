@@ -1,8 +1,8 @@
 /*
  * @Author: 渔火Arcadia  https://github.com/yhArcadia
  * @Date: 2022-12-19 22:18:54
- * @LastEditors: 苏沫柒 3146312184@qq.com
- * @LastEditTime: 2023-04-22 03:16:48
+ * @LastEditors: misaka20002 40714502+misaka20002@users.noreply.github.com
+ * @LastEditTime: 2024-12-07 14:59:51
  * @FilePath: \Yunzai-Bot\plugins\ap-plugin\apps\set_api.js
  * @Description: 设置接口
  * 
@@ -238,6 +238,7 @@ export class set extends plugin {
 			`\n      启用ap：${gp.global.enable ? '是' : '否'}`,
 			`\n      绘更多图：${gp.global.allowed_paint_more ? '是' : '否'}`,
 			`\n      更改绘图参数：${gp.global.allowed_user_more_parse ? '是' : '否'}`,
+			`\n      简洁模式：${gp.global.simple_mode ? '是' : '否'}`,
 			`\n      每日用量限制：` + (gp.global.usageLimit ? `${gp.global.usageLimit}张` : '不限'),
 			`\n      启用图片审核：${gp.global.JH ? '是' : '否'}`,
 			`\n      群聊内共享CD：${gp.global.gcd}秒`,
@@ -265,10 +266,11 @@ export class set extends plugin {
 				let opt = val == 'enable' ? "\n      启用ap：" :
 					val == 'allowed_paint_more' ? "\n      绘更多图：" :
 						val == 'allowed_user_more_parse' ? "\n      更改绘图参数：" :
-							val == 'JH' ? "\n      启用图片审核：" :
-								val == 'isRecall' ? "\n      自动撤回图片：" :
-									val == 'isBan' ? "\n      封禁使用屏蔽词绘图的用户：" :
-										''
+							val == 'simple_mode' ? "\n      简洁模式：" :
+								val == 'JH' ? "\n      启用图片审核：" :
+									val == 'isRecall' ? "\n      自动撤回图片：" :
+										val == 'isBan' ? "\n      封禁使用屏蔽词绘图的用户：" :
+											''
 				if (opt) {
 					msg_.push(opt + `${gp[gid][val] ? '是' : '否'}`)
 					continue
