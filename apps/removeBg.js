@@ -24,7 +24,7 @@ export class RemoveBackground extends plugin {
             rule: [
                 {
                     /** 命令正则匹配 */
-                    reg: '^#?(去背景|抠图|扣图)$',
+                    reg: '^#(ap|AP)(去背景|抠图|扣图)$',
                     /** 执行方法 */
                     fnc: 'AnimeRemoveBackground'
                 },
