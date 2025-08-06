@@ -30,7 +30,7 @@ export class appreciate extends plugin {
                 },
                 {
                     /** 命令正则匹配 */
-                    reg: '^#?解析$',
+                    reg: '^#?(AP|ap)解析$',
                     /** 执行方法 */
                     fnc: 'interpretation',
                 },
