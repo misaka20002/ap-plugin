@@ -255,7 +255,7 @@ export class Ai_Painting extends plugin {
           await e.reply(["图片不合规，不予展示", `\nMD5：${res.md5}`], true)
         } else if (setting.nsfw_show == 2) {// 展示图链二维码
           let qrcode = await Pictools.text_to_qrcode(`https://c2cpicdw.qpic.cn/offpic_new/0//0000000000-0000000000-${res.md5}/0?term=2`)
-          await e.reply(["图片不合规，不予展示\n", segment.image(`base64://${qrcode.replace('data:image/png;base64,', '')}`)], true)
+          await e.reply(["图片不合规，不予展示\n", segment.image(`base64://${qrcode.replace(/^data:image\/\w+;base64,/, "")}`)], true)
         } else if (setting.nsfw_show == 3) {// 展示图床链接
           let img = Buffer.from(res.base64, 'base64')
           let url = await Pictools.upload(img)

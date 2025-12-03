@@ -1,13 +1,3 @@
-/*
- * @Author: 渔火Arcadia  https://github.com/yhArcadia
- * @Date: 2022-12-20 01:22:53
- * @LastEditors: 苏沫柒 3146312184@qq.com
- * @LastEditTime: 2023-05-07 12:15:07
- * @FilePath: \Yunzai-Bot\plugins\ap-plugin\components\ai_painting\draw.js
- * @Description: 请求接口获取图片
- * 
- * Copyright (c) 2022 by 渔火Arcadia 1761869682@qq.com, All Rights Reserved. 
- */
 import Config from "./config.js";
 import cfg from '../../../../lib/config/config.js'
 import NsfwCheck from "./nsfwcheck.js"
@@ -176,7 +166,7 @@ class Draw {
 
         // 提取base64
         let res = await response.json();
-        let base64 = res.images[0].toString().replace(/data:image\/png;|base64,/g, "");
+        let base64 = res.images[0].toString().replace(/^data:image\/\w+;base64,/, "");
         let resparam = res.parameters
         // 图片大小太小，判断为全黑故障图片
         let [b, imagesize, mb] = bs64Size(base64)

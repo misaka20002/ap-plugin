@@ -129,7 +129,7 @@ export class SR extends plugin {
         try {
             e.reply(
                 [
-                    segment.image(`base64://${result.data.data[0].replace(/data:image\/png;|base64,/g, "")}`),
+                    segment.image(`base64://${result.data.data[0].replace(/^data:image\/\w+;base64,/, "")}`),
                     `用时${seconds}秒，${scale}重唱${con}分支大清晰术!`,
                 ],
                 true
@@ -192,7 +192,7 @@ export class SR extends plugin {
                     "image": "data:image/jpeg;base64," + res.base64
                 })
             });
-            await e.reply(segment.image(`base64://${response.data.image.replace(/data:image\/png;|base64,/g, "")}`), true)
+            await e.reply(segment.image(`base64://${response.data.image.replace(/^data:image\/\w+;base64,/, "")}`), true)
         } catch (error) {
             e.reply('ap清晰术失败了呢(っ °Д °;)っ', true)
         }
